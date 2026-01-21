@@ -40,7 +40,7 @@ uMarkdown is a clean, native macOS markdown editor with Notion-style organisatio
 ### Setup
 
 ```bash
-cd app
+cd dev/app  # From uDOS root
 npm install
 ```
 
@@ -226,13 +226,15 @@ npm run tauri       # Run Tauri CLI directly
 
 ---
 
-## Relationship to Other Apps
+## Relationship to uDOS
 
-| App                      | Purpose                     | Status   |
-| ------------------------ | --------------------------- | -------- |
-| **uMarkdown** (this)     | Native macOS production app | v1.0.0.0 |
-| **uCode App** (app-beta) | Cross-platform prototype    | v1.0.2.4 |
+| Component             | Location      | Purpose                        |
+| --------------------- | ------------- | ------------------------------ |
+| **uMarkdown App**     | `dev/app/`    | Tauri + Svelte desktop client  |
+| **Goblin Dev Server** | `dev/goblin/` | Dev server (Notion sync, etc.) |
+| **Wizard Server**     | `wizard/`     | Production services            |
 
 ---
 
-_Last Updated: 2026-01-15_
+_Last Updated: 2026-01-21_
+_Location: /dev/app (private submodule)_

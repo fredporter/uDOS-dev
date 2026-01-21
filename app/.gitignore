@@ -7,10 +7,21 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+
+# Build outputs
 dist
 dist-ssr
 *.local
+
+# Tauri/Rust
+src-tauri/target/
+src-tauri/gen/schemas/
+
+# Local-only folders (per AGENTS.md)
+**/.archive/
+**/.dev/
 
 # Editor directories and files
 .vscode/*
@@ -22,3 +33,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local dev
+.env
+.env.local

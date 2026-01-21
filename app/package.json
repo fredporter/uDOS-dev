@@ -1,7 +1,8 @@
 {
-  "name": "markdown",
+  "name": "umarkdown-app",
   "private": true,
   "version": "1.0.0",
+  "description": "uMarkdown - Desktop markdown app for uDOS",
   "type": "module",
   "scripts": {
     "dev": "vite",
