@@ -1,7 +1,8 @@
 {
-  "name": "umarkdown",
+  "name": "goblin-dev-server",
   "private": true,
-  "version": "1.2.1",
+  "version": "0.2.0",
+  "description": "Goblin Dev Server - Experimental development server for uDOS",
   "type": "module",
   "scripts": {
     "dev": "vite dev",

@@ -1,7 +1,7 @@
 {
-  "$schema": "../core/version.schema.json",
+  "$schema": "../../core/version.schema.json",
   "component": "app",
-  "name": "uMarkdown Mac App",
+  "name": "uMarkdown App",
   "version": {
     "major": 1,
     "minor": 0,

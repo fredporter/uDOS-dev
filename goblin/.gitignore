@@ -1,0 +1,47 @@
+# Goblin Dev Server .gitignore
+
+# Dependencies
+node_modules/
+
+# Build outputs
+build/
+.svelte-kit/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Local config (contains secrets)
+config/goblin.json
+
+# Local memory/state
+memory/
+*.db
+*.sqlite
+
+# Logs
+*.log
+logs/
+
+# Local-only folders (per AGENTS.md)
+**/.archive/
+**/.dev/
+
+# Environment
+.env
+.env.local
+
+# Editor/IDE
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Tauri (if used for testing)
+src-tauri/target/
+src-tauri/gen/schemas/

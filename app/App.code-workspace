@@ -6,16 +6,16 @@
     },
     {
       "name": "⚙️ Core System",
-      "path": "../core",
+      "path": "../../core",
     },
     {
       "name": "📚 App Docs & Specs",
-      "path": "../docs",
+      "path": "../../docs",
     },
     {
       "name": "📝 Memory & Logs",
-      "path": "../memory",
-    },
+      "path": "../../memory",
+    }
   ],
   "settings": {
     "files.exclude": {
@@ -158,7 +158,7 @@
       {
         "label": "📊 Tail Tauri Logs",
         "type": "shell",
-        "command": "tail -f ../memory/logs/tauri-rust-$(date +%Y-%m-%d).log",
+        "command": "tail -f ../../memory/logs/tauri-rust-$(date +%Y-%m-%d).log",
         "isBackground": true,
         "problemMatcher": [],
         "detail": "Stream Rust/Tauri backend logs in real-time",
@@ -166,11 +166,11 @@
       {
         "label": "🐍 Start Core API",
         "type": "shell",
-        "command": "cd .. && source .venv/bin/activate && python extensions/api/server.py",
+        "command": "cd ../.. && source .venv/bin/activate && python extensions/api/server.py",
         "isBackground": true,
         "problemMatcher": [],
         "detail": "Start REST/WebSocket API server (port 5555)",
-      },
+      }
     ],
   },
   "launch": {
@@ -187,9 +187,9 @@
             "--profile=dev",
           ],
           "filter": {
-            "name": "ucode-app",
+            "name": "umarkdown-app",
             "kind": "bin",
-          },
+          }
         },
         "cwd": "${workspaceFolder:🍎 uMarkdown Mac App (v1.0.0.0) — ACTIVE}",
         "sourceMap": true,
@@ -210,9 +210,9 @@
     "note": "uMarkdown Mac App v1.0.0.0 — Tauri + Svelte desktop client for uDOS",
     "formats": "Five markdown formats: uCode (-ucode.md), Story (-story.md), Marp (-marp.md), Guide (-guide.md), Config (-config.md)",
     "current_focus": "Notion sync integration (Move 1 Step C: Real webhook testing)",
-    "docs": "../.github/instructions/app.instructions.md | ../docs/roadmap.md | ../AGENTS.md",
-    "dev_server": "Dev Server on port 8766 (Notion sync, runtime, tasks)",
-    "app_location": "app/ (v1.0.0.0 ACTIVE) | app-beta/ (v1.0.2.4 legacy)",
-    "launch_script": "bin/Launch-uMarkdown-Dev.command (starts Dev Server + App)",
+    "docs": "../../.github/instructions/app.instructions.md | ../../docs/roadmap.md | ../../AGENTS.md",
+    "dev_server": "Goblin Dev Server on port 8767 (Notion sync, runtime, tasks)",
+    "app_location": "dev/app/ (v1.0.0.0 ACTIVE) - private submodule",
+    "launch_script": "bin/Launch uMarkdown-dev.command (starts Tauri dev server)",
   },
 }
