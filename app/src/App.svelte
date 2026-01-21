@@ -1,514 +1,846 @@
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
-  import { invoke } from '@tauri-apps/api/core';
-  import { listen, type UnlistenFn } from '@tauri-apps/api/event';
-  import { open, save } from '@tauri-apps/plugin-dialog';
-  import Toolbar from './components/Toolbar.svelte';
-  import BottomBar from './components/BottomBar.svelte';
-  import Preferences from './components/Preferences.svelte';
-  import NotionView from './components/NotionView.svelte';
-  import SyncIndicator from './components/SyncIndicator.svelte';
-  import BinderNav from './components/BinderNav.svelte';
-  import MarkdownEditor from './components/MarkdownEditor.svelte';
-  import Preview from './components/Preview.svelte';
-  import ToastContainer from './components/Toast/ToastContainer.svelte';
-  import NotificationHistory from './components/NotificationHistory/NotificationHistory.svelte';
-  import { initSyncMonitor } from './stores/syncStore';
-  import { addToast } from './stores/notifications';
-  import { saveToHistory } from '$lib/notification-db';
+  import { onMount } from "svelte";
+  import { toasts } from "./components/UI/Toast/store";
+  import { themeStore } from "./lib/stores/themeStore";
+  import { fileManager } from "./lib/utils/fileManager";
+  import {
+    keyboardShortcuts,
+    initKeyboardShortcuts,
+    SHORTCUTS_HELP,
+  } from "./lib/utils/keyboardShortcuts";
+  import TypoBottomBar from "./components/UI/TypoBottomBar.svelte";
+  // Remove fontFamily/fontSize store imports
+  import ToastContainer from "./components/UI/Toast/ToastContainer.svelte";
+  import FileOperations from "./components/UI/Toast/FileOperations.svelte";
+  import {
+    UCodeRenderer,
+    StoryRenderer,
+    GuideRenderer,
+    ConfigRenderer,
+    MarpRenderer,
+    FontManager,
+    Landing,
+    TypoEditor,
+  } from "./components/Renderers";
+  import {
+    Menu,
+    Close,
+    CodeBracket,
+    Bullet,
+    Info,
+    Warning,
+    Slideshow,
+    Eye,
+    Settings,
+    Type,
+    Document,
+  } from "./components/icons";
 
-  // View mode: 'notion' or 'editor'
-  let viewMode: 'notion' | 'editor' = 'notion';
-  let currentDocument = '';
-  let sidebarOpen = false;
-  let isEditing = false;
-  let fontSize = 16;
-  let baseFontSize = 16;
-  let headingFontCycle = 0;
-  let bodyFontCycle = 0;
-  let unlisteners: UnlistenFn[] = [];
-  
-  // Font families for cycling
-  const headingFonts = ['Inter', 'San Francisco', 'Helvetica Neue', 'Georgia', 'Palatino'];
-  const bodyFonts = ['Inter', 'San Francisco', 'Helvetica Neue', 'Georgia', 'Charter'];
+  let isDark = true;
+  let currentFormat = "editor";
+  let isCommandPaletteOpen = false;
+  let isSettingsOpen = false;
+  let menuOpen = false;
+  let showLanding = true;
+  let showLandingOnStartup = true;
+  // Editor state for binding
+  let viewMode = false;
+  let charCount = 0;
+  let wordCount = 0;
+  // File management state
+  let currentFilePath: string = "";
+  let currentFileContent: string = "";
+  let editorRef: any = null;
 
-  let markdown = '# Welcome to uMarkdown\n\n**uMarkdown** is your native macOS markdown editor.\n\n## Features\n\n- Three independent font controls (heading, body, code)\n- Live preview with Tailwind Typography\n- Notion-style organization\n- Local-first with optional sync\n\n```javascript\nconst greeting = "Hello, world!";\nconsole.log(greeting);\n```\n\nStart typing to see the preview update...';
+  // Subscribe to theme changes
+  $: if ($themeStore) {
+    isDark = $themeStore.isDark;
+  }
 
-  let preferencesRef: Preferences;
-  let showPreferences = false;
-  let showHistory = false;
+  // Initialize theme on mount
+  onMount(() => {
+    themeStore.initialize();
+  });
 
-  // Calculate stats
-  $: charCount = markdown.length;
-  $: wordCount = markdown.trim().split(/\s+/).filter(Boolean).length;
-  $: readTime = Math.ceil(wordCount / 200); // 200 words per minute
+  // Marp example slides
+  const marpSlides = [
+    {
+      content: `<div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center; background: linear-gradient(135deg, #3b82f6, #2563eb); color: white; padding: 3rem;">
+        <h1 style="margin: 0; font-size: 3rem; margin-bottom: 1rem; animation: fadeInUp 0.8s ease-out;">uMarkdown</h1>
+        <p style="margin: 0; font-size: 1.5rem; opacity: 0.9; animation: fadeInUp 0.8s ease-out 0.2s backwards;">Interactive Markdown Presentation</p>
+        <p style="margin: 1.5rem 0 0 0; font-size: 1rem; opacity: 0.8; animation: fadeInUp 0.8s ease-out 0.4s backwards;">Powered by Marp</p>
+        <style>@keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }</style>
+      </div>`,
+    },
+    {
+      content: `<div style="padding: 3rem; height: 100%; display: flex; flex-direction: column; justify-content: center; background: white; color: #0f172a;">
+        <h2 style="margin-top: 0; color: #3b82f6; font-size: 2.5rem;">What is Marp?</h2>
+        <ul style="font-size: 1.3rem; line-height: 2; margin: 2rem 0;">
+          <li>📝 Markdown-powered presentations</li>
+          <li>🎨 Beautiful default themes</li>
+          <li>⚡ Fast and lightweight</li>
+          <li>✨ Auto-scaling for code and math</li>
+          <li>🔄 Smooth slide transitions</li>
+        </ul>
+      </div>`,
+    },
+    {
+      content: `<div style="padding: 3rem; height: 100%; display: flex; flex-direction: column; justify-content: center; background: linear-gradient(to right, #6366f1, #8b5cf6); color: white;">
+        <h2 style="margin-top: 0; font-size: 2.5rem; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Color Themes</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-top: 2rem;">
+          <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 0.5rem; backdrop-filter: blur(10px); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎨</div>
+            <h3 style="margin: 0.5rem 0; font-size: 1.3rem;">Default</h3>
+            <p style="margin: 0; font-size: 0.95rem; opacity: 0.9;">GitHub-style</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 0.5rem; backdrop-filter: blur(10px); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">✨</div>
+            <h3 style="margin: 0.5rem 0; font-size: 1.3rem;">Gaia</h3>
+            <p style="margin: 0; font-size: 0.95rem; opacity: 0.9;">Elegant design</p>
+          </div>
+          <div style="background: rgba(255,255,255,0.15); padding: 1.5rem; border-radius: 0.5rem; backdrop-filter: blur(10px); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎭</div>
+            <h3 style="margin: 0.5rem 0; font-size: 1.3rem;">Custom</h3>
+            <p style="margin: 0; font-size: 0.95rem; opacity: 0.9;">Your style</p>
+          </div>
+        </div>
+      </div>`,
+    },
+    {
+      content: `<div style="padding: 3rem; height: 100%; display: flex; flex-direction: column; justify-content: center; background: #0f172a; color: white;">
+        <h2 style="margin-top: 0; color: #60a5fa; font-size: 2.5rem;">Features</h2>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; font-size: 1.1rem;">
+          <div style="border-left: 4px solid #60a5fa; padding-left: 1.5rem;">
+            <h3 style="color: #60a5fa; margin-top: 0;">Markdown Support</h3>
+            <p>Full CommonMark compatibility with extended syntax for presentations</p>
+          </div>
+          <div style="border-left: 4px solid #34d399; padding-left: 1.5rem;">
+            <h3 style="color: #34d399; margin-top: 0;">Multiple Themes</h3>
+            <p>Default, Gaia, and custom themes for professional presentations</p>
+          </div>
+          <div style="border-left: 4px solid #fbbf24; padding-left: 1.5rem;">
+            <h3 style="color: #fbbf24; margin-top: 0;">Math Rendering</h3>
+            <p>MathJax support for complex equations and formulas</p>
+          </div>
+          <div style="border-left: 4px solid #f87171; padding-left: 1.5rem;">
+            <h3 style="color: #f87171; margin-top: 0;">Code Highlighting</h3>
+            <p>Syntax highlighting for 50+ programming languages</p>
+          </div>
+        </div>
+      </div>`,
+    },
+    {
+      content: `<div style="padding: 3rem; height: 100%; display: flex; flex-direction: column; justify-content: center; background: radial-gradient(circle at top right, #ec4899, #8b5cf6); color: white;">
+        <h2 style="margin-top: 0; font-size: 2.5rem; text-shadow: 0 2px 10px rgba(0,0,0,0.3);">Transitions</h2>
+        <div style="background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 0.75rem; backdrop-filter: blur(10px); margin-top: 1.5rem;">
+          <p style="font-size: 1.3rem; margin: 0 0 1.5rem 0; line-height: 1.6;">
+            Marp supports 33 built-in transition effects:
+          </p>
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; font-size: 1rem;">
+            <div>• Fade</div>
+            <div>• Slide</div>
+            <div>• Cover</div>
+            <div>• Wipe</div>
+            <div>• Zoom</div>
+            <div>• Clockwise</div>
+            <div>• Drop</div>
+            <div>• Swap</div>
+            <div>• & more...</div>
+          </div>
+        </div>
+      </div>`,
+    },
+    {
+      content: `<div style="padding: 3rem; height: 100%; display: flex; flex-direction: column; justify-content: center; background: #f0f9ff; color: #0c4a6e;">
+        <h2 style="margin-top: 0; color: #0c4a6e; font-size: 2.5rem;">Code Example</h2>
+        <pre style="background: #1e293b; color: #e5e7eb; padding: 1.5rem; border-radius: 0.5rem; overflow: auto; margin: 1.5rem 0; font-size: 0.95rem; box-shadow: 0 4px 12px rgba(0,0,0,0.15);"><code>---
+theme: default
+transition: fade
+---
 
-  onMount(async () => {
-    // Load saved preferences
-    const savedSize = localStorage.getItem('mdk-font-size');
-    if (savedSize) {
-      baseFontSize = parseInt(savedSize, 10);
-      fontSize = baseFontSize;
-      applyFontSize();
+# This is a Marp slide
+
+- Supports **bold** and *italic*
+- Code blocks with syntax highlighting
+- Math: $ax^2 + bx + c = 0$
+- Images, tables, and more!</code></pre>
+        <p style="margin: 1rem 0 0 0; font-size: 1rem; text-align: center;">Easy to write, powerful to present 🚀</p>
+      </div>`,
+    },
+    {
+      content: `<div style="padding: 3rem; height: 100%; display: flex; flex-direction: column; justify-content: center; background: linear-gradient(135deg, #f59e0b 0%, #ef4444 50%, #ec4899 100%); color: white;">
+        <h2 style="margin-top: 0; font-size: 2.5rem; text-align: center; text-shadow: 0 2px 15px rgba(0,0,0,0.3);">Morphing Animations</h2>
+        <div style="background: rgba(255,255,255,0.15); padding: 2.5rem; border-radius: 1rem; backdrop-filter: blur(10px); margin-top: 2rem; text-align: center;">
+          <div style="font-size: 4rem; margin-bottom: 1.5rem;">🎬</div>
+          <p style="font-size: 1.3rem; margin: 0; line-height: 1.8;">
+            Create smooth element transitions between slides with CSS properties
+          </p>
+          <p style="margin-top: 1.5rem; font-size: 1rem; opacity: 0.9;">
+            Similar to PowerPoint Morph & Keynote Magic Move
+          </p>
+        </div>
+      </div>`,
+    },
+    {
+      content: `<div style="padding: 3rem; height: 100%; display: flex; flex-direction: column; justify-content: center; text-align: center; background: linear-gradient(135deg, #0ea5e9, #06b6d4); color: white;">
+        <h2 style="margin: 0; font-size: 2.5rem; margin-bottom: 1.5rem; text-shadow: 0 2px 10px rgba(0,0,0,0.2);">Get Started!</h2>
+        <p style="font-size: 1.3rem; margin: 0 0 2rem 0;">
+          Create beautiful presentations with just Markdown
+        </p>
+        <div style="background: rgba(255,255,255,0.2); padding: 1.5rem; border-radius: 0.75rem; backdrop-filter: blur(10px); display: inline-block; margin: 0 auto;">
+          <p style="margin: 0; font-size: 1.1rem;">Switch to <strong>Present</strong> mode to explore more ✨</p>
+        </div>
+      </div>`,
+    },
+  ];
+
+  // Global font and size reactivity
+  // Global dark mode reactivity only
+  $: {
+    if (typeof window !== "undefined") {
+      if (isDark) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
     }
-    
-    const savedHeadingCycle = localStorage.getItem('mdk-heading-font-cycle');
-    if (savedHeadingCycle) {
-      headingFontCycle = parseInt(savedHeadingCycle, 10);
-      const font = headingFonts[headingFontCycle];
-      document.documentElement.style.setProperty('--mdk-font-heading', `"${font}", ui-sans-serif, system-ui, sans-serif`);
-    }
-    
-    const savedBodyCycle = localStorage.getItem('mdk-body-font-cycle');
-    if (savedBodyCycle) {
-      bodyFontCycle = parseInt(savedBodyCycle, 10);
-      const font = bodyFonts[bodyFontCycle];
-      document.documentElement.style.setProperty('--mdk-font-body', `"${font}", ui-sans-serif, system-ui, sans-serif`);
-    }
-    
-    // Initialize sync monitoring (5s intervals)
-    const cleanup = initSyncMonitor(5000);
+  }
 
-    addToast({
-      type: 'info',
-      title: 'uMarkdown v1.0.5.0',
-      message: 'Toast notifications are active. Save or open a file to see them in action.',
-      duration: 5000,
+  function registerKeyboardShortcuts() {
+    // Register shortcuts with the keyboard shortcuts manager
+    keyboardShortcuts.register("cmd-n", {
+      name: "New",
+      keys: "Cmd+N",
+      description: "Create a new document",
+      handler: handleNewFile,
     });
 
-    // Listen for menu events
-    unlisteners.push(await listen('show-preferences', () => {
-      togglePreferences();
-    }));
+    keyboardShortcuts.register("cmd-o", {
+      name: "Open",
+      keys: "Cmd+O",
+      description: "Open a file",
+      handler: handleOpenFile,
+    });
 
-    unlisteners.push(await listen('menu-open', () => {
-      handleOpen();
-    }));
+    keyboardShortcuts.register("cmd-s", {
+      name: "Save",
+      keys: "Cmd+S",
+      description: "Save the current file",
+      handler: handleSaveFile,
+    });
 
-    unlisteners.push(await listen('menu-save-as', () => {
-      handleSaveAs();
-    }));
+    keyboardShortcuts.register("cmd-shift-s", {
+      name: "Save As",
+      keys: "Cmd+Shift+S",
+      description: "Save the file with a new name",
+      handler: () => toasts.info("💾 Save As - Open dialog"),
+    });
 
-    unlisteners.push(await listen('menu-format', () => {
-      handleFormat();
-    }));
+    keyboardShortcuts.register("cmd-k", {
+      name: "Command Palette",
+      keys: "Cmd+K",
+      description: "Open command palette",
+      handler: handleCommandPalette,
+    });
 
-    unlisteners.push(await listen('menu-toggle-sidebar', () => {
-      toggleSidebar();
-    }));
+    keyboardShortcuts.register("cmd-comma", {
+      name: "Settings",
+      keys: "Cmd+,",
+      description: "Open settings",
+      handler: handleSettings,
+    });
 
-    unlisteners.push(await listen('menu-toggle-fullscreen', () => {
-      toggleFullscreen();
-    }));
+    keyboardShortcuts.register("cmd-h", {
+      name: "Hide Window",
+      keys: "Cmd+H",
+      description: "Hide the application window",
+      handler: () => {
+        if (typeof window !== "undefined") {
+          (window as any).__TAURI__.window.getCurrent().hide();
+        }
+      },
+    });
 
-    unlisteners.push(await listen('menu-zoom-in', () => {
-      zoomIn();
-    }));
+    keyboardShortcuts.register("cmd-q", {
+      name: "Quit",
+      keys: "Cmd+Q",
+      description: "Quit the application",
+      handler: () => {
+        if (typeof window !== "undefined") {
+          (window as any).__TAURI__.app.exit(0);
+        }
+      },
+    });
+  }
 
-    unlisteners.push(await listen('menu-zoom-out', () => {
-      zoomOut();
-    }));
-
-    // Keyboard shortcuts
-    const handleKeyDown = (e: KeyboardEvent) => {
-      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-      const mod = isMac ? e.metaKey : e.ctrlKey;
-
-      if (mod && e.key === 'o') {
-        e.preventDefault();
-        handleOpen();
-      } else if (mod && e.shiftKey && e.key === 'S') {
-        e.preventDefault();
-        handleSaveAs();
-      } else if (mod && e.key === 's') {
-        e.preventDefault();
-        handleFormat();
-      } else if (mod && e.key === 'b') {
-        e.preventDefault();
-        toggleSidebar();
-      } else if (mod && e.key === ',') {
-        e.preventDefault();
-        togglePreferences();
-      } else if (mod && e.key === '=') {
-        e.preventDefault();
-        zoomIn();
-      } else if (mod && e.key === '-') {
-        e.preventDefault();
-        zoomOut();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      cleanup();
-      unlisteners.forEach(fn => fn());
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  });
-
-  onDestroy(() => {
-    unlisteners.forEach(fn => fn());
-  });
-
-  function togglePreferences() {
-    showPreferences = !showPreferences;
-    if (showPreferences) {
-      preferencesRef?.show();
+  onMount(async () => {
+    // Initialize theme from localStorage
+    const saved = localStorage.getItem("theme");
+    if (saved) {
+      isDark = saved === "dark";
     } else {
-      preferencesRef?.hide();
+      // Check system preference
+      isDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
     }
-  }
+    applyTheme();
 
-  async function handleOpen() {
+    // Check if landing page should be shown
+    const landingPref = localStorage.getItem("showLandingOnStartup");
+    if (landingPref === "false") {
+      showLanding = false;
+      showLandingOnStartup = false;
+    }
+
+    // Register keyboard shortcuts
+    initKeyboardShortcuts();
+    registerKeyboardShortcuts();
+  });
+
+  async function handleNewFile() {
     try {
-      const file = await open({
-        multiple: false,
-        filters: [{
-          name: 'Markdown',
-          extensions: ['md', 'markdown', 'mdx', 'txt']
-        }]
-      });
-
-      if (file) {
-        const content = await invoke<string>('read_file', { path: file.path });
-        markdown = content;
-        currentDocument = file.path;
-        viewMode = 'editor';
-        isEditing = true;
-
-        const toast = {
-          type: 'info' as const,
-          title: 'Opened document',
-          message: file.path,
-        };
-        addToast(toast);
-        await saveToHistory(toast.type, toast.title, toast.message, 5000);
+      // Get default folder or Documents folder
+      let defaultFolder: string;
+      try {
+        defaultFolder = await fileManager.getDefaultMdFolder();
+      } catch {
+        // Fallback to Documents folder
+        defaultFolder = await fileManager.getDocumentsFolder();
       }
-    } catch (error) {
-      console.error('Failed to open file:', error);
-      const toast = {
-        type: 'error' as const,
-        title: 'Open failed',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      };
-      addToast(toast);
-      await saveToHistory(toast.type, toast.title, toast.message, 5000);
-    }
-  }
 
-  async function handleSaveAs() {
-    try {
-      const filePath = await save({
-        filters: [{
-          name: 'Markdown',
-          extensions: ['md']
-        }],
-        defaultPath: currentDocument || 'untitled.md'
-      });
-
+      const filePath = await fileManager.createNewFile(defaultFolder);
       if (filePath) {
-        await invoke('write_file', { path: filePath, content: markdown });
-        currentDocument = filePath;
+        currentFilePath = filePath;
+        currentFileContent = "# New Document\n\nStart typing here...";
 
-        const toast = {
-          type: 'success' as const,
-          title: 'Saved',
-          message: filePath,
-        };
-        addToast(toast);
-        await saveToHistory(toast.type, toast.title, toast.message, 5000);
+        // Update editor if it exists
+        if (editorRef && editorRef.setContent) {
+          editorRef.setContent(currentFileContent);
+        }
+
+        // Write initial content
+        await fileManager.writeFile(filePath, currentFileContent);
+
+        const fileName = filePath.split("/").pop() || "document.md";
+        toasts.success(`📄 Created: ${fileName}`);
+
+        // Switch to editor view
+        currentFormat = "editor";
       }
     } catch (error) {
-      console.error('Failed to save file:', error);
-      const toast = {
-        type: 'error' as const,
-        title: 'Save failed',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      };
-      addToast(toast);
-      await saveToHistory(toast.type, toast.title, toast.message, 5000);
+      console.error("Create file error:", error);
+      toasts.error("Failed to create new file");
     }
   }
 
-  async function handleFormat() {
-    // Simple formatting: normalize line endings and trim trailing whitespace
-    const lines = markdown.split('\n');
-    const formatted = lines.map(line => line.trimEnd()).join('\n');
-    markdown = formatted;
-
-    const toast = {
-      type: 'success' as const,
-      title: 'Formatted document',
-      message: 'Whitespace trimmed and line endings normalized.',
-    };
-    addToast(toast);
-    await saveToHistory(toast.type, toast.title, toast.message, 3000);
-  }
-
-  function handleOpenDocument(event: CustomEvent) {
-    const { data } = event.detail;
-    currentDocument = data.name;
-    viewMode = 'editor';
-    isEditing = true;
-    markdown = `# ${data.name}\n\nStart editing...`;
-  }
-
-  function backToNotionView() {
-    viewMode = 'notion';
-    currentDocument = '';
-    sidebarOpen = false;
-  }
-
-  function toggleSidebar() {
-    sidebarOpen = !sidebarOpen;
-  }
-
-  function toggleEdit() {
-    isEditing = !isEditing;
-  }
-  
-  function toggleHeadingFont() {
-    headingFontCycle = (headingFontCycle + 1) % headingFonts.length;
-    const font = headingFonts[headingFontCycle];
-    document.documentElement.style.setProperty('--mdk-font-heading', `"${font}", ui-sans-serif, system-ui, sans-serif`);
-    localStorage.setItem('mdk-heading-font-cycle', String(headingFontCycle));
-  }
-
-  function toggleBodyFont() {
-    bodyFontCycle = (bodyFontCycle + 1) % bodyFonts.length;
-    const font = bodyFonts[bodyFontCycle];
-    document.documentElement.style.setProperty('--mdk-font-body', `"${font}", ui-sans-serif, system-ui, sans-serif`);
-    localStorage.setItem('mdk-body-font-cycle', String(bodyFontCycle));
-  }
-  
-  function toggleEditMode() {
-    isEditing = !isEditing;
-  }
-  
-  function zoomIn() {
-    fontSize = Math.min(fontSize + 2, 32);
-    document.documentElement.style.setProperty('--mdk-prose-scale', (fontSize / 16).toString());
-  }
-
-  function zoomOut() {
-    fontSize = Math.max(fontSize - 2, 12);
-    document.documentElement.style.setProperty('--mdk-prose-scale', (fontSize / 16).toString());
-  }
-
-  async function toggleFullscreen() {
+  async function handleOpenFile() {
     try {
-      const { getCurrentWindow } = await import('@tauri-apps/api/window');
-      const appWindow = getCurrentWindow();
-      const isFullscreen = await appWindow.isFullscreen();
-      await appWindow.setFullscreen(!isFullscreen);
+      const filePath = await fileManager.openFileDialog();
+      if (filePath) {
+        const content = await fileManager.readFile(filePath);
+        currentFilePath = filePath;
+        currentFileContent = content;
 
-      const toast = {
-        type: 'info' as const,
-        title: 'Fullscreen toggled',
-        message: !isFullscreen ? 'Entered fullscreen' : 'Exited fullscreen',
-      };
-      addToast(toast);
-      await saveToHistory(toast.type, toast.title, toast.message, 3000);
+        // Update editor if it exists
+        if (editorRef && editorRef.setContent) {
+          editorRef.setContent(content);
+        }
+
+        const fileName = filePath.split("/").pop() || "file.md";
+        toasts.success(`📂 Opened: ${fileName}`);
+
+        // Switch to editor view
+        currentFormat = "editor";
+      }
     } catch (error) {
-      console.error('Failed to toggle fullscreen:', error);
-      const toast = {
-        type: 'error' as const,
-        title: 'Fullscreen toggle failed',
-        message: error instanceof Error ? error.message : 'Unknown error',
-      };
-      addToast(toast);
-      await saveToHistory(toast.type, toast.title, toast.message, 4000);
+      console.error("Open file error:", error);
+      toasts.error("Failed to open file");
     }
   }
 
-  // Simple markdown to HTML converter
-  function renderMarkdown(md: string): string {
-    return md
-      .replace(/^# (.+)$/gm, '<h1>$1</h1>')
-      .replace(/^## (.+)$/gm, '<h2>$1</h2>')
-      .replace(/^### (.+)$/gm, '<h3>$1</h3>')
-      .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
-      .replace(/```(\w+)?\n([\s\S]+?)```/g, '<pre><code>$2</code></pre>')
-      .replace(/^- (.+)$/gm, '<ul><li>$1</li></ul>')
-      .replace(/<\/ul>\n<ul>/g, '')
-      .split('\n\n')
-      .map(para => para.trim() && !para.startsWith('<') ? `<p>${para}</p>` : para)
-      .join('\n');
+  async function handleSaveFile() {
+    try {
+      // Get current content from editor
+      let content = currentFileContent;
+      if (editorRef && editorRef.getContent) {
+        content = editorRef.getContent();
+      }
+
+      // If no current file, do Save As (prompt for location)
+      if (!currentFilePath) {
+        // Get default folder
+        let defaultFolder: string;
+        try {
+          defaultFolder = await fileManager.getDefaultMdFolder();
+        } catch {
+          defaultFolder = await fileManager.getDocumentsFolder();
+        }
+
+        // Create new file
+        const filePath = await fileManager.createNewFile(defaultFolder);
+        if (!filePath) return;
+
+        currentFilePath = filePath;
+      }
+
+      // Save to current file path
+      await fileManager.writeFile(currentFilePath, content);
+      currentFileContent = content;
+
+      const fileName = currentFilePath.split("/").pop() || "document.md";
+      toasts.success(`💾 Saved: ${fileName}`);
+    } catch (error) {
+      console.error("Save file error:", error);
+      toasts.error("Failed to save file");
+    }
+  }
+
+  function handleCommandPalette() {
+    toasts.info("🎯 Command palette");
+    isCommandPaletteOpen = true;
+  }
+
+  function handleSettings() {
+    toasts.info("⚙️ Settings");
+    isSettingsOpen = true;
+  }
+
+  function toggleDarkMode() {
+    themeStore.toggle();
+    toasts.info(`Switched to ${isDark ? "dark" : "light"} mode`);
+  }
+
+  function applyTheme() {
+    const html = document.documentElement;
+    if (isDark) {
+      html.classList.add("dark");
+    } else {
+      html.classList.remove("dark");
+    }
+  }
+
+  function handleLandingDismiss() {
+    showLanding = false;
+    if (!showLandingOnStartup) {
+      localStorage.setItem("showLandingOnStartup", "false");
+    }
+  }
+
+  function toggleShowLandingOnStartup() {
+    showLandingOnStartup = !showLandingOnStartup;
+    localStorage.setItem(
+      "showLandingOnStartup",
+      showLandingOnStartup.toString(),
+    );
   }
 </script>
 
-<div class="mdk-app mdk-shell has-file">
-  <!-- Toolbar -->
-  <Toolbar 
-    currentFile={currentDocument || null}
-    sidebarOpen={sidebarOpen}
-    viewMode={!isEditing}
-    markdownContent={markdown}
-    onToggleSidebar={toggleSidebar}
-    onToggleView={toggleEdit}
-    onOpen={handleOpen}
-    onSaveAs={handleSaveAs}
-    onFormat={handleFormat}
-  />
+<div class="app-wrapper" id="app-wrapper">
+  <!-- Global Hamburger Menu -->
+  <button
+    class="fixed top-4 right-4 z-[200] p-2 rounded-lg bg-gray-900 hover:bg-gray-800 transition text-white shadow-lg"
+    on:click={() => (menuOpen = !menuOpen)}
+    aria-label="Menu"
+  >
+    <Menu class="w-5 h-5" />
+  </button>
 
-  <!-- Main Layout -->
-  <div class="mdk-main">
-    {#if viewMode === 'notion'}
-      <!-- Full-screen Notion View -->
-      <NotionView on:openDocument={handleOpenDocument} />
-    {:else}
-      <!-- Binder Sidebar -->
-      <aside class="w-64 border-r border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900 overflow-y-auto">
-        <div class="p-4">
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="font-semibold text-gray-700 dark:text-gray-300">Binder</h2>
-            <div class="flex gap-1">
-              <button 
-                class="mdk-icon-btn text-xs"
-                on:click={backToNotionView}
-                title="Back to Notion View"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-              </button>
-              <button 
-                class="mdk-icon-btn text-xs"
-                on:click={() => (showHistory = !showHistory)}
-                title="Notification History"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-              </button>
-              <button 
-                class="mdk-icon-btn text-xs"
-                on:click={togglePreferences}
-                title="Font Preferences"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          <div class="space-y-1">
-            <div 
-              class="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer text-gray-700 dark:text-gray-300 font-medium flex items-center gap-2"
-              on:click={backToNotionView}
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-              </svg>
-              All Documents
-            </div>
-            <div class="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer text-gray-600 dark:text-gray-400 flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
-              </svg>
-              Projects
-            </div>
-            <div class="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer text-gray-600 dark:text-gray-400 flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-              Drafts
-            </div>
-            <div class="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer text-gray-600 dark:text-gray-400 flex items-center gap-2">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-              </svg>
-              Tasks
-            </div>
-            <div 
-              class="px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-800 cursor-pointer text-gray-600 dark:text-gray-400 flex items-center gap-2 {showHistory ? 'bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300' : ''}"
-              on:click={() => (showHistory = !showHistory)}
-            >
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-              </svg>
-              History
-            </div>
-          </div>
-        </div>
-      </aside>
-
-      <!-- Editor Pane -->
-      <div class="mdk-pane mdk-pane--editor mdk-font-body">
-        <div class="flex flex-col h-full">
-          <div class="px-4 py-2 border-b border-gray-300 dark:border-gray-800 flex items-center gap-2">
-            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300">
-              {currentDocument || 'Editor'}
-            </h3>
-          </div>
-          <textarea
-            bind:value={markdown}
-            class="flex-1 p-4 resize-none focus:outline-none bg-white dark:bg-gray-950 text-gray-900 dark:text-gray-100 font-mono text-sm"
-            placeholder="# Start writing your markdown here..."
-          />
-        </div>
-      </div>
-
-      <!-- Preview Pane -->
-      <div class="mdk-pane mdk-pane--preview">
-        <div class="flex flex-col h-full">
-          <div class="px-4 py-2 border-b border-gray-300 dark:border-gray-800 bg-white dark:bg-gray-900">
-            <div class="flex items-center justify-between">
-              <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300">Preview</h3>
-              <SyncIndicator />
-            </div>
-          </div>
-          <div class="flex-1 overflow-y-auto p-6">
-            <div class="mdk-preview mdk-font-body prose prose-gray dark:prose-invert max-w-none">
-              {@html renderMarkdown(markdown)}
-            </div>
-          </div>
-        </div>
-      </div>
-    {/if}
-  </div>
-
-  <!-- Bottom Bar -->
-  <BottomBar 
-    sidebarOpen={sidebarOpen}
-    isEditing={isEditing}
-    charCount={charCount}
-    wordCount={wordCount}
-    readTime={readTime}
-    currentFile={currentDocument || null}
-    onToggleSidebar={toggleSidebar}
-    onToggleEdit={toggleEdit}
-    onZoomIn={zoomIn}
-    onZoomOut={zoomOut}
-    onToggleHeading={toggleHeadingFont}
-    onToggleBody={toggleBodyFont}
-    onToggleFullscreen={toggleFullscreen}
-  />
-</div>
-
-<!-- Preferences Modal -->
-<Preferences bind:this={preferencesRef} />
-
-  <!-- Notification History Modal -->
-  {#if showHistory}
-    <div class="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm z-40" on:click={() => (showHistory = false)} />
-    <div class="fixed inset-4 md:inset-8 lg:inset-16 bg-white dark:bg-gray-900 rounded-lg shadow-2xl z-50 flex flex-col overflow-hidden">
-      <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800">
-        <h2 class="text-lg font-semibold text-gray-900 dark:text-gray-100">Notification History</h2>
+  <!-- Compact Dropdown Menu -->
+  {#if menuOpen}
+    <button
+      class="fixed inset-0 z-[250]"
+      on:click={() => (menuOpen = false)}
+      aria-label="Close menu"
+      type="button"
+    />
+    <div
+      class="fixed top-16 right-4 w-72 z-[260] rounded-xl flex flex-col p-2 gap-1 bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 shadow-2xl"
+    >
+      <nav class="flex flex-col gap-1">
         <button
-          on:click={() => (showHistory = false)}
-          class="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition"
+          class="w-full text-left px-4 py-2 rounded-lg font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+          on:click={() => {
+            currentFormat = "editor";
+            menuOpen = false;
+          }}
         >
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          Markdown Editor
         </button>
-      </div>
-      <div class="flex-1 overflow-hidden">
-        <NotificationHistory />
-      </div>
+        <button
+          class="w-full text-left px-4 py-2 rounded-lg font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+          on:click={() => {
+            currentFormat = "guide";
+            menuOpen = false;
+          }}
+        >
+          Guide Reader
+        </button>
+        <button
+          class="w-full text-left px-4 py-2 rounded-lg font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+          on:click={() => {
+            currentFormat = "story";
+            menuOpen = false;
+          }}
+        >
+          Interactive Story
+        </button>
+        <button
+          class="w-full text-left px-4 py-2 rounded-lg font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+          on:click={() => {
+            currentFormat = "marp";
+            menuOpen = false;
+          }}
+        >
+          Slide Presentation
+        </button>
+        <button
+          class="w-full text-left px-4 py-2 rounded-lg font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+          on:click={() => {
+            currentFormat = "ucode";
+            menuOpen = false;
+          }}
+        >
+          uCode Runtime
+        </button>
+        <button
+          class="w-full text-left px-4 py-2 rounded-lg font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+          on:click={() => {
+            currentFormat = "fonts";
+            menuOpen = false;
+          }}
+        >
+          Font Manager
+        </button>
+        <button
+          class="w-full text-left px-4 py-2 rounded-lg font-medium text-gray-900 dark:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition"
+          on:click={() => {
+            currentFormat = "config";
+            menuOpen = false;
+          }}
+        >
+          Config Settings
+        </button>
+      </nav>
+      <button
+        class="absolute top-2 right-2 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400"
+        on:click={() => (menuOpen = false)}
+        aria-label="Close menu"
+        style="z-index:214;"
+      >
+        <Close class="w-4 h-4" />
+      </button>
     </div>
   {/if}
 
+  <!-- Landing Page -->
+  {#if showLanding}
+    <Landing
+      {isDark}
+      {showLandingOnStartup}
+      onRendererSelect={(format) => {
+        currentFormat = format;
+        handleLandingDismiss();
+      }}
+      onDarkModeToggle={toggleDarkMode}
+      onDismiss={handleLandingDismiss}
+      onToggleShowOnStartup={toggleShowLandingOnStartup}
+    />
+  {:else if currentFormat === "editor"}
+    <TypoEditor
+      bind:isDark
+      bind:viewMode
+      bind:charCount
+      bind:wordCount
+      onDarkModeToggle={toggleDarkMode}
+      onSave={(content) => toasts.success("Document saved")}
+    />
+  {:else}
+    <!-- Header for other renderers -->
+    <header class="app-header">
+      <div class="header-content">
+        <button
+          on:click={() => (currentFormat = "editor")}
+          class="logo-button"
+          title="Back to editor"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            class="w-5 h-5 inline"
+            style="display: inline; margin-right: 0.5rem; vertical-align: middle;"
+          >
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 5 12 12 19"></polyline>
+          </svg> Markdown
+        </button>
+        <nav class="nav">
+          <button
+            on:click={() => (currentFormat = "guide")}
+            class="nav-button flex items-center gap-1"
+          >
+            <Info class="w-4 h-4" /><span class="nav-label">Guide</span>
+          </button>
+          <button
+            on:click={() => (currentFormat = "story")}
+            class="nav-button flex items-center gap-1"
+          >
+            <Bullet class="w-4 h-4" /><span class="nav-label">Story</span>
+          </button>
+          <button
+            on:click={() => (currentFormat = "marp")}
+            class="nav-button flex items-center gap-1"
+          >
+            <Slideshow class="w-4 h-4" /><span class="nav-label">Present</span>
+          </button>
+          <button
+            on:click={() => (currentFormat = "ucode")}
+            class="nav-button flex items-center gap-1"
+          >
+            <CodeBracket class="w-4 h-4" /><span class="nav-label">uCode</span>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="app-main">
+      {#if currentFormat === "editor"}
+        <TypoEditor
+          bind:this={editorRef}
+          {isDark}
+          onDarkModeToggle={toggleDarkMode}
+          onSave={handleSaveFile}
+          onNew={handleNewFile}
+          onOpen={handleOpenFile}
+          currentFile={currentFilePath}
+          bind:viewMode
+          bind:wordCount
+          bind:charCount
+        />
+      {:else if currentFormat === "ucode"}
+        <UCodeRenderer
+          content="<h2>uCode Document</h2><p>Executable markdown with runtime blocks.</p>"
+          frontmatter={{
+            title: "Sample uCode",
+            description: "Example document",
+          }}
+        />
+      {:else if currentFormat === "story"}
+        <StoryRenderer
+          story={{ title: "Interactive Story", description: "Tell your story" }}
+        />
+      {:else if currentFormat === "guide"}
+        <GuideRenderer
+          content="<h2>Getting Started</h2><p>Welcome to the guide.</p>"
+          frontmatter={{
+            title: "Knowledge Guide",
+            author: "uDOS",
+            date: new Date(),
+          }}
+        />
+      {:else if currentFormat === "fonts"}
+        <FontManager />
+      {:else if currentFormat === "config"}
+        <ConfigRenderer config={{ theme: "auto", reducedMotion: false }} />
+      {:else if currentFormat === "marp"}
+        <MarpRenderer slides={marpSlides} />
+      {:else if currentFormat === "home"}
+        <!-- Toast Demo Section -->
+        <section class="demo-section">
+          <h2>🎨 Toast Notifications Demo</h2>
+          <p>Click buttons below to see toast notifications in action:</p>
+          <FileOperations />
+        </section>
+      {/if}
+    </main>
+  {/if}
+
+  <!-- Toast notifications -->
+  <ToastContainer />
+  <TypoBottomBar
+    {isDark}
+    onDarkModeToggle={toggleDarkMode}
+    bind:viewMode
+    onToggleView={() => (viewMode = !viewMode)}
+    {charCount}
+    {wordCount}
+  />
+</div>
+
+<style>
+  :global(html) {
+    color-scheme: light;
+    transition:
+      color-scheme 200ms ease-out,
+      background-color 200ms ease-out;
+  }
+
+  :global(html.dark) {
+    color-scheme: dark;
+  }
+
+  .app-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: transparent;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    transition:
+      background-color 200ms ease-out,
+      color 200ms ease-out;
+  }
+
+  .app-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e2e8f0;
+    padding: 0.5rem 1.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: all 200ms ease-out;
+    display: flex;
+    align-items: center;
+  }
+
+  :global(html.dark) .app-header {
+    background-color: #0f172a;
+    border-bottom-color: #334155;
+  }
+
+  .header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+    height: 100%;
+  }
+
+  .logo-button {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #0f172a;
+    cursor: pointer;
+    padding: 0.375rem 0.75rem;
+    margin: 0;
+    border-radius: 0.375rem;
+    transition: color 200ms ease-out;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    white-space: nowrap;
+  }
+
+  :global(html.dark) .logo-button {
+    color: #e5e7eb;
+  }
+
+  .logo-button:hover {
+    color: #2563eb;
+  }
+
+  :global(html.dark) .logo-button:hover {
+    color: #60a5fa;
+  }
+
+  .nav {
+    display: flex;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  .nav-button {
+    background: none;
+    border: none;
+    color: #334155;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.375rem 0.75rem;
+    border-radius: 0.375rem;
+    transition: all 200ms ease-out;
+    cursor: pointer;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    opacity: 0.8;
+  }
+
+  :global(html.dark) .nav-button {
+    color: #cbd5e1;
+  }
+
+  .nav-button:hover {
+    background-color: #f1f5f9;
+    color: #2563eb;
+    opacity: 1;
+  }
+
+  :global(html.dark) .nav-button:hover {
+    background-color: #1e293b;
+    color: #60a5fa;
+  }
+
+  .nav-label {
+    display: inline;
+  }
+
+  @media (max-width: 768px) {
+    .nav-label {
+      display: none;
+    }
+
+    .nav {
+      gap: 0.25rem;
+    }
+
+    .nav-button {
+      padding: 0.5rem;
+    }
+  }
+
+  .app-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .demo-section {
+    padding: 2rem;
+    margin: 1rem;
+    background-color: #f8fafc;
+    border-radius: 0.5rem;
+    border: 1px solid #e2e8f0;
+  }
+
+  :global(html.dark) .demo-section {
+    background-color: #1e293b;
+    border-color: #334155;
+  }
+
+  .demo-section h2 {
+    margin-top: 0;
+    color: #2563eb;
+  }
+
+  :global(html.dark) .demo-section h2 {
+    color: #60a5fa;
+  }
+
+  .demo-section p {
+    margin-bottom: 1rem;
+    color: #475569;
+  }
+
+  :global(html.dark) .demo-section p {
+    color: #94a3b8;
+  }
+</style>

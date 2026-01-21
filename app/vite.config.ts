@@ -12,6 +12,7 @@ export default defineConfig(async () => ({
   resolve: {
     alias: {
       $lib: path.resolve("./src/lib"),
+      $styles: path.resolve("./src/styles"),
     },
   },
 
@@ -37,4 +38,3 @@ export default defineConfig(async () => ({
     },
   },
 }));
-

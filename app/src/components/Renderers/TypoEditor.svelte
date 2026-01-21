@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { confirm } from '@tauri-apps/plugin-dialog';
+  import { confirm } from "@tauri-apps/plugin-dialog";
   import {
     Open,
     Save,
@@ -28,7 +28,7 @@
   export function getContent(): string {
     return content;
   }
-  
+
   export function setContent(newContent: string): void {
     content = newContent;
   }
@@ -103,10 +103,13 @@ clickHere();
   }
 
   async function handleNew() {
-    const confirmed = await confirm('Create new file? Unsaved changes will be lost.', {
-      title: 'New File',
-      kind: 'warning'
-    });
+    const confirmed = await confirm(
+      "Create new file? Unsaved changes will be lost.",
+      {
+        title: "New File",
+        kind: "warning",
+      },
+    );
     if (confirmed) {
       onNew();
     }
@@ -235,24 +238,24 @@ clickHere();
   >
     {#if !viewMode}
       <!-- Editor -->
-      <div class="flex h-full flex-col overflow-hidden">
+      <div class="flex flex-col overflow-hidden min-h-0">
         <textarea
           bind:this={editorTextarea}
           bind:value={content}
           on:scroll={syncScroll}
           on:keyup={syncScroll}
-          class="grow resize-none appearance-none overflow-y-auto p-5 font-mono text-sm leading-relaxed transition placeholder:text-gray-400 focus:outline-none {isDark
+          class="flex-1 resize-none appearance-none overflow-y-auto p-5 font-mono text-sm leading-relaxed transition placeholder:text-gray-400 focus:outline-none {isDark
             ? 'bg-gray-900 text-gray-50'
             : 'bg-gray-50 text-gray-900'}"
           style="font-family: var(--typo-font-family, 'Atkinson Hyperlegible'), monospace; font-size: var(--typo-font-size, 1em);"
           placeholder="# Title"
         />
         <!-- Formatting Toolbar + Editor Bottom Bar -->
-        <div class="flex flex-col gap-0">
+        <div class="flex flex-col gap-0 w-full">
           <div
-            class="flex flex-wrap gap-1 p-2 {isDark
+            class="flex flex-wrap gap-1 p-2 w-full {isDark
               ? 'bg-gray-900 border-gray-800'
-              : 'bg-gray-100 border-gray-200'} border-t shrink-0"
+              : 'bg-gray-100 border-gray-200'} border-t"
           >
             <button class="button" title="Heading">H</button>
             <button class="button" title="Bullet"><Bullet /></button>

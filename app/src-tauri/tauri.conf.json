@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "uMarkdown",
+  "productName": "Markdown",
   "version": "1.0.5",
-  "identifier": "com.udos.umarkdown",
+  "identifier": "com.udos.markdown",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -13,7 +13,7 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "uMarkdown",
+        "title": "Markdown",
         "width": 1200,
         "height": 800,
         "minWidth": 800,

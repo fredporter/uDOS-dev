@@ -1,7 +1,7 @@
 [package]
-name = "umarkdown-app"
+name = "markdown-app"
 version = "0.1.0"
-description = "uMarkdown - Desktop markdown app for uDOS"
+description = "Markdown - Desktop markdown app for uDOS"
 authors = ["uDOS Team"]
 edition = "2021"
 
@@ -11,7 +11,7 @@ edition = "2021"
 # The `_lib` suffix may seem redundant but it is necessary
 # to make the lib name unique and wouldn't conflict with the bin name.
 # This seems to be only an issue on Windows, see https://github.com/rust-lang/cargo/issues/8519
-name = "umarkdown_app_lib"
+name = "markdown_app_lib"
 crate-type = ["staticlib", "cdylib", "rlib"]
 
 [build-dependencies]
@@ -23,4 +23,6 @@ tauri-plugin-opener = "2"
 tauri-plugin-dialog = "2"
 serde = { version = "1", features = ["derive"] }
 serde_json = "1"
+chrono = "0.4.43"
+dirs = "6.0.0"
 
