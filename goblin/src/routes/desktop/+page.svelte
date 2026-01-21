@@ -96,17 +96,17 @@
     unlisteners.push(
       await listen("menu-new", () => {
         /* new file */
-      })
+      }),
     );
     unlisteners.push(
       await listen("menu-browse", () => {
         toggleSidebar(true);
-      })
+      }),
     );
     unlisteners.push(
       await listen("menu-toggle-sidebar", () => {
         toggleSidebar();
-      })
+      }),
     );
 
     // Listen for background pattern changes from GlobalBottomBar
@@ -116,15 +116,15 @@
         (event) => {
           selectedPattern = event.payload.pattern;
           savePreferences();
-        }
-      )
+        },
+      ),
     );
 
     // Listen for dark mode changes from bottom bar
     unlisteners.push(
       await listen<{ darkMode: boolean }>("dark-mode-changed", (event) => {
         darkMode = event.payload.darkMode;
-      })
+      }),
     );
 
     // Listen for global toggle-sidebar event from bottom bar
@@ -133,7 +133,7 @@
         sidebarOpen = event.payload.open;
         // Save to mode state
         updateModeState("desktop", { sidebarOpen });
-      })
+      }),
     );
 
     // Listen for font size changes (zoom)
@@ -144,7 +144,7 @@
           // Sync with styleManager so menu bar matches
           setFontSize(fontSize);
         }
-      })
+      }),
     );
 
     // Load initial font size from state and sync with styleManager (desktopState already loaded above)
@@ -198,8 +198,9 @@
 
   async function loadDesktopConfig() {
     try {
+      // Backend resolves relative paths from project root
       const content = await invoke<string>("read_markdown_file", {
-        path: "/Users/fredbook/Code/uDOS/memory/udos.md",
+        path: "memory/udos.md",
       });
       parseDesktopConfig(content);
       // Load SVG icons for any Noun Project icons
@@ -263,7 +264,7 @@
       // Match: - [emoji] Name | action | params | noun:12345
       // Also support old format: - [emoji] Name | action | params
       const match = line.match(
-        /^-\s*\[(.+?)\]\s*(.+?)\s*\|\s*(\w+)(?:\s*\|\s*([^|]+?))?(?:\s*\|\s*noun:(\d+))?\s*$/
+        /^-\s*\[(.+?)\]\s*(.+?)\s*\|\s*(\w+)(?:\s*\|\s*([^|]+?))?(?:\s*\|\s*noun:(\d+))?\s*$/,
       );
       if (match) {
         const [, emoji, name, action, params, nounId] = match;
@@ -293,7 +294,7 @@
     icons = parsed.length > 0 ? parsed : getDefaultIcons();
     console.log(
       "[Desktop] Parsed icons:",
-      icons.map((i) => ({ name: i.name, nounIcon: i.nounIcon }))
+      icons.map((i) => ({ name: i.name, nounIcon: i.nounIcon })),
     );
   }
 

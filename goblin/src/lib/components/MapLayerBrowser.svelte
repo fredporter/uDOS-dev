@@ -42,7 +42,8 @@
   let loading = $state(false);
   let linkedLayers = $state<string[]>([]);
 
-  const CORE_MAPS_PATH = "/Users/fredbook/Code/uDOS/core/data/maps/layers";
+  // Path is relative to project root, resolved by backend
+  const CORE_MAPS_PATH = "core/data/maps/layers";
 
   onMount(async () => {
     await loadLayers();

@@ -2,7 +2,7 @@
  * Core Map Service - Integration with /core/data/maps/layers
  *
  * Provides access to the pre-defined geographic map layers stored in
- * /Users/fredbook/Code/uDOS/core/data/maps/layers/
+ * core/data/maps/layers/
  *
  * These are world map layers with terrain, elevation, climate data that can
  * be imported into the tile-based layer editor.
@@ -12,8 +12,8 @@ import { invoke } from "@tauri-apps/api/core";
 import type { Layer } from "$lib/types/layer";
 import { createLayer, createEmptyTile } from "$lib/types/layer";
 
-// Path to core map layers
-const CORE_MAPS_PATH = "/Users/fredbook/Code/uDOS/core/data/maps/layers";
+// Path to core map layers (relative to project root, resolved by backend)
+const CORE_MAPS_PATH = "core/data/maps/layers";
 
 export interface CoreMapLayer {
   layer_id: number;
@@ -103,7 +103,7 @@ export async function listCoreMapLayers(): Promise<CoreMapInfo[]> {
  * Load a core map layer by filename
  */
 export async function loadCoreMapLayer(
-  filename: string
+  filename: string,
 ): Promise<CoreMapLayer> {
   try {
     const path = `${CORE_MAPS_PATH}/${filename}`;
@@ -130,7 +130,7 @@ export async function convertCoreMapToLayer(
     targetHeight?: number;
     region?: { x: number; y: number; width: number; height: number };
     sampleRate?: number;
-  } = {}
+  } = {},
 ): Promise<Layer> {
   const coreMap = await loadCoreMapLayer(filename);
 
@@ -142,7 +142,7 @@ export async function convertCoreMapToLayer(
     `core-${coreMap.layer_name}`,
     coreMap.layer_name.charAt(0).toUpperCase() + coreMap.layer_name.slice(1),
     targetWidth,
-    targetHeight
+    targetHeight,
   );
 
   // Add metadata
@@ -192,7 +192,7 @@ export async function convertCoreMapToLayer(
  * Get terrain legend from core map
  */
 export async function getCoreMapLegend(
-  filename: string
+  filename: string,
 ): Promise<Record<string, TerrainType>> {
   const coreMap = await loadCoreMapLayer(filename);
   return (coreMap.terrain_types as Record<string, TerrainType>) || {};
@@ -202,7 +202,7 @@ export async function getCoreMapLegend(
  * Get elevation ranges from core map
  */
 export async function getCoreMapElevation(
-  filename: string
+  filename: string,
 ): Promise<ElevationData | null> {
   const coreMap = await loadCoreMapLayer(filename);
   return coreMap.elevation || null;

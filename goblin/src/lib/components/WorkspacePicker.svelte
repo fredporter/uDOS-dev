@@ -15,12 +15,14 @@
   let loading = $state(false);
 
   const defaultWorkspaces: Workspace[] = [
-    { name: "uDOS Root", path: "/Users/fredbook/Code/uDOS" },
-    { name: "Sandbox", path: "/Users/fredbook/Code/uDOS/memory/sandbox" },
-    { name: "Inbox", path: "/Users/fredbook/Code/uDOS/memory/inbox" },
-    { name: "Memory", path: "/Users/fredbook/Code/uDOS/memory" },
-    { name: "Knowledge", path: "/Users/fredbook/Code/uDOS/knowledge" },
-    { name: "Wiki", path: "/Users/fredbook/Code/uDOS/wiki" },
+    // These will be populated from the API on mount
+    // Paths are relative to project root, resolved by backend
+    { name: "uDOS Root", path: "" },
+    { name: "Sandbox", path: "memory/sandbox" },
+    { name: "Inbox", path: "memory/inbox" },
+    { name: "Memory", path: "memory" },
+    { name: "Knowledge", path: "knowledge" },
+    { name: "Wiki", path: "wiki" },
   ];
 
   const loadWorkspaces = async () => {

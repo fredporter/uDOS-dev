@@ -110,12 +110,13 @@
   };
 
   const defaultWorkspaces: Workspace[] = [
-    { name: "uDOS Root", path: "/Users/fredbook/Code/uDOS" },
-    { name: "Sandbox", path: "/Users/fredbook/Code/uDOS/memory/sandbox" },
-    { name: "Inbox", path: "/Users/fredbook/Code/uDOS/memory/inbox" },
-    { name: "Memory", path: "/Users/fredbook/Code/uDOS/memory" },
-    { name: "Knowledge", path: "/Users/fredbook/Code/uDOS/knowledge" },
-    { name: "Wiki", path: "/Users/fredbook/Code/uDOS/wiki" },
+    // Paths are relative to project root, resolved by backend
+    { name: "uDOS Root", path: "" },
+    { name: "Sandbox", path: "memory/sandbox" },
+    { name: "Inbox", path: "memory/inbox" },
+    { name: "Memory", path: "memory" },
+    { name: "Knowledge", path: "knowledge" },
+    { name: "Wiki", path: "wiki" },
   ];
 
   // Folders to hide from Memory workspace (they have their own workspace entries)
@@ -283,7 +284,7 @@
   // Flatten all files recursively for display (filtered by mode)
   const flattenFiles = (
     files: MarkdownFile[],
-    basePath: string = ""
+    basePath: string = "",
   ): MarkdownFile[] => {
     let result: MarkdownFile[] = [];
     for (const file of files) {
@@ -301,7 +302,7 @@
   // Now supports nested navigation - shows subfolders relative to selectedSubfolder
   const extractSubfolders = (
     files: MarkdownFile[],
-    rootPath: string
+    rootPath: string,
   ): string[] => {
     const folders = new Set<string>();
     const basePath = selectedSubfolder
@@ -349,7 +350,7 @@
     let result = Array.from(folders);
     if (rootPath.endsWith("/memory")) {
       result = result.filter(
-        (f) => !hiddenMemoryFolders.includes(f.split("/")[0])
+        (f) => !hiddenMemoryFolders.includes(f.split("/")[0]),
       );
     }
     return result.sort();
@@ -403,7 +404,7 @@
       files = files.filter(
         (f) =>
           f.name.toLowerCase().includes(query) ||
-          f.path.toLowerCase().includes(query)
+          f.path.toLowerCase().includes(query),
       );
     }
 
@@ -635,7 +636,7 @@
     const folderList = availableFolders.join(", ");
     const targetFolder = prompt(
       `Move to folder (${folderList}):`,
-      selectedSubfolder || ""
+      selectedSubfolder || "",
     );
     if (targetFolder === null) return;
 
@@ -720,7 +721,7 @@
       "dark-mode-changed",
       (event) => {
         darkMode = event.payload.darkMode;
-      }
+      },
     );
   });
 

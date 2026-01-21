@@ -10,7 +10,10 @@ echo ""
 # Create new flat structure
 echo "📁 Creating new folder structure..."
 
-cd /Users/fredbook/Code/uDOS
+# Navigate to project root dynamically
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../../../.." && pwd)"
+cd "$PROJECT_ROOT"
 
 # New simplified structure (8 main categories)
 mkdir -p knowledge_new/{system,reference,survival,medical,food,water,making,tech}

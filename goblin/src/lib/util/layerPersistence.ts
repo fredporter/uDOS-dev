@@ -12,7 +12,7 @@ import { invoke } from "@tauri-apps/api/core";
  */
 export async function saveMapDocument(
   doc: MapDocument,
-  path: string
+  path: string,
 ): Promise<void> {
   const json = JSON.stringify(doc, null, 2);
 
@@ -164,12 +164,12 @@ export function exportMapAsMarkdown(doc: MapDocument): string {
 }
 
 /**
- * Get default save paths
+ * Get default save paths (relative to project root, resolved by backend)
  */
 export const DEFAULT_PATHS = {
-  sandbox: "/Users/fredbook/Code/uDOS/memory/sandbox/",
-  core: "/Users/fredbook/Code/uDOS/memory/knowledge/maps/",
-  drafts: "/Users/fredbook/Code/uDOS/memory/drafts/",
+  sandbox: "memory/sandbox/",
+  core: "memory/knowledge/maps/",
+  drafts: "memory/drafts/",
 };
 
 /**
@@ -177,7 +177,7 @@ export const DEFAULT_PATHS = {
  */
 export function generateFilename(
   mapName: string,
-  extension: string = "json"
+  extension: string = "json",
 ): string {
   const sanitized = mapName
     .toLowerCase()

@@ -4,7 +4,11 @@ Test Server Integration
 """
 
 import sys
-sys.path.insert(0, '/Users/fredbook/Code/uDOS')
+from pathlib import Path
+
+# Add project root dynamically
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(_PROJECT_ROOT))
 
 try:
     print("Testing server components...")

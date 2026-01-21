@@ -5,8 +5,11 @@ Test ConfigFramework directly
 
 import sys
 import json
+from pathlib import Path
 
-sys.path.insert(0, '/Users/fredbook/Code/uDOS')
+# Add project root dynamically
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(_PROJECT_ROOT))
 
 try:
     from public.wizard.services.config_framework import ConfigFramework

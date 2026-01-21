@@ -28,8 +28,8 @@ let copyBufferChangeCallbacks: ((buffer: CopyBufferItem[]) => void)[] = [];
 let copyBufferLoaded = false;
 
 const MAX_COPY_BUFFER_SIZE = 50;
-const COPY_BUFFER_PATH =
-  "/Users/fredbook/Code/uDOS/memory/sandbox/copy-buffer.json";
+// Path is relative to project root, resolved by backend API
+const COPY_BUFFER_PATH = "memory/sandbox/copy-buffer.json";
 
 /**
  * F1-F12 Action Mappings
@@ -215,7 +215,7 @@ async function loadCopyBuffer() {
       console.log(
         "[KeyboardManager] Loaded copy buffer:",
         copyBuffer.length,
-        "items"
+        "items",
       );
       // Notify listeners
       copyBufferChangeCallbacks.forEach((cb) => cb([...copyBuffer]));
@@ -223,7 +223,7 @@ async function loadCopyBuffer() {
   } catch (err) {
     // File may not exist yet, that's OK
     console.log(
-      "[KeyboardManager] No existing copy buffer found, starting fresh"
+      "[KeyboardManager] No existing copy buffer found, starting fresh",
     );
     copyBufferLoaded = true;
   }
@@ -241,7 +241,7 @@ async function saveCopyBuffer() {
     console.log(
       "[KeyboardManager] Saved copy buffer:",
       copyBuffer.length,
-      "items"
+      "items",
     );
   } catch (err) {
     console.error("[KeyboardManager] Failed to save copy buffer:", err);
@@ -259,7 +259,7 @@ function handleGlobalKeydown(e: KeyboardEvent) {
   if (isCmd && GLOBAL_SHORTCUTS[e.key.toLowerCase()]) {
     e.preventDefault();
     console.log(
-      `[KeyboardManager] ${e.metaKey ? "⌘" : "CTRL"} + ${e.key.toUpperCase()}`
+      `[KeyboardManager] ${e.metaKey ? "⌘" : "CTRL"} + ${e.key.toUpperCase()}`,
     );
     GLOBAL_SHORTCUTS[e.key.toLowerCase()]();
     return;
@@ -270,7 +270,7 @@ function handleGlobalKeydown(e: KeyboardEvent) {
     e.preventDefault();
     const fKey = NUMBER_TO_FKEY[e.key];
     console.log(
-      `[KeyboardManager] ${e.metaKey ? "⌘" : "CTRL"} + ${e.key} → ${fKey}`
+      `[KeyboardManager] ${e.metaKey ? "⌘" : "CTRL"} + ${e.key} → ${fKey}`,
     );
     executeFunctionKey(fKey);
     return;
@@ -346,12 +346,12 @@ export function setKeypadLayer(layer: KeypadLayer) {
  * Subscribe to keypad layer changes
  */
 export function onKeypadLayerChange(
-  callback: (layer: KeypadLayer) => void
+  callback: (layer: KeypadLayer) => void,
 ): () => void {
   keypadLayerChangeCallbacks.push(callback);
   return () => {
     keypadLayerChangeCallbacks = keypadLayerChangeCallbacks.filter(
-      (cb) => cb !== callback
+      (cb) => cb !== callback,
     );
   };
 }
@@ -379,7 +379,7 @@ export function addToCopyBuffer(text: string, source?: string) {
 
   console.log(
     "[KeyboardManager] Added to copy buffer:",
-    text.substring(0, 50) + (text.length > 50 ? "..." : "")
+    text.substring(0, 50) + (text.length > 50 ? "..." : ""),
   );
 
   // Notify listeners
@@ -418,14 +418,14 @@ export function removeFromCopyBuffer(id: string) {
  * Subscribe to copy buffer changes
  */
 export function onCopyBufferChange(
-  callback: (buffer: CopyBufferItem[]) => void
+  callback: (buffer: CopyBufferItem[]) => void,
 ): () => void {
   copyBufferChangeCallbacks.push(callback);
   // Call immediately with current buffer
   callback([...copyBuffer]);
   return () => {
     copyBufferChangeCallbacks = copyBufferChangeCallbacks.filter(
-      (cb) => cb !== callback
+      (cb) => cb !== callback,
     );
   };
 }
@@ -438,7 +438,7 @@ export async function copyToClipboard(text: string) {
     await navigator.clipboard.writeText(text);
     console.log(
       "[KeyboardManager] Copied to clipboard:",
-      text.substring(0, 50) + (text.length > 50 ? "..." : "")
+      text.substring(0, 50) + (text.length > 50 ? "..." : ""),
     );
   } catch (err) {
     console.error("[KeyboardManager] Failed to copy to clipboard:", err);

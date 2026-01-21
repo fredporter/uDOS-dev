@@ -4,9 +4,11 @@ Simple test to isolate the BACKUP command routing issue
 """
 import sys
 import os
+from pathlib import Path
 
-# Add the uDOS directory to the path
-sys.path.insert(0, '/Users/fredbook/Code/uDOS')
+# Add the uDOS directory to the path dynamically
+_PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
+sys.path.insert(0, str(_PROJECT_ROOT))
 
 from core.interpreters.uDOS_parser import Parser
 

@@ -19,13 +19,16 @@ from datetime import datetime
 import os
 import json
 
+# Dynamic project root detection
+_DEFAULT_ROOT = Path(__file__).resolve().parent.parent.parent.parent.parent
+
 
 class FuzzyMatcher:
     """Smart file matching with typo tolerance"""
 
-    def __init__(self, workspace_root: str = "/Users/fredbook/Code/uDOS", logger=None):
+    def __init__(self, workspace_root: str = None, logger=None):
         """Initialize fuzzy matcher"""
-        self.workspace_root = Path(workspace_root)
+        self.workspace_root = Path(workspace_root) if workspace_root else _DEFAULT_ROOT
         self.logger = logger
         self.recent_files_cache = []
         self.max_recent = 20
@@ -379,6 +382,6 @@ class SmartFilePicker:
 
 
 # Convenience function
-def create_fuzzy_matcher(workspace_root: str = "/Users/fredbook/Code/uDOS", logger=None):
+def create_fuzzy_matcher(workspace_root: str = None, logger=None):
     """Create fuzzy matcher instance"""
     return FuzzyMatcher(workspace_root=workspace_root, logger=logger)

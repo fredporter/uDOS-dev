@@ -14,6 +14,30 @@ PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
 # Source URL helper
 source "$SCRIPT_DIR/udos-urls.sh"
 
+# Spinner function for long-running tasks
+run_with_spinner() {
+    local message="$1"
+    shift
+    local cmd="$@"
+    local spin_chars='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+    local i=0
+    
+    eval "$cmd" &
+    local pid=$!
+    
+    printf "  ${YELLOW}⠋${NC} %s" "$message"
+    while kill -0 $pid 2>/dev/null; do
+        i=$(( (i + 1) % 10 ))
+        printf "\r  ${YELLOW}${spin_chars:$i:1}${NC} %s" "$message"
+        sleep 0.1
+    done
+    
+    wait $pid
+    local exit_code=$?
+    printf "\r"
+    return $exit_code
+}
+
 # Clear screen
 clear
 
@@ -22,15 +46,28 @@ print_service_urls "🧌 Goblin Dev Server - Experimental Features"
 echo -e "${CYAN}${BOLD}Environment Setup${NC}"
 echo ""
 
-# Check venv
+# Check venv - auto-create if missing
 if [ ! -d "$PROJECT_ROOT/.venv" ]; then
-    echo -e "${RED}❌ Virtual environment not found${NC}"
-    echo "   Create with: python -m venv .venv"
-    exit 1
+    if run_with_spinner "Creating virtual environment..." "python3 -m venv $PROJECT_ROOT/.venv"; then
+        echo -e "  ${GREEN}✅ Virtual environment created${NC}"
+    else
+        echo -e "  ${RED}❌ Failed to create virtual environment${NC}"
+        exit 1
+    fi
 fi
 
 source "$PROJECT_ROOT/.venv/bin/activate"
 echo -e "${GREEN}✅ Python venv activated${NC}"
+
+# Check dependencies - auto-install if missing
+if ! python -c "import flask" 2>/dev/null; then
+    if run_with_spinner "Installing dependencies (this may take a minute)..." "pip install -q -r $PROJECT_ROOT/requirements.txt"; then
+        echo -e "  ${GREEN}✅ Dependencies installed${NC}"
+    else
+        echo -e "  ${RED}❌ Failed to install dependencies${NC}"
+        exit 1
+    fi
+fi
 
 # Set environment
 export PYTHONPATH="$PROJECT_ROOT:$PYTHONPATH"

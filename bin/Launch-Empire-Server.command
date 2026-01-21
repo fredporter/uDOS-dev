@@ -15,19 +15,56 @@ YELLOW='\033[1;33m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
+# Spinner function for long-running tasks
+run_with_spinner() {
+    local message="$1"
+    shift
+    local cmd="$@"
+    local spin_chars='⠋⠙⠹⠸⠼⠴⠦⠧⠇⠏'
+    local i=0
+    
+    eval "$cmd" &
+    local pid=$!
+    
+    printf "  ${YELLOW}⠋${NC} %s" "$message"
+    while kill -0 $pid 2>/dev/null; do
+        i=$(( (i + 1) % 10 ))
+        printf "\r  ${YELLOW}${spin_chars:$i:1}${NC} %s" "$message"
+        sleep 0.1
+    done
+    
+    wait $pid
+    local exit_code=$?
+    printf "\r"
+    return $exit_code
+}
+
 echo -e "${GREEN}🏛️  Empire Private Server - v1.0.0.1${NC}"
 echo "────────────────────────────────────────"
 
-# Check virtual environment
+# Check virtual environment - auto-create if missing
 if [ -z "$VIRTUAL_ENV" ]; then
     echo -e "${YELLOW}⚠️  Virtual environment not detected${NC}"
+    if [ ! -d "$PROJECT_ROOT/.venv" ]; then
+        if run_with_spinner "Creating virtual environment..." "python3 -m venv $PROJECT_ROOT/.venv"; then
+            echo -e "  ${GREEN}✅ Virtual environment created${NC}"
+        else
+            echo -e "  ${RED}✗ Failed to create virtual environment${NC}"
+            exit 1
+        fi
+    fi
     echo "Activating .venv..."
-    if [ -f "$PROJECT_ROOT/.venv/bin/activate" ]; then
-        source "$PROJECT_ROOT/.venv/bin/activate"
-        echo -e "${GREEN}✅ Venv activated${NC}"
-    else
-        echo -e "${RED}✗ .venv not found at $PROJECT_ROOT/.venv${NC}"
-        exit 1
+    source "$PROJECT_ROOT/.venv/bin/activate"
+    echo -e "${GREEN}✅ Venv activated${NC}"
+    
+    # Check dependencies - auto-install if missing
+    if ! python -c "import flask" 2>/dev/null; then
+        if run_with_spinner "Installing dependencies (this may take a minute)..." "pip install -q -r $PROJECT_ROOT/requirements.txt"; then
+            echo -e "  ${GREEN}✅ Dependencies installed${NC}"
+        else
+            echo -e "  ${RED}✗ Failed to install dependencies${NC}"
+            exit 1
+        fi
     fi
 fi
 

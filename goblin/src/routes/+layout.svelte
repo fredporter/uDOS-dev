@@ -564,9 +564,9 @@
             // Exit presentation mode
             window.history.back();
           } else {
-            // Default: go to presentation with demo slideshow
+            // Default: go to presentation with demo slideshow (relative path)
             window.location.href =
-              "/present?file=/Users/fredbook/Code/uDOS/memory/sandbox/demo/slideshow.udos.md";
+              "/present?file=memory/sandbox/demo/slideshow.udos.md";
           }
         })
       );

@@ -1,7 +1,10 @@
 #!/bin/bash
 # Test DEV MODE and error fixes
 
-cd /Users/fredbook/Code/uDOS
+# Navigate to project root dynamically
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+cd "$PROJECT_ROOT"
 source .venv/bin/activate
 
 echo "Testing DEV MODE commands..."

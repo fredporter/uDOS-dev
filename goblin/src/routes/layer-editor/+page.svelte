@@ -37,7 +37,7 @@
 
   // State
   let document = $state<MapDocument>(
-    createMapDocument("Untitled Map", DEFAULT_WIDTH, DEFAULT_HEIGHT)
+    createMapDocument("Untitled Map", DEFAULT_WIDTH, DEFAULT_HEIGHT),
   );
   let selectedChar = $state("█");
   let selectedCode = $state(0x2588);
@@ -53,7 +53,7 @@
   let darkMode = $state(false);
   let showLinker = $state(false);
   let linkerTile = $state<{ tile: Tile; row: number; col: number } | null>(
-    null
+    null,
   );
   let loading = $state(false);
   let lastSavedPath = $state<string | null>(null);
@@ -228,10 +228,9 @@
 
     try {
       loading = true;
-      document = await loadMapDocument(
-        `/Users/fredbook/Code/uDOS/memory/${path}`
-      );
-      lastSavedPath = `/Users/fredbook/Code/uDOS/memory/${path}`;
+      // Backend resolves relative paths from project root
+      document = await loadMapDocument(`memory/${path}`);
+      lastSavedPath = `memory/${path}`;
       toastStore.success("Map loaded successfully");
     } catch (error) {
       toastStore.error(`Failed to load: ${error}`);
