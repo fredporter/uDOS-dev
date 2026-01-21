@@ -1,0 +1,679 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "World Cities with Knowledge Links",
+  "description": "Cities mapped to TILE grid with knowledge article links, tags, and POI data",
+  "version": "3.0.0",
+  "last_updated": "2026-01-07",
+  "system": "knowledge_linked",
+  
+  "metadata": {
+    "total_cities": 12,
+    "coordinate_system": "hierarchical_cells",
+    "grid_dimensions": {"columns": 120, "rows": 50},
+    "knowledge_base": "/knowledge/places/cities/",
+    "tag_taxonomy": "geographic_v1"
+  },
+
+  "cities": [
+    {
+      "id": "sydney",
+      "name": "Sydney",
+      "country": "Australia",
+      "country_code": "AU",
+      "continent": "Oceania",
+      "region_code": "OC",
+      
+      "coordinates": {
+        "realm": "EARTH",
+        "layer": 100,
+        "base_cell": "AB34",
+        "city_cell": "CD15",
+        "full_coordinate": "EARTH-OC-L100-AB34-CD15",
+        "latitude": -33.8688,
+        "longitude": 151.2093
+      },
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/cities/sydney.md",
+        "tags": ["city", "guide", "oceania", "australia", "coastal", "subtropical", "harbor"],
+        "climate_tag": "subtropical",
+        "terrain_tags": ["coastal", "urban", "harbor"],
+        "related_articles": [
+          "/knowledge/reference/edible-plants-australia.md",
+          "/knowledge/reference/seasonal-calendar-australia.md",
+          "/knowledge/survival/heat_emergencies.md",
+          "/knowledge/navigation/coastal_navigation.md"
+        ]
+      },
+      
+      "quick_facts": {
+        "population": 5300000,
+        "timezone": "Australia/Sydney",
+        "utc_offset": "+10:00",
+        "languages": ["en"],
+        "currency": "AUD",
+        "emergency": "000",
+        "driving_side": "left"
+      },
+      
+      "districts": [
+        {
+          "id": "sydney-cbd",
+          "name": "Sydney CBD",
+          "cell": "AA20",
+          "full_coordinate": "EARTH-OC-L100-AB34-CD15-AA20",
+          "tags": ["district", "urban", "transport", "business"],
+          "description": "Central business district, harbour foreshore",
+          "pois": [
+            {
+              "id": "opera-house",
+              "name": "Sydney Opera House",
+              "cell": "BC10",
+              "full_coordinate": "EARTH-OC-L100-AB34-CD15-AA20-BC10",
+              "type": "landmark",
+              "tags": ["landmark", "cultural", "historical", "iconic"],
+              "description": "UNESCO World Heritage performing arts centre",
+              "visitor_info": "Open daily, tours available"
+            },
+            {
+              "id": "harbour-bridge",
+              "name": "Sydney Harbour Bridge",
+              "cell": "AB08",
+              "full_coordinate": "EARTH-OC-L100-AB34-CD15-AA20-AB08",
+              "type": "landmark",
+              "tags": ["landmark", "transport", "viewpoint"],
+              "description": "Iconic steel arch bridge, climb available"
+            },
+            {
+              "id": "circular-quay",
+              "name": "Circular Quay",
+              "cell": "BC12",
+              "full_coordinate": "EARTH-OC-L100-AB34-CD15-AA20-BC12",
+              "type": "transport",
+              "tags": ["transport", "ferry", "rail"],
+              "description": "Major ferry and rail transport hub"
+            }
+          ]
+        },
+        {
+          "id": "bondi",
+          "name": "Bondi Beach",
+          "cell": "BC30",
+          "full_coordinate": "EARTH-OC-L100-AB34-CD15-BC30",
+          "tags": ["district", "coastal", "beach", "recreation"],
+          "description": "Famous beach suburb, coastal walks",
+          "pois": [
+            {
+              "id": "bondi-beach",
+              "name": "Bondi Beach",
+              "cell": "AA15",
+              "type": "natural",
+              "tags": ["beach", "swimming", "surfing", "lifeguard"],
+              "hazards": ["rip_currents", "sun_exposure"]
+            }
+          ]
+        },
+        {
+          "id": "manly",
+          "name": "Manly",
+          "cell": "AB40",
+          "full_coordinate": "EARTH-OC-L100-AB34-CD15-AB40",
+          "tags": ["district", "coastal", "ferry"],
+          "description": "Northern beaches suburb, ferry access"
+        }
+      ],
+      
+      "survival_notes": {
+        "climate": "Subtropical, hot summers (Dec-Feb), mild winters",
+        "hazards": ["bushfire_risk", "sun_exposure", "rip_currents", "spider_snakes"],
+        "water_sources": ["tap_water_safe", "public_fountains"],
+        "shelter": ["extensive_public_buildings", "parks"],
+        "local_knowledge": [
+          "Slip, Slop, Slap - sun protection essential",
+          "Check fire danger ratings in summer",
+          "Swim between the flags at beaches"
+        ]
+      }
+    },
+    
+    {
+      "id": "tokyo",
+      "name": "Tokyo",
+      "country": "Japan",
+      "country_code": "JP",
+      "continent": "Asia",
+      "region_code": "AS",
+      
+      "coordinates": {
+        "realm": "EARTH",
+        "layer": 100,
+        "base_cell": "PK68",
+        "city_cell": "AA20",
+        "full_coordinate": "EARTH-AS-L100-PK68-AA20",
+        "latitude": 35.6762,
+        "longitude": 139.6503
+      },
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/cities/tokyo.md",
+        "tags": ["city", "guide", "asia", "japan", "urban", "humid-subtropical", "earthquake-prone"],
+        "climate_tag": "humid_subtropical",
+        "terrain_tags": ["urban", "coastal", "plains"],
+        "related_articles": [
+          "/knowledge/survival/earthquake_safety.md",
+          "/knowledge/navigation/urban_navigation.md",
+          "/knowledge/reference/japanese-emergency-phrases.md"
+        ]
+      },
+      
+      "quick_facts": {
+        "population": 13960000,
+        "timezone": "Asia/Tokyo",
+        "utc_offset": "+09:00",
+        "languages": ["ja"],
+        "currency": "JPY",
+        "emergency": "110",
+        "driving_side": "left"
+      },
+      
+      "districts": [
+        {
+          "id": "shibuya",
+          "name": "Shibuya",
+          "cell": "BC25",
+          "full_coordinate": "EARTH-AS-L100-PK68-AA20-BC25",
+          "tags": ["district", "urban", "shopping", "entertainment"],
+          "description": "Major commercial and entertainment hub",
+          "pois": [
+            {
+              "id": "shibuya-crossing",
+              "name": "Shibuya Crossing",
+              "cell": "AA10",
+              "type": "landmark",
+              "tags": ["landmark", "iconic", "pedestrian"],
+              "description": "World's busiest pedestrian crossing"
+            }
+          ]
+        },
+        {
+          "id": "shinjuku",
+          "name": "Shinjuku",
+          "cell": "AB20",
+          "full_coordinate": "EARTH-AS-L100-PK68-AA20-AB20",
+          "tags": ["district", "urban", "transport", "business"],
+          "description": "Major transport hub, skyscrapers",
+          "pois": [
+            {
+              "id": "shinjuku-station",
+              "name": "Shinjuku Station",
+              "cell": "BC15",
+              "type": "transport",
+              "tags": ["transport", "rail", "busiest_station"],
+              "description": "World's busiest railway station"
+            }
+          ]
+        },
+        {
+          "id": "asakusa",
+          "name": "Asakusa",
+          "cell": "CD30",
+          "full_coordinate": "EARTH-AS-L100-PK68-AA20-CD30",
+          "tags": ["district", "historical", "cultural", "temple"],
+          "description": "Traditional temple district",
+          "pois": [
+            {
+              "id": "senso-ji",
+              "name": "Sensō-ji Temple",
+              "cell": "AA05",
+              "type": "landmark",
+              "tags": ["landmark", "temple", "historical", "cultural"],
+              "description": "Tokyo's oldest temple (645 CE)"
+            }
+          ]
+        }
+      ],
+      
+      "survival_notes": {
+        "climate": "Humid subtropical, hot humid summers, cool winters",
+        "hazards": ["earthquake", "typhoon", "tsunami_coastal"],
+        "water_sources": ["tap_water_safe", "vending_machines_everywhere"],
+        "shelter": ["earthquake_resistant_buildings", "underground_malls"],
+        "local_knowledge": [
+          "Know earthquake drill procedures",
+          "Locate nearest evacuation area (hinan basho)",
+          "Cash still widely preferred over cards"
+        ]
+      }
+    },
+    
+    {
+      "id": "london",
+      "name": "London",
+      "country": "United Kingdom",
+      "country_code": "GB",
+      "continent": "Europe",
+      "region_code": "EU",
+      
+      "coordinates": {
+        "realm": "EARTH",
+        "layer": 100,
+        "base_cell": "JF57",
+        "city_cell": "CD15",
+        "full_coordinate": "EARTH-EU-L100-JF57-CD15",
+        "latitude": 51.5074,
+        "longitude": -0.1278
+      },
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/cities/london.md",
+        "tags": ["city", "guide", "europe", "uk", "urban", "oceanic", "river"],
+        "climate_tag": "oceanic",
+        "terrain_tags": ["urban", "river", "plains"],
+        "related_articles": [
+          "/knowledge/navigation/urban_navigation.md",
+          "/knowledge/survival/cold_wet_weather.md",
+          "/knowledge/reference/uk-emergency-services.md"
+        ]
+      },
+      
+      "quick_facts": {
+        "population": 8982000,
+        "timezone": "Europe/London",
+        "utc_offset": "+00:00",
+        "languages": ["en"],
+        "currency": "GBP",
+        "emergency": "999",
+        "driving_side": "left"
+      },
+      
+      "districts": [
+        {
+          "id": "westminster",
+          "name": "Westminster",
+          "cell": "AB20",
+          "full_coordinate": "EARTH-EU-L100-JF57-CD15-AB20",
+          "tags": ["district", "government", "historical", "tourist"],
+          "description": "Government and royal district",
+          "pois": [
+            {
+              "id": "big-ben",
+              "name": "Big Ben / Elizabeth Tower",
+              "cell": "BC10",
+              "type": "landmark",
+              "tags": ["landmark", "historical", "iconic", "clock"],
+              "description": "Iconic clock tower at Houses of Parliament"
+            },
+            {
+              "id": "buckingham-palace",
+              "name": "Buckingham Palace",
+              "cell": "AA15",
+              "type": "landmark",
+              "tags": ["landmark", "royal", "historical"],
+              "description": "Official residence of the monarch"
+            }
+          ]
+        },
+        {
+          "id": "city-of-london",
+          "name": "City of London",
+          "cell": "BC25",
+          "full_coordinate": "EARTH-EU-L100-JF57-CD15-BC25",
+          "tags": ["district", "financial", "historical"],
+          "description": "Historic financial district",
+          "pois": [
+            {
+              "id": "tower-of-london",
+              "name": "Tower of London",
+              "cell": "CD20",
+              "type": "landmark",
+              "tags": ["landmark", "historical", "castle", "unesco"],
+              "description": "Historic castle and Crown Jewels"
+            }
+          ]
+        },
+        {
+          "id": "south-bank",
+          "name": "South Bank",
+          "cell": "AB25",
+          "full_coordinate": "EARTH-EU-L100-JF57-CD15-AB25",
+          "tags": ["district", "cultural", "entertainment", "river"],
+          "description": "Thames riverside cultural quarter",
+          "pois": [
+            {
+              "id": "london-eye",
+              "name": "London Eye",
+              "cell": "AA10",
+              "type": "landmark",
+              "tags": ["landmark", "viewpoint", "modern"],
+              "description": "Giant observation wheel"
+            }
+          ]
+        }
+      ],
+      
+      "survival_notes": {
+        "climate": "Oceanic, mild year-round, frequent rain",
+        "hazards": ["flooding_risk", "cold_wet_exposure"],
+        "water_sources": ["tap_water_safe", "public_fountains_limited"],
+        "shelter": ["tube_stations", "public_buildings"],
+        "local_knowledge": [
+          "Always carry rain gear",
+          "Tube provides warmth in winter",
+          "Mind the Gap"
+        ]
+      }
+    },
+    
+    {
+      "id": "new-york",
+      "name": "New York City",
+      "country": "United States",
+      "country_code": "US",
+      "continent": "North America",
+      "region_code": "NA",
+      
+      "coordinates": {
+        "realm": "EARTH",
+        "layer": 100,
+        "base_cell": "FP71",
+        "city_cell": "AB30",
+        "full_coordinate": "EARTH-NA-L100-FP71-AB30",
+        "latitude": 40.7128,
+        "longitude": -74.0060
+      },
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/cities/new-york.md",
+        "tags": ["city", "guide", "north-america", "usa", "urban", "humid-continental", "coastal"],
+        "climate_tag": "humid_continental",
+        "terrain_tags": ["urban", "coastal", "island"],
+        "related_articles": [
+          "/knowledge/navigation/urban_navigation.md",
+          "/knowledge/survival/extreme_weather.md",
+          "/knowledge/reference/us-emergency-services.md"
+        ]
+      },
+      
+      "quick_facts": {
+        "population": 8336817,
+        "timezone": "America/New_York",
+        "utc_offset": "-05:00",
+        "languages": ["en", "es"],
+        "currency": "USD",
+        "emergency": "911",
+        "driving_side": "right"
+      },
+      
+      "districts": [
+        {
+          "id": "manhattan-midtown",
+          "name": "Midtown Manhattan",
+          "cell": "BC20",
+          "full_coordinate": "EARTH-NA-L100-FP71-AB30-BC20",
+          "tags": ["district", "urban", "business", "tourist"],
+          "description": "Central Manhattan, skyscrapers",
+          "pois": [
+            {
+              "id": "empire-state",
+              "name": "Empire State Building",
+              "cell": "AA15",
+              "type": "landmark",
+              "tags": ["landmark", "skyscraper", "viewpoint", "art-deco"],
+              "description": "Iconic 102-story Art Deco skyscraper"
+            },
+            {
+              "id": "times-square",
+              "name": "Times Square",
+              "cell": "AB10",
+              "type": "landmark",
+              "tags": ["landmark", "entertainment", "commercial"],
+              "description": "Bright lights entertainment district"
+            }
+          ]
+        },
+        {
+          "id": "manhattan-downtown",
+          "name": "Downtown Manhattan",
+          "cell": "BC30",
+          "full_coordinate": "EARTH-NA-L100-FP71-AB30-BC30",
+          "tags": ["district", "financial", "historical"],
+          "description": "Financial District, 9/11 Memorial",
+          "pois": [
+            {
+              "id": "statue-liberty",
+              "name": "Statue of Liberty",
+              "cell": "CD40",
+              "type": "landmark",
+              "tags": ["landmark", "historical", "iconic", "unesco"],
+              "description": "Iconic symbol of freedom on Liberty Island"
+            }
+          ]
+        },
+        {
+          "id": "central-park",
+          "name": "Central Park",
+          "cell": "AB15",
+          "full_coordinate": "EARTH-NA-L100-FP71-AB30-AB15",
+          "tags": ["district", "park", "recreation", "nature"],
+          "description": "843-acre urban park",
+          "pois": [
+            {
+              "id": "bethesda-fountain",
+              "name": "Bethesda Fountain",
+              "cell": "BC10",
+              "type": "landmark",
+              "tags": ["landmark", "water-source", "meeting-point"],
+              "description": "Iconic fountain and gathering place"
+            }
+          ]
+        }
+      ],
+      
+      "survival_notes": {
+        "climate": "Humid continental, hot summers, cold winters, variable",
+        "hazards": ["extreme_heat", "blizzard", "hurricane_rare", "flooding"],
+        "water_sources": ["tap_water_safe", "hydrants_emergency"],
+        "shelter": ["subway_extensive", "public_buildings"],
+        "local_knowledge": [
+          "Subway runs 24/7 - warm shelter",
+          "Grid system makes navigation easy",
+          "Bodegas everywhere for supplies"
+        ]
+      }
+    },
+    
+    {
+      "id": "paris",
+      "name": "Paris",
+      "country": "France",
+      "country_code": "FR",
+      "continent": "Europe",
+      "region_code": "EU",
+      
+      "coordinates": {
+        "realm": "EARTH",
+        "layer": 100,
+        "base_cell": "JI60",
+        "city_cell": "BC15",
+        "full_coordinate": "EARTH-EU-L100-JI60-BC15",
+        "latitude": 48.8566,
+        "longitude": 2.3522
+      },
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/cities/paris.md",
+        "tags": ["city", "guide", "europe", "france", "urban", "oceanic", "river"],
+        "climate_tag": "oceanic",
+        "terrain_tags": ["urban", "river", "plains"],
+        "related_articles": [
+          "/knowledge/navigation/urban_navigation.md",
+          "/knowledge/reference/french-emergency-phrases.md"
+        ]
+      },
+      
+      "quick_facts": {
+        "population": 2161000,
+        "timezone": "Europe/Paris",
+        "utc_offset": "+01:00",
+        "languages": ["fr"],
+        "currency": "EUR",
+        "emergency": "112",
+        "driving_side": "right"
+      },
+      
+      "districts": [
+        {
+          "id": "eiffel-area",
+          "name": "7th Arrondissement",
+          "cell": "AB20",
+          "full_coordinate": "EARTH-EU-L100-JI60-BC15-AB20",
+          "tags": ["district", "tourist", "landmark"],
+          "pois": [
+            {
+              "id": "eiffel-tower",
+              "name": "Eiffel Tower",
+              "cell": "AA10",
+              "type": "landmark",
+              "tags": ["landmark", "iconic", "viewpoint", "iron"],
+              "description": "324m iron lattice tower (1889)"
+            }
+          ]
+        }
+      ],
+      
+      "survival_notes": {
+        "climate": "Oceanic, mild summers, cool winters",
+        "hazards": ["heat_wave_rare", "flooding_seine"],
+        "water_sources": ["tap_water_safe", "wallace_fountains"],
+        "local_knowledge": [
+          "Metro is extensive and efficient",
+          "Many pharmacies (green cross) for medical",
+          "Wallace fountains provide free drinking water"
+        ]
+      }
+    },
+    
+    {
+      "id": "berlin",
+      "name": "Berlin",
+      "country": "Germany",
+      "country_code": "DE",
+      "continent": "Europe",
+      "region_code": "EU",
+      
+      "coordinates": {
+        "realm": "EARTH",
+        "layer": 100,
+        "base_cell": "JX56",
+        "city_cell": "AA20",
+        "full_coordinate": "EARTH-EU-L100-JX56-AA20",
+        "latitude": 52.5200,
+        "longitude": 13.4050
+      },
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/cities/berlin.md",
+        "tags": ["city", "guide", "europe", "germany", "urban", "oceanic", "historical"],
+        "climate_tag": "oceanic",
+        "terrain_tags": ["urban", "plains", "river"],
+        "related_articles": [
+          "/knowledge/navigation/urban_navigation.md",
+          "/knowledge/reference/german-emergency-phrases.md"
+        ]
+      },
+      
+      "quick_facts": {
+        "population": 3645000,
+        "timezone": "Europe/Berlin",
+        "utc_offset": "+01:00",
+        "languages": ["de"],
+        "currency": "EUR",
+        "emergency": "112",
+        "driving_side": "right"
+      },
+      
+      "districts": [
+        {
+          "id": "mitte",
+          "name": "Mitte",
+          "cell": "BC15",
+          "full_coordinate": "EARTH-EU-L100-JX56-AA20-BC15",
+          "tags": ["district", "central", "historical", "government"],
+          "pois": [
+            {
+              "id": "brandenburg-gate",
+              "name": "Brandenburg Gate",
+              "cell": "AA10",
+              "type": "landmark",
+              "tags": ["landmark", "historical", "iconic"],
+              "description": "18th-century neoclassical monument"
+            }
+          ]
+        }
+      ],
+      
+      "survival_notes": {
+        "climate": "Oceanic, continental influence, cold winters",
+        "hazards": ["cold_winter", "ice"],
+        "water_sources": ["tap_water_safe"],
+        "local_knowledge": [
+          "U-Bahn/S-Bahn very efficient",
+          "Many parks for shelter",
+          "Cash preferred in many places"
+        ]
+      }
+    }
+  ],
+
+  "region_summaries": {
+    "OC": {
+      "name": "Oceania",
+      "knowledge_path": "/knowledge/places/regions/oceania.md",
+      "climate_zones": ["subtropical", "tropical", "oceanic", "arid"],
+      "major_hazards": ["bushfire", "cyclone", "sun_exposure", "wildlife"],
+      "cities": ["sydney"]
+    },
+    "AS": {
+      "name": "Asia",
+      "knowledge_path": "/knowledge/places/regions/asia.md",
+      "climate_zones": ["humid_subtropical", "tropical", "monsoon", "continental"],
+      "major_hazards": ["earthquake", "typhoon", "tsunami", "monsoon_flooding"],
+      "cities": ["tokyo"]
+    },
+    "EU": {
+      "name": "Europe",
+      "knowledge_path": "/knowledge/places/regions/europe.md",
+      "climate_zones": ["oceanic", "mediterranean", "continental"],
+      "major_hazards": ["flooding", "cold_exposure", "heat_wave"],
+      "cities": ["london", "paris", "berlin"]
+    },
+    "NA": {
+      "name": "North America",
+      "knowledge_path": "/knowledge/places/regions/north-america.md",
+      "climate_zones": ["humid_continental", "humid_subtropical", "arid", "mediterranean"],
+      "major_hazards": ["hurricane", "tornado", "blizzard", "wildfire"],
+      "cities": ["new-york"]
+    }
+  },
+
+  "tag_index": {
+    "by_climate": {
+      "subtropical": ["sydney"],
+      "humid_subtropical": ["tokyo"],
+      "oceanic": ["london", "paris", "berlin"],
+      "humid_continental": ["new-york"]
+    },
+    "by_terrain": {
+      "coastal": ["sydney", "tokyo", "new-york"],
+      "river": ["london", "paris", "berlin"],
+      "urban": ["sydney", "tokyo", "london", "new-york", "paris", "berlin"]
+    },
+    "by_hazard": {
+      "earthquake_prone": ["tokyo"],
+      "typhoon_prone": ["tokyo"],
+      "bushfire_risk": ["sydney"],
+      "hurricane_risk": ["new-york"],
+      "flooding_risk": ["london", "paris"]
+    }
+  }
+}

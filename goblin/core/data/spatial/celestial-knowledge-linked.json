@@ -1,0 +1,639 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Solar System - Knowledge Linked",
+  "description": "Celestial bodies with hierarchical coordinates and knowledge article links",
+  "version": "2.0.0",
+  "last_updated": "2026-01-07",
+  "system": "knowledge_linked",
+
+  "metadata": {
+    "coordinate_format": "SPACE-[SYSTEM]-L[LAYER]-[CELL1]-[CELL2]...",
+    "grid_dimensions": {"columns": 120, "rows": 50},
+    "cells_per_layer": 6000,
+    "knowledge_base": "/knowledge/places/"
+  },
+
+  "layer_allocation": {
+    "terrestrial": {"start": 600, "end": 609, "description": "Inner rocky planets and Moon"},
+    "asteroid_belt": {"start": 610, "end": 619, "description": "Main belt objects"},
+    "gas_giants": {"start": 620, "end": 629, "description": "Jupiter, Saturn, Uranus, Neptune"},
+    "kuiper_belt": {"start": 630, "end": 639, "description": "Trans-Neptunian objects"},
+    "deep_space": {"start": 700, "end": 899, "description": "Galactic and extragalactic"}
+  },
+
+  "star": {
+    "id": "sol",
+    "name": "Sol (The Sun)",
+    "coordinate": "SPACE-SOL-L500",
+    "type": "G-type main-sequence (G2V)",
+    "radius_km": 696340,
+    "surface_temp_k": 5778,
+    
+    "knowledge": {
+      "guide_path": "/knowledge/places/celestial/sun.md",
+      "tags": ["star", "solar-system", "g-type", "main-sequence"],
+      "related_articles": [
+        "/knowledge/reference/celestial-mechanics.md",
+        "/knowledge/navigation/sun_navigation.md"
+      ]
+    },
+    
+    "notable_features": [
+      {
+        "name": "Sunspots",
+        "description": "Temporary dark spots on photosphere",
+        "knowledge_section": "#sunspots"
+      },
+      {
+        "name": "Solar Flares",
+        "description": "Sudden electromagnetic radiation bursts",
+        "knowledge_section": "#solar-flares",
+        "hazard": true
+      }
+    ]
+  },
+
+  "planets": [
+    {
+      "id": "mercury",
+      "name": "Mercury",
+      "layer": 600,
+      "coordinate": "SPACE-SOL-L600",
+      "type": "terrestrial",
+      "distance_au": 0.39,
+      "diameter_km": 4879,
+      "cell_precision_km": 41,
+      "icon": "☿️",
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/planets/mercury.md",
+        "tags": ["planet", "terrestrial", "inner-planet", "cratered", "no-atmosphere"],
+        "related_articles": [
+          "/knowledge/reference/celestial-mechanics.md"
+        ]
+      },
+      
+      "physical": {
+        "gravity_g": 0.38,
+        "day_length_earth_days": 58.6,
+        "year_length_earth_days": 88,
+        "atmosphere": "negligible",
+        "temperature_range_c": [-180, 430]
+      },
+      
+      "notable_locations": [
+        {
+          "id": "caloris-basin",
+          "name": "Caloris Basin",
+          "cell": "AB20",
+          "coordinate": "SPACE-SOL-L600-AB20",
+          "type": "geological_feature",
+          "tags": ["crater", "impact-basin", "largest"],
+          "description": "Largest impact crater (1,550 km diameter)",
+          "diameter_km": 1550
+        },
+        {
+          "id": "messenger-crash",
+          "name": "MESSENGER Crash Site",
+          "cell": "CD30-AA15",
+          "coordinate": "SPACE-SOL-L600-CD30-AA15",
+          "type": "historical_site",
+          "tags": ["mission", "probe", "nasa"],
+          "description": "NASA MESSENGER probe impact (2015)",
+          "date": "2015-04-30"
+        }
+      ]
+    },
+    
+    {
+      "id": "venus",
+      "name": "Venus",
+      "layer": 601,
+      "coordinate": "SPACE-SOL-L601",
+      "type": "terrestrial",
+      "distance_au": 0.72,
+      "diameter_km": 12104,
+      "cell_precision_km": 100,
+      "icon": "♀️",
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/planets/venus.md",
+        "tags": ["planet", "terrestrial", "inner-planet", "volcanic", "hot", "dense-atmosphere"],
+        "related_articles": [
+          "/knowledge/reference/celestial-mechanics.md"
+        ]
+      },
+      
+      "physical": {
+        "gravity_g": 0.91,
+        "day_length_earth_days": 243,
+        "year_length_earth_days": 225,
+        "atmosphere": "CO2 (96.5%), N2 (3.5%)",
+        "surface_pressure_bar": 92,
+        "surface_temp_c": 465
+      },
+      
+      "notable_locations": [
+        {
+          "id": "maxwell-montes",
+          "name": "Maxwell Montes",
+          "cell": "BC30",
+          "coordinate": "SPACE-SOL-L601-BC30",
+          "type": "geological_feature",
+          "tags": ["mountain", "highest", "volcanic"],
+          "description": "Highest mountain on Venus (11 km)",
+          "elevation_km": 11
+        },
+        {
+          "id": "venera-13-site",
+          "name": "Venera 13 Landing Site",
+          "cell": "CD15-AA10",
+          "coordinate": "SPACE-SOL-L601-CD15-AA10",
+          "type": "historical_landing",
+          "tags": ["mission", "lander", "soviet", "first-color"],
+          "description": "First color photos from Venus surface (1982)",
+          "date": "1982-03-01",
+          "survival_time_minutes": 127
+        }
+      ]
+    },
+    
+    {
+      "id": "earth",
+      "name": "Earth",
+      "layer": 602,
+      "coordinate": "SPACE-SOL-L602",
+      "type": "terrestrial",
+      "distance_au": 1.0,
+      "diameter_km": 12742,
+      "icon": "🌍",
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/planets/earth.md",
+        "tags": ["planet", "terrestrial", "habitable", "life-bearing", "home"],
+        "note": "Detailed mapping in EARTH realm L100",
+        "cross_reference": "EARTH-L100"
+      },
+      
+      "physical": {
+        "gravity_g": 1.0,
+        "day_length_hours": 24,
+        "year_length_days": 365.25,
+        "atmosphere": "N2 (78%), O2 (21%), Ar (1%)",
+        "surface_pressure_bar": 1.0,
+        "temperature_range_c": [-89, 57]
+      }
+    },
+    
+    {
+      "id": "moon",
+      "name": "Moon (Luna)",
+      "layer": 603,
+      "coordinate": "SPACE-SOL-L603",
+      "type": "natural_satellite",
+      "parent": "earth",
+      "distance_km": 384400,
+      "diameter_km": 3475,
+      "cell_precision_km": 29,
+      "icon": "🌙",
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/planets/moon.md",
+        "tags": ["moon", "satellite", "tidally-locked", "cratered", "apollo"],
+        "related_articles": [
+          "/knowledge/reference/celestial-mechanics.md",
+          "/knowledge/navigation/star_navigation.md",
+          "/knowledge/reference/moon-phases.md"
+        ]
+      },
+      
+      "physical": {
+        "gravity_g": 0.166,
+        "day_length_earth_days": 27.3,
+        "atmosphere": "negligible",
+        "temperature_range_c": [-173, 127]
+      },
+      
+      "notable_locations": [
+        {
+          "id": "apollo-11",
+          "name": "Tranquility Base (Apollo 11)",
+          "cell": "AB25-CD20",
+          "coordinate": "SPACE-SOL-L603-AB25-CD20",
+          "lat_long": "0.67408°N 23.47297°E",
+          "type": "historical_landing",
+          "tags": ["apollo", "first-landing", "nasa", "1969", "historical"],
+          "description": "First human Moon landing (July 20, 1969)",
+          "astronauts": ["Neil Armstrong", "Buzz Aldrin"],
+          "artifacts": ["flag", "LRRR", "footprints", "descent_stage"],
+          "zoom_coordinates": {
+            "landing_site": "SPACE-SOL-L603-AB25-CD20",
+            "flag_location": "SPACE-SOL-L603-AB25-CD20-AA10",
+            "footprints": "SPACE-SOL-L603-AB25-CD20-AA10-BC05"
+          }
+        },
+        {
+          "id": "apollo-17",
+          "name": "Taurus-Littrow (Apollo 17)",
+          "cell": "BC30-AB15",
+          "coordinate": "SPACE-SOL-L603-BC30-AB15",
+          "lat_long": "20.1908°N 30.7717°E",
+          "type": "historical_landing",
+          "tags": ["apollo", "last-landing", "nasa", "1972", "geological"],
+          "description": "Last human Moon landing (Dec 11, 1972)",
+          "astronauts": ["Eugene Cernan", "Harrison Schmitt"],
+          "artifacts": ["lunar_rover", "experiments", "flag"]
+        },
+        {
+          "id": "shackleton-crater",
+          "name": "Shackleton Crater",
+          "cell": "CD48-AA20",
+          "coordinate": "SPACE-SOL-L603-CD48-AA20",
+          "lat_long": "89.9°S",
+          "type": "geological_feature",
+          "tags": ["crater", "polar", "water-ice", "artemis-target", "future-base"],
+          "description": "Permanently shadowed crater with water ice",
+          "future_interest": "Artemis program landing candidate"
+        },
+        {
+          "id": "south-pole-aitken",
+          "name": "South Pole-Aitken Basin",
+          "cell": "CD45",
+          "coordinate": "SPACE-SOL-L603-CD45",
+          "type": "geological_feature",
+          "tags": ["crater", "impact-basin", "largest", "oldest"],
+          "description": "Largest impact crater in solar system (2,500 km)",
+          "diameter_km": 2500,
+          "depth_km": 8.2
+        }
+      ]
+    },
+    
+    {
+      "id": "mars",
+      "name": "Mars",
+      "layer": 605,
+      "coordinate": "SPACE-SOL-L605",
+      "type": "terrestrial",
+      "distance_au": 1.52,
+      "diameter_km": 6779,
+      "cell_precision_km": 178,
+      "icon": "🔴",
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/planets/mars.md",
+        "tags": ["planet", "terrestrial", "red-planet", "rovers", "future-colonization"],
+        "related_articles": [
+          "/knowledge/reference/celestial-mechanics.md",
+          "/knowledge/tech/mars-exploration.md"
+        ]
+      },
+      
+      "physical": {
+        "gravity_g": 0.38,
+        "day_length_hours": 24.6,
+        "year_length_earth_days": 687,
+        "atmosphere": "CO2 (95.3%), N2 (2.7%), Ar (1.6%)",
+        "surface_pressure_bar": 0.006,
+        "temperature_range_c": [-125, 20]
+      },
+      
+      "moons": [
+        {
+          "id": "phobos",
+          "name": "Phobos",
+          "layer": 606,
+          "coordinate": "SPACE-SOL-L606",
+          "diameter_km": 22.2,
+          "tags": ["moon", "mars", "irregular", "close-orbit"]
+        },
+        {
+          "id": "deimos",
+          "name": "Deimos",
+          "layer": 607,
+          "coordinate": "SPACE-SOL-L607",
+          "diameter_km": 12.4,
+          "tags": ["moon", "mars", "irregular", "far-orbit"]
+        }
+      ],
+      
+      "notable_locations": [
+        {
+          "id": "olympus-mons",
+          "name": "Olympus Mons",
+          "cell": "AB20-CD15",
+          "coordinate": "SPACE-SOL-L605-AB20-CD15",
+          "lat_long": "18.65°N 226.2°E",
+          "type": "geological_feature",
+          "tags": ["volcano", "largest", "shield-volcano", "extinct"],
+          "description": "Tallest volcano in solar system (21.9 km)",
+          "height_km": 21.9,
+          "diameter_km": 600,
+          "zoom_coordinates": {
+            "summit": "SPACE-SOL-L605-AB20-CD15",
+            "caldera": "SPACE-SOL-L605-AB20-CD15-AA10",
+            "escarpment": "SPACE-SOL-L605-AB20-CD15-BC30"
+          }
+        },
+        {
+          "id": "valles-marineris",
+          "name": "Valles Marineris",
+          "cell": "BC25",
+          "coordinate": "SPACE-SOL-L605-BC25",
+          "type": "geological_feature",
+          "tags": ["canyon", "largest", "rift-valley"],
+          "description": "Largest canyon system (4,000 km long, 7 km deep)",
+          "length_km": 4000,
+          "depth_km": 7
+        },
+        {
+          "id": "gale-crater-curiosity",
+          "name": "Gale Crater (Curiosity)",
+          "cell": "CD30-AB20",
+          "coordinate": "SPACE-SOL-L605-CD30-AB20",
+          "lat_long": "5.4°S 137.8°E",
+          "type": "active_mission",
+          "tags": ["crater", "rover", "curiosity", "nasa", "2012-present"],
+          "description": "MSL Curiosity rover operating since 2012",
+          "mission": "Mars Science Laboratory",
+          "landing_date": "2012-08-06",
+          "status": "active",
+          "equipment": ["Curiosity_rover", "ChemCam", "SAM"]
+        },
+        {
+          "id": "jezero-crater-perseverance",
+          "name": "Jezero Crater (Perseverance)",
+          "cell": "AA35-BC10",
+          "coordinate": "SPACE-SOL-L605-AA35-BC10",
+          "lat_long": "18.38°N 77.58°E",
+          "type": "active_mission",
+          "tags": ["crater", "rover", "perseverance", "ingenuity", "nasa", "2021-present"],
+          "description": "M2020 mission with helicopter",
+          "mission": "Mars 2020",
+          "landing_date": "2021-02-18",
+          "status": "active",
+          "equipment": ["Perseverance_rover", "Ingenuity_helicopter", "sample_cache"]
+        },
+        {
+          "id": "viking-2-site",
+          "name": "Utopia Planitia (Viking 2)",
+          "cell": "BC40-AA05",
+          "coordinate": "SPACE-SOL-L605-BC40-AA05",
+          "lat_long": "47.968°N 134.286°E",
+          "type": "historical_landing",
+          "tags": ["lander", "viking", "nasa", "1976", "first-photos"],
+          "description": "Viking 2 lander (1976-1980)",
+          "landing_date": "1976-09-03",
+          "end_date": "1980-04-11"
+        },
+        {
+          "id": "polar-ice-north",
+          "name": "North Polar Ice Cap",
+          "cell": "BC05",
+          "coordinate": "SPACE-SOL-L605-BC05",
+          "type": "geological_feature",
+          "tags": ["ice-cap", "polar", "water-ice", "co2-ice"],
+          "description": "Water and CO2 ice deposits"
+        }
+      ]
+    },
+    
+    {
+      "id": "jupiter",
+      "name": "Jupiter",
+      "layer": 620,
+      "coordinate": "SPACE-SOL-L620",
+      "type": "gas_giant",
+      "distance_au": 5.20,
+      "diameter_km": 139820,
+      "icon": "🪐",
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/planets/jupiter.md",
+        "tags": ["planet", "gas-giant", "largest", "great-red-spot", "galilean-moons"]
+      },
+      
+      "physical": {
+        "gravity_g": 2.53,
+        "day_length_hours": 9.9,
+        "year_length_earth_years": 11.86,
+        "atmosphere": "H2 (89%), He (10%)"
+      },
+      
+      "moons": [
+        {
+          "id": "io",
+          "name": "Io",
+          "layer": 621,
+          "coordinate": "SPACE-SOL-L621",
+          "diameter_km": 3643,
+          "tags": ["moon", "jupiter", "volcanic", "most-active"],
+          "description": "Most volcanically active body in solar system"
+        },
+        {
+          "id": "europa",
+          "name": "Europa",
+          "layer": 622,
+          "coordinate": "SPACE-SOL-L622",
+          "diameter_km": 3122,
+          "tags": ["moon", "jupiter", "ice", "subsurface-ocean", "life-potential"],
+          "description": "Subsurface ocean, potential for life",
+          "knowledge": {
+            "guide_path": "/knowledge/places/celestial/europa.md"
+          }
+        },
+        {
+          "id": "ganymede",
+          "name": "Ganymede",
+          "layer": 623,
+          "coordinate": "SPACE-SOL-L623",
+          "diameter_km": 5268,
+          "tags": ["moon", "jupiter", "largest-moon", "magnetic-field"],
+          "description": "Largest moon in solar system"
+        },
+        {
+          "id": "callisto",
+          "name": "Callisto",
+          "layer": 624,
+          "coordinate": "SPACE-SOL-L624",
+          "diameter_km": 4821,
+          "tags": ["moon", "jupiter", "heavily-cratered", "ancient"],
+          "description": "Most heavily cratered object in solar system"
+        }
+      ],
+      
+      "notable_locations": [
+        {
+          "id": "great-red-spot",
+          "name": "Great Red Spot",
+          "cell": "BC30",
+          "coordinate": "SPACE-SOL-L620-BC30",
+          "type": "atmospheric_feature",
+          "tags": ["storm", "largest", "persistent", "anticyclone"],
+          "description": "Persistent anticyclonic storm, larger than Earth",
+          "diameter_km": 16350
+        }
+      ]
+    },
+    
+    {
+      "id": "saturn",
+      "name": "Saturn",
+      "layer": 625,
+      "coordinate": "SPACE-SOL-L625",
+      "type": "gas_giant",
+      "distance_au": 9.54,
+      "diameter_km": 116460,
+      "icon": "🪐",
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/planets/saturn.md",
+        "tags": ["planet", "gas-giant", "rings", "titan"]
+      },
+      
+      "physical": {
+        "gravity_g": 1.07,
+        "day_length_hours": 10.7,
+        "year_length_earth_years": 29.46,
+        "atmosphere": "H2 (96%), He (3%)"
+      },
+      
+      "notable_features": [
+        {
+          "id": "rings",
+          "name": "Ring System",
+          "type": "ring_system",
+          "tags": ["rings", "ice", "spectacular"],
+          "description": "Most visible ring system, mostly water ice"
+        }
+      ],
+      
+      "moons": [
+        {
+          "id": "titan",
+          "name": "Titan",
+          "layer": 626,
+          "coordinate": "SPACE-SOL-L626",
+          "diameter_km": 5150,
+          "tags": ["moon", "saturn", "atmosphere", "liquid-methane", "huygens"],
+          "description": "Only moon with dense atmosphere, liquid hydrocarbon lakes",
+          "notable_locations": [
+            {
+              "id": "huygens-landing",
+              "name": "Huygens Landing Site",
+              "cell": "AB20-CD15",
+              "coordinate": "SPACE-SOL-L626-AB20-CD15",
+              "type": "historical_landing",
+              "tags": ["probe", "esa", "first-outer-solar-system-landing"],
+              "description": "ESA Huygens probe landing (Jan 14, 2005)",
+              "date": "2005-01-14"
+            }
+          ]
+        },
+        {
+          "id": "enceladus",
+          "name": "Enceladus",
+          "layer": 627,
+          "coordinate": "SPACE-SOL-L627",
+          "diameter_km": 504,
+          "tags": ["moon", "saturn", "geysers", "subsurface-ocean", "life-potential"],
+          "description": "Active geysers, subsurface ocean"
+        }
+      ]
+    }
+  ],
+
+  "dwarf_planets": [
+    {
+      "id": "ceres",
+      "name": "Ceres",
+      "layer": 610,
+      "coordinate": "SPACE-SOL-L610",
+      "type": "dwarf_planet",
+      "location": "asteroid_belt",
+      "diameter_km": 939,
+      "icon": "⚫",
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/asteroids/ceres.md",
+        "tags": ["dwarf-planet", "asteroid-belt", "largest-asteroid", "water-ice", "dawn"]
+      },
+      
+      "notable_locations": [
+        {
+          "id": "occator-crater",
+          "name": "Occator Crater",
+          "cell": "AB20-CD15",
+          "coordinate": "SPACE-SOL-L610-AB20-CD15",
+          "type": "geological_feature",
+          "tags": ["crater", "bright-spots", "salt-deposits", "dawn-target"],
+          "description": "Bright salt deposits discovered by Dawn mission"
+        }
+      ]
+    },
+    {
+      "id": "pluto",
+      "name": "Pluto",
+      "layer": 630,
+      "coordinate": "SPACE-SOL-L630",
+      "type": "dwarf_planet",
+      "location": "kuiper_belt",
+      "distance_au": 39.5,
+      "diameter_km": 2377,
+      "icon": "⚫",
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/dwarf-planets/pluto.md",
+        "tags": ["dwarf-planet", "kuiper-belt", "new-horizons", "heart"]
+      },
+      
+      "notable_locations": [
+        {
+          "id": "sputnik-planitia",
+          "name": "Sputnik Planitia",
+          "cell": "BC25",
+          "coordinate": "SPACE-SOL-L630-BC25",
+          "type": "geological_feature",
+          "tags": ["glacier", "nitrogen-ice", "heart-shape"],
+          "description": "Heart-shaped nitrogen ice glacier"
+        }
+      ]
+    }
+  ],
+
+  "deep_space": {
+    "milky_way": {
+      "id": "milky-way",
+      "name": "Milky Way Galaxy",
+      "layer": 700,
+      "coordinate": "SPACE-MILKYWAY-L700",
+      
+      "knowledge": {
+        "guide_path": "/knowledge/places/galaxy/milky-way.md",
+        "tags": ["galaxy", "spiral", "home-galaxy", "100-billion-stars"]
+      },
+      
+      "properties": {
+        "type": "barred_spiral",
+        "diameter_ly": 105700,
+        "star_count": "100-400 billion",
+        "age_billion_years": 13.6
+      },
+      
+      "notable_locations": [
+        {
+          "id": "solar-system-location",
+          "name": "Solar System Location",
+          "description": "Orion Arm, ~26,000 ly from galactic center"
+        },
+        {
+          "id": "sagittarius-a",
+          "name": "Sagittarius A*",
+          "type": "supermassive_black_hole",
+          "tags": ["black-hole", "galactic-center"],
+          "description": "Supermassive black hole at galactic center"
+        }
+      ]
+    }
+  }
+}

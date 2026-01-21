@@ -1,0 +1,189 @@
+{
+  "theme_name": "Lonely Planet - Cosmic Travel Guide",
+  "theme_id": "lonely-planet",
+  "style": "Travel guide, cosmic humor, Hitchhiker's Guide, dry wit",
+  "emoji_set": ["🗺️", "🚀", "✨", "📖", "🌍", "☕", "🛸", "🧳", "🌌", "🎒"],
+  "metadata": {
+    "creator": "Community Theme Pack",
+    "release_date": "2026-01-14",
+    "version": "1.0.0",
+    "theme_category": "narrative_immersive",
+    "inspiration": "Lonely Planet Guides, Hitchhiker's Guide to the Galaxy, travel humor"
+  },
+  "variables": {
+    "sandbox": {
+      "system_var": "Sandbox",
+      "theme_vocab": "Current Planetary Environment",
+      "emoji": "🌍",
+      "context": "The immediate computing environment you're exploring"
+    },
+    "error": {
+      "system_var": "Syntax Error",
+      "theme_vocab": "Local Attractions Inaccessible",
+      "emoji": "🚫",
+      "context": "Something on this world is broken and can't be visited"
+    },
+    "runtime_error": {
+      "system_var": "Runtime Error",
+      "theme_vocab": "Expedition Failed Catastrophically",
+      "emoji": "🛸",
+      "context": "The entire planetary expedition collapsed"
+    },
+    "warning": {
+      "system_var": "Warning",
+      "theme_vocab": "Travel Advisory",
+      "emoji": "⚠️",
+      "context": "Important information before you proceed to explore"
+    },
+    "success": {
+      "system_var": "Success",
+      "theme_vocab": "Destination Reached",
+      "emoji": "✨",
+      "context": "Successfully navigated to your goal location"
+    },
+    "status": {
+      "system_var": "Status",
+      "theme_vocab": "Current Location Status",
+      "emoji": "🗺️",
+      "context": "Where are you in your journey? What's happening here?"
+    },
+    "progress": {
+      "system_var": "Progress",
+      "theme_vocab": "Journey Progress",
+      "emoji": "🧳",
+      "context": "How far along your expedition are you?"
+    },
+    "debug_mode": {
+      "system_var": "Debug Mode",
+      "theme_vocab": "Tourist Information Office",
+      "emoji": "📖",
+      "context": "Detailed information about this location's mechanics"
+    },
+    "cache": {
+      "system_var": "Cache",
+      "theme_vocab": "Travel Memories",
+      "emoji": "🎒",
+      "context": "Souvenirs and memories from previous visits"
+    },
+    "log_file": {
+      "system_var": "Log File",
+      "theme_vocab": "Travel Journal",
+      "emoji": "📖",
+      "context": "Complete record of your journey and explorations"
+    },
+    "process_queue": {
+      "system_var": "Process Queue",
+      "theme_vocab": "Itinerary",
+      "emoji": "📋",
+      "context": "The places you plan to visit, in order"
+    },
+    "memory_usage": {
+      "system_var": "Memory Usage",
+      "theme_vocab": "Luggage Capacity",
+      "emoji": "🧳",
+      "context": "How much of your travel capacity is used"
+    },
+    "file_system": {
+      "system_var": "File System",
+      "theme_vocab": "World Map",
+      "emoji": "🗺️",
+      "context": "The territories and locations available to explore"
+    },
+    "network": {
+      "system_var": "Network",
+      "theme_vocab": "Interplanetary Transport",
+      "emoji": "🛸",
+      "context": "Connection to distant worlds and systems"
+    },
+    "security_check": {
+      "system_var": "Security Check",
+      "theme_vocab": "Passport Verification",
+      "emoji": "🛂",
+      "context": "Confirming you have permission to enter this location"
+    },
+    "backup": {
+      "system_var": "Backup",
+      "theme_vocab": "Travel Insurance",
+      "emoji": "🛡️",
+      "context": "Redundant copies of your journey records"
+    },
+    "update": {
+      "system_var": "Update",
+      "theme_vocab": "Updated Travel Guide",
+      "emoji": "🔄",
+      "context": "New information about a location has arrived"
+    },
+    "initialization": {
+      "system_var": "Initialization",
+      "theme_vocab": "Trip Departure",
+      "emoji": "🚀",
+      "context": "Launching your journey to new worlds"
+    },
+    "shutdown": {
+      "system_var": "Shutdown",
+      "theme_vocab": "Journey Pause",
+      "emoji": "☕",
+      "context": "Setting up camp for the evening"
+    },
+    "timeout": {
+      "system_var": "Timeout",
+      "theme_vocab": "Missed Connection",
+      "emoji": "⏰",
+      "context": "Couldn't reach the destination in time"
+    },
+    "overflow": {
+      "system_var": "Overflow",
+      "theme_vocab": "Luggage Explosion",
+      "emoji": "💥",
+      "context": "Tried to carry too much; system capacity exceeded"
+    },
+    "permission_denied": {
+      "system_var": "Permission Denied",
+      "theme_vocab": "Tourist Visa Denied",
+      "emoji": "🚫",
+      "context": "You lack the credentials to enter this location"
+    },
+    "file_not_found": {
+      "system_var": "File Not Found",
+      "theme_vocab": "Destination Unmapped",
+      "emoji": "🤷",
+      "context": "This location doesn't appear on any map"
+    },
+    "connection_error": {
+      "system_var": "Connection Error",
+      "theme_vocab": "Lost in Space",
+      "emoji": "🌌",
+      "context": "Can't establish transport to the destination"
+    },
+    "configuration": {
+      "system_var": "Configuration",
+      "theme_vocab": "Travel Preferences",
+      "emoji": "⚙️",
+      "context": "Your personal journey settings and accommodations"
+    },
+    "loop_execution": {
+      "system_var": "Loop Execution",
+      "theme_vocab": "Circular Tour",
+      "emoji": "🔄",
+      "context": "Repeating the same location circuit"
+    },
+    "data_validation": {
+      "system_var": "Data Validation",
+      "theme_vocab": "Guidebook Accuracy Check",
+      "emoji": "✓",
+      "context": "Verifying the destination exists and is safe"
+    },
+    "optimization": {
+      "system_var": "Optimization",
+      "theme_vocab": "Route Optimization",
+      "emoji": "⚡",
+      "context": "Finding the fastest path between locations"
+    },
+    "disaster_recovery": {
+      "system_var": "Disaster Recovery",
+      "theme_vocab": "Emergency Evacuation Protocol",
+      "emoji": "🆘",
+      "context": "Recovering from a journey catastrophe"
+    }
+  }
+}

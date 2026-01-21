@@ -1,0 +1,189 @@
+{
+  "theme_name": "Fantasy - Hero's Journey (Zelda-inspired)",
+  "theme_id": "fantasy-zelda",
+  "style": "Storybook fantasy, hero's journey, magical quests, epic adventures",
+  "emoji_set": ["⚔️", "🗝️", "💛", "🌳", "🏰", "👑", "✨", "🧝", "🛡️", "🐉"],
+  "metadata": {
+    "creator": "Community Theme Pack",
+    "release_date": "2026-01-14",
+    "version": "1.0.0",
+    "theme_category": "narrative_immersive",
+    "inspiration": "Legend of Zelda, fantasy quests, hero's journey narrative, medieval adventure"
+  },
+  "variables": {
+    "sandbox": {
+      "system_var": "Sandbox",
+      "theme_vocab": "The Realm",
+      "emoji": "🏰",
+      "context": "Your isolated kingdom to explore and protect"
+    },
+    "error": {
+      "system_var": "Syntax Error",
+      "theme_vocab": "Curse Upon Your Quest",
+      "emoji": "👻",
+      "context": "A dark spell has corrupted your path"
+    },
+    "runtime_error": {
+      "system_var": "Runtime Error",
+      "theme_vocab": "Quest Failed - Realm in Peril",
+      "emoji": "⚰️",
+      "context": "Your adventure has ended in tragedy"
+    },
+    "warning": {
+      "system_var": "Warning",
+      "theme_vocab": "Beware, Brave Hero",
+      "emoji": "⚠️",
+      "context": "A danger or obstacle lies ahead"
+    },
+    "success": {
+      "system_var": "Success",
+      "theme_vocab": "Treasure Discovered",
+      "emoji": "💎",
+      "context": "You have found something precious; victory is yours"
+    },
+    "status": {
+      "system_var": "Status",
+      "theme_vocab": "Quest Status",
+      "emoji": "⚔️",
+      "context": "How is your epic journey progressing?"
+    },
+    "progress": {
+      "system_var": "Progress",
+      "theme_vocab": "Journey Through Trials",
+      "emoji": "🗺️",
+      "context": "You move deeper into your quest"
+    },
+    "debug_mode": {
+      "system_var": "Debug Mode",
+      "theme_vocab": "Sage's Vision",
+      "emoji": "🧙",
+      "context": "Ancient wisdom reveals the hidden mechanics"
+    },
+    "cache": {
+      "system_var": "Cache",
+      "theme_vocab": "Legendary Artifacts",
+      "emoji": "💎",
+      "context": "Precious items saved from past adventures"
+    },
+    "log_file": {
+      "system_var": "Log File",
+      "theme_vocab": "Chronicles of Valor",
+      "emoji": "📖",
+      "context": "The epic tale of all your deeds"
+    },
+    "process_queue": {
+      "system_var": "Process Queue",
+      "theme_vocab": "Trials Awaiting",
+      "emoji": "📋",
+      "context": "Challenges that must be overcome in order"
+    },
+    "memory_usage": {
+      "system_var": "Memory Usage",
+      "theme_vocab": "Burden Upon Your Spirit",
+      "emoji": "🧠",
+      "context": "How much of your mental strength is being used"
+    },
+    "file_system": {
+      "system_var": "File System",
+      "theme_vocab": "The Kingdoms",
+      "emoji": "🗺️",
+      "context": "All the lands and dungeons to explore"
+    },
+    "network": {
+      "system_var": "Network",
+      "theme_vocab": "Portal Network",
+      "emoji": "✨",
+      "context": "Connection to distant realms and allies"
+    },
+    "security_check": {
+      "system_var": "Security Check",
+      "theme_vocab": "Trial of Worthiness",
+      "emoji": "⚔️",
+      "context": "Proving yourself worthy to proceed"
+    },
+    "backup": {
+      "system_var": "Backup",
+      "theme_vocab": "Life Essence Stored",
+      "emoji": "💜",
+      "context": "Backup save point for your adventure"
+    },
+    "update": {
+      "system_var": "Update",
+      "theme_vocab": "Prophecy Fulfilled",
+      "emoji": "🔄",
+      "context": "New knowledge or power has been granted"
+    },
+    "initialization": {
+      "system_var": "Initialization",
+      "theme_vocab": "Quest Begins",
+      "emoji": "⚔️",
+      "context": "Your hero's journey commences"
+    },
+    "shutdown": {
+      "system_var": "Shutdown",
+      "theme_vocab": "Rest in the Village Inn",
+      "emoji": "🏨",
+      "context": "Taking shelter for the night"
+    },
+    "timeout": {
+      "system_var": "Timeout",
+      "theme_vocab": "Time's Hour Struck",
+      "emoji": "⏳",
+      "context": "Time has run out on your quest"
+    },
+    "overflow": {
+      "system_var": "Overflow",
+      "theme_vocab": "Too Many Burdens",
+      "emoji": "💥",
+      "context": "You carry too much; the strain breaks you"
+    },
+    "permission_denied": {
+      "system_var": "Permission Denied",
+      "theme_vocab": "Guardian Blocks Your Path",
+      "emoji": "🛡️",
+      "context": "A protection spell prevents your passage"
+    },
+    "file_not_found": {
+      "system_var": "File Not Found",
+      "theme_vocab": "Legend Lost to Time",
+      "emoji": "🤷",
+      "context": "This treasure was never found, or lost forever"
+    },
+    "connection_error": {
+      "system_var": "Connection Error",
+      "theme_vocab": "Portal Sealed",
+      "emoji": "🌀",
+      "context": "Cannot reach allies or distant realms"
+    },
+    "configuration": {
+      "system_var": "Configuration",
+      "theme_vocab": "Realm Rules",
+      "emoji": "📜",
+      "context": "The laws and settings of your world"
+    },
+    "loop_execution": {
+      "system_var": "Loop Execution",
+      "theme_vocab": "Cursed Cycle",
+      "emoji": "🔄",
+      "context": "Trapped repeating the same trial forever"
+    },
+    "data_validation": {
+      "system_var": "Data Validation",
+      "theme_vocab": "Test of Authenticity",
+      "emoji": "✓",
+      "context": "Proving the truth of something"
+    },
+    "optimization": {
+      "system_var": "Optimization",
+      "theme_vocab": "Mastery of Arts",
+      "emoji": "⚡",
+      "context": "Improving your skills and abilities"
+    },
+    "disaster_recovery": {
+      "system_var": "Disaster Recovery",
+      "theme_vocab": "Resurrection Ritual",
+      "emoji": "✨",
+      "context": "Bringing hope back from the brink of darkness"
+    }
+  }
+}

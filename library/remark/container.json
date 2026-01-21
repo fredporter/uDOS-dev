@@ -1,0 +1,39 @@
+{
+  "$schema": "../container.schema.json",
+  "container": {
+    "id": "remark",
+    "name": "Remark",
+    "description": "Markdown to slideshow presentation tool",
+    "type": "git",
+    "source": "https://github.com/gnab/remark",
+    "ref": "main",
+    "cloned_at": null,
+    "last_update": null,
+    "commit": null,
+    "version": null
+  },
+  "policy": {
+    "read_only": true,
+    "auto_update": false,
+    "update_channel": "wizard_only",
+    "verify_signatures": false
+  },
+  "integration": {
+    "wrapper_path": "extensions/docs/remark/",
+    "handler_path": "core/commands/present_handler.py",
+    "install_script": null
+  },
+  "build": {
+    "type": "npm",
+    "build_command": "npm install",
+    "runtime": "browser",
+    "static_output": "dist/"
+  },
+  "metadata": {
+    "license": "MIT",
+    "homepage": "https://remarkjs.com/",
+    "documentation": "extensions/docs/remark/README.md",
+    "maintainer": "uDOS Wizard Server",
+    "category": "documentation"
+  }
+}

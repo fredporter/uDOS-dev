@@ -1,0 +1,189 @@
+{
+  "theme_name": "Retro Computing - DOS/Apple II Era",
+  "theme_id": "retro-computing",
+  "style": "DOS commands, Apple II simplicity, early computer nostalgia, beige aesthetic",
+  "emoji_set": ["💾", "🖥️", "⌨️", "🔌", "📠", "🎮", "▓", "█", "⚙️", "🔊"],
+  "metadata": {
+    "creator": "Community Theme Pack",
+    "release_date": "2026-01-14",
+    "version": "1.0.0",
+    "theme_category": "narrative_immersive",
+    "inspiration": "MS-DOS, Apple II, early computer culture, 1980s-90s computing"
+  },
+  "variables": {
+    "sandbox": {
+      "system_var": "Sandbox",
+      "theme_vocab": "Boot Environment",
+      "emoji": "🖥️",
+      "context": "Your isolated computing session"
+    },
+    "error": {
+      "system_var": "Syntax Error",
+      "theme_vocab": "SYSTEM FAULT",
+      "emoji": "❌",
+      "context": "Critical error; program aborted"
+    },
+    "runtime_error": {
+      "system_var": "Runtime Error",
+      "theme_vocab": "GENERAL PROTECTION FAULT",
+      "emoji": "💥",
+      "context": "The system has encountered a critical failure"
+    },
+    "warning": {
+      "system_var": "Warning",
+      "theme_vocab": "DISK SPACE WARNING",
+      "emoji": "⚠️",
+      "context": "Important caution from the computer"
+    },
+    "success": {
+      "system_var": "Success",
+      "theme_vocab": "PROCESS COMPLETED SUCCESSFULLY",
+      "emoji": "✅",
+      "context": "Program executed without errors"
+    },
+    "status": {
+      "system_var": "Status",
+      "theme_vocab": "STATUS REPORT",
+      "emoji": "📊",
+      "context": "Current system condition and statistics"
+    },
+    "progress": {
+      "system_var": "Progress",
+      "theme_vocab": "FILES PROCESSED",
+      "emoji": "📈",
+      "context": "How much of the task is complete"
+    },
+    "debug_mode": {
+      "system_var": "Debug Mode",
+      "theme_vocab": "DEBUG MODE ACTIVE",
+      "emoji": "🖥️",
+      "context": "Running in diagnostic/developer mode"
+    },
+    "cache": {
+      "system_var": "Cache",
+      "theme_vocab": "MEMORY BANK",
+      "emoji": "💾",
+      "context": "Cached data stored in RAM"
+    },
+    "log_file": {
+      "system_var": "Log File",
+      "theme_vocab": "ACTIVITY LOG",
+      "emoji": "📄",
+      "context": "Record of all operations performed"
+    },
+    "process_queue": {
+      "system_var": "Process Queue",
+      "theme_vocab": "QUEUE BUFFER",
+      "emoji": "📋",
+      "context": "Tasks waiting to be processed"
+    },
+    "memory_usage": {
+      "system_var": "Memory Usage",
+      "theme_vocab": "RAM USAGE",
+      "emoji": "💾",
+      "context": "How much memory is being used (e.g., '640K should be enough')"
+    },
+    "file_system": {
+      "system_var": "File System",
+      "theme_vocab": "DIRECTORY STRUCTURE",
+      "emoji": "📁",
+      "context": "The file and folder organization on disk"
+    },
+    "network": {
+      "system_var": "Network",
+      "theme_vocab": "MODEM CONNECTION",
+      "emoji": "📠",
+      "context": "Dial-up or network communication"
+    },
+    "security_check": {
+      "system_var": "Security Check",
+      "theme_vocab": "COPY PROTECTION CHECK",
+      "emoji": "🔒",
+      "context": "Verifying you have a valid license"
+    },
+    "backup": {
+      "system_var": "Backup",
+      "theme_vocab": "BACKUP DISK",
+      "emoji": "💾",
+      "context": "Creating backup copies on floppy disks"
+    },
+    "update": {
+      "system_var": "Update",
+      "theme_vocab": "INSTALL PATCH",
+      "emoji": "🔄",
+      "context": "Installing software updates or patches"
+    },
+    "initialization": {
+      "system_var": "Initialization",
+      "theme_vocab": "SYSTEM BOOT",
+      "emoji": "🔌",
+      "context": "Starting up the computer from cold boot"
+    },
+    "shutdown": {
+      "system_var": "Shutdown",
+      "theme_vocab": "SHUTDOWN SEQUENCE",
+      "emoji": "⏻️",
+      "context": "Turning off the computer safely"
+    },
+    "timeout": {
+      "system_var": "Timeout",
+      "theme_vocab": "TIMEOUT ERROR",
+      "emoji": "⏱️",
+      "context": "Operation took too long; connection lost"
+    },
+    "overflow": {
+      "system_var": "Overflow",
+      "theme_vocab": "BUFFER OVERFLOW",
+      "emoji": "💥",
+      "context": "System capacity exceeded"
+    },
+    "permission_denied": {
+      "system_var": "Permission Denied",
+      "theme_vocab": "ACCESS DENIED",
+      "emoji": "🚫",
+      "context": "You don't have permission to access this"
+    },
+    "file_not_found": {
+      "system_var": "File Not Found",
+      "theme_vocab": "FILE NOT FOUND",
+      "emoji": "🤷",
+      "context": "The requested file doesn't exist"
+    },
+    "connection_error": {
+      "system_var": "Connection Error",
+      "theme_vocab": "MODEM NOT RESPONDING",
+      "emoji": "📠",
+      "context": "Can't reach the network; connection failed"
+    },
+    "configuration": {
+      "system_var": "Configuration",
+      "theme_vocab": "CONFIG.SYS",
+      "emoji": "⚙️",
+      "context": "System configuration and settings"
+    },
+    "loop_execution": {
+      "system_var": "Loop Execution",
+      "theme_vocab": "ENDLESS LOOP",
+      "emoji": "🔄",
+      "context": "Infinite loop detected"
+    },
+    "data_validation": {
+      "system_var": "Data Validation",
+      "theme_vocab": "CHECKSUM VERIFICATION",
+      "emoji": "✓",
+      "context": "Verifying data integrity"
+    },
+    "optimization": {
+      "system_var": "Optimization",
+      "theme_vocab": "DEFRAGMENTATION",
+      "emoji": "⚡",
+      "context": "Optimizing disk or system performance"
+    },
+    "disaster_recovery": {
+      "system_var": "Disaster Recovery",
+      "theme_vocab": "RECOVERY DISK BOOT",
+      "emoji": "💾",
+      "context": "Restoring system from disaster"
+    }
+  }
+}

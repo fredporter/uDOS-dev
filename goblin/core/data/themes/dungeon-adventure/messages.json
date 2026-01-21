@@ -1,0 +1,75 @@
+{
+  "theme_name": "Dungeon Adventure",
+  "templates": {
+    "error": {
+      "prefix": "⚔️",
+      "verb": "CURSED INCANTATION",
+      "format": "{prefix} {verb}: {message}",
+      "subtext": "The dungeon has deceived you...",
+      "color": "red",
+      "examples": [
+        "⚔️ CURSED INCANTATION: The spell failed to compile",
+        "⚔️ CURSED INCANTATION: Invalid rune detected at line 42"
+      ]
+    },
+    "success": {
+      "prefix": "💎",
+      "verb": "TREASURE FOUND",
+      "format": "{prefix} {verb}: {message}",
+      "subtext": "Your quest bears fruit!",
+      "color": "green",
+      "examples": [
+        "💎 TREASURE FOUND: The quest 'dragon-slayer' begins",
+        "💎 TREASURE FOUND: The Enchantment has been activated"
+      ]
+    },
+    "warning": {
+      "prefix": "🧙",
+      "verb": "EERIE FEELING",
+      "format": "{prefix} {verb}: {message}",
+      "subtext": "Caution, brave adventurer...",
+      "color": "yellow",
+      "examples": [
+        "🧙 EERIE FEELING: The Chambers are unstable",
+        "🧙 EERIE FEELING: Unknown entities detected"
+      ]
+    },
+    "status": {
+      "prefix": "🧙",
+      "verb": "DIVINING",
+      "format": "{prefix} {verb}: {message}",
+      "subtext": "The spirits guide your path...",
+      "color": "cyan",
+      "examples": [
+        "🧙 DIVINING: The Dungeon State is stable",
+        "🧙 DIVINING: 67% progress through the Labyrinth"
+      ]
+    },
+    "success_verbose": {
+      "prefix": "💎",
+      "verb": "TREASURE FOUND",
+      "format": "{prefix} {verb}: {message}\n🧭 {detail}",
+      "color": "green"
+    },
+    "error_retry": {
+      "prefix": "⚔️",
+      "verb": "CURSED INCANTATION",
+      "format": "{prefix} {verb}: {message}\n→ Attempt again? (Y/N)",
+      "color": "red"
+    }
+  },
+  "flavor_text": {
+    "startup": "⚔️ Welcome to the uDOS Dungeon, brave adventurer!",
+    "shutdown": "🪦 Your adventure ends here... for now.",
+    "empty_result": "🧭 The chamber reveals nothing...",
+    "long_operation": "⏳ The spirits commune...",
+    "completion": "✨ The Dungeon acknowledges your triumph!"
+  },
+  "style_guide": {
+    "punctuation": "Use ellipses (...) for mystery, exclamation points (!) for action and discovery",
+    "tone": "Mysterious, encouraging, whimsical, slightly ominous",
+    "emoji_usage": "Emojis at start of lines, consistent with theme",
+    "formatting": "Use arrows (→) to indicate next steps or discoveries",
+    "flavor": "Add thematic flavor text where appropriate, but not overboard"
+  }
+}

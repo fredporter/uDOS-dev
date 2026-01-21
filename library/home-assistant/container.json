@@ -1,0 +1,35 @@
+{
+  "$schema": "../../library/container.schema.json",
+  "container": {
+    "id": "home-assistant",
+    "name": "Home Assistant",
+    "description": "Open-source home automation platform with local control and privacy focus",
+    "type": "git",
+    "source": "https://github.com/home-assistant/core",
+    "ref": "master",
+    "cloned_at": null,
+    "last_update": null,
+    "commit": null,
+    "version": null
+  },
+  "policy": {
+    "read_only": true,
+    "auto_update": false,
+    "update_channel": "wizard_only",
+    "verify_signatures": false,
+    "wizard_only": true
+  },
+  "integration": {
+    "wrapper_path": "wizard/services/home_assistant/",
+    "handler_path": "core/commands/home_handler.py",
+    "install_script": null
+  },
+  "metadata": {
+    "license": "Apache-2.0",
+    "homepage": "https://www.home-assistant.io/",
+    "documentation": "https://developers.home-assistant.io/",
+    "maintainer": "Home Assistant / uDOS Wizard Server",
+    "category": "home_automation"
+  },
+  "_note": "WIZARD ONLY - Provides smart home integration for uDOS Wizard Server"
+}

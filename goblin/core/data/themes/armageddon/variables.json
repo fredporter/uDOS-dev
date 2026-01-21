@@ -1,0 +1,189 @@
+{
+  "theme_name": "Armageddon - Post-Apocalyptic Survival",
+  "theme_id": "armageddon",
+  "style": "Post-apocalyptic, survival horror, dark humor, grim realism, fallout shelter",
+  "emoji_set": ["☢️", "🔥", "💀", "🏚️", "🧟", "⚰️", "🌪️", "👹", "🛡️", "⚡"],
+  "metadata": {
+    "creator": "Community Theme Pack",
+    "release_date": "2026-01-14",
+    "version": "1.0.0",
+    "theme_category": "narrative_immersive",
+    "inspiration": "Fallout series, post-apocalyptic fiction, survival horror, dark humor"
+  },
+  "variables": {
+    "sandbox": {
+      "system_var": "Sandbox",
+      "theme_vocab": "Fallout Shelter",
+      "emoji": "🏚️",
+      "context": "Your isolated survival bunker"
+    },
+    "error": {
+      "system_var": "Syntax Error",
+      "theme_vocab": "Radiation Leak",
+      "emoji": "☢️",
+      "context": "Contamination has breached the code"
+    },
+    "runtime_error": {
+      "system_var": "Runtime Error",
+      "theme_vocab": "Catastrophic Meltdown",
+      "emoji": "💥",
+      "context": "The reactor has exploded; shelter is failing"
+    },
+    "warning": {
+      "system_var": "Warning",
+      "theme_vocab": "Geiger Counter Clicks",
+      "emoji": "🔊",
+      "context": "Radiation detected; danger approaching"
+    },
+    "success": {
+      "system_var": "Success",
+      "theme_vocab": "Scavenging Success",
+      "emoji": "🎁",
+      "context": "You've salvaged something valuable from the wasteland"
+    },
+    "status": {
+      "system_var": "Status",
+      "theme_vocab": "Shelter Status Report",
+      "emoji": "📊",
+      "context": "Systems check—how's the bunker holding up?"
+    },
+    "progress": {
+      "system_var": "Progress",
+      "theme_vocab": "Survival Days Passed",
+      "emoji": "📅",
+      "context": "How long have you lasted?"
+    },
+    "debug_mode": {
+      "system_var": "Debug Mode",
+      "theme_vocab": "Vault-Tec Schematics",
+      "emoji": "📋",
+      "context": "Technical blueprints revealed"
+    },
+    "cache": {
+      "system_var": "Cache",
+      "theme_vocab": "Salvaged Tech Cache",
+      "emoji": "🔧",
+      "context": "Hoarded technology from the old world"
+    },
+    "log_file": {
+      "system_var": "Log File",
+      "theme_vocab": "Vault Log Records",
+      "emoji": "📖",
+      "context": "The grim history of survival"
+    },
+    "process_queue": {
+      "system_var": "Process Queue",
+      "theme_vocab": "Survival Tasks Remaining",
+      "emoji": "📋",
+      "context": "Things you still need to do to survive"
+    },
+    "memory_usage": {
+      "system_var": "Memory Usage",
+      "theme_vocab": "Food & Water Supply",
+      "emoji": "🥫",
+      "context": "How much of your rations have been consumed"
+    },
+    "file_system": {
+      "system_var": "File System",
+      "theme_vocab": "The Wasteland Map",
+      "emoji": "🗺️",
+      "context": "The territories left after the bombs fell"
+    },
+    "network": {
+      "system_var": "Network",
+      "theme_vocab": "Radio Transmission",
+      "emoji": "📻",
+      "context": "Trying to reach other survivors"
+    },
+    "security_check": {
+      "system_var": "Security Check",
+      "theme_vocab": "Perimeter Scan",
+      "emoji": "🛡️",
+      "context": "Making sure the outside threats can't get in"
+    },
+    "backup": {
+      "system_var": "Backup",
+      "theme_vocab": "Emergency Supply Cache",
+      "emoji": "🥫",
+      "context": "Hidden backup rations and supplies"
+    },
+    "update": {
+      "system_var": "Update",
+      "theme_vocab": "New Intel Received",
+      "emoji": "📡",
+      "context": "Information from the outside world"
+    },
+    "initialization": {
+      "system_var": "Initialization",
+      "theme_vocab": "Vault Doors Opening",
+      "emoji": "🚪",
+      "context": "Another day of survival begins"
+    },
+    "shutdown": {
+      "system_var": "Shutdown",
+      "theme_vocab": "Bunker Lockdown",
+      "emoji": "🔒",
+      "context": "Sealing the vault for another night"
+    },
+    "timeout": {
+      "system_var": "Timeout",
+      "theme_vocab": "Time Runs Out",
+      "emoji": "⏰",
+      "context": "You waited too long; too late now"
+    },
+    "overflow": {
+      "system_var": "Overflow",
+      "theme_vocab": "System Overload",
+      "emoji": "⚡",
+      "context": "The vault systems can't handle the strain"
+    },
+    "permission_denied": {
+      "system_var": "Permission Denied",
+      "theme_vocab": "Vault Door Sealed",
+      "emoji": "🚪",
+      "context": "Access to this area is forbidden"
+    },
+    "file_not_found": {
+      "system_var": "File Not Found",
+      "theme_vocab": "Signal Lost",
+      "emoji": "📻",
+      "context": "The person/resource you seek has vanished"
+    },
+    "connection_error": {
+      "system_var": "Connection Error",
+      "theme_vocab": "Radio Dead",
+      "emoji": "🌪️",
+      "context": "Can't reach anyone; you're alone"
+    },
+    "configuration": {
+      "system_var": "Configuration",
+      "theme_vocab": "Vault Settings",
+      "emoji": "⚙️",
+      "context": "How the bunker operates"
+    },
+    "loop_execution": {
+      "system_var": "Loop Execution",
+      "theme_vocab": "Eternal Routine",
+      "emoji": "🔄",
+      "context": "Day after day, the same routine"
+    },
+    "data_validation": {
+      "system_var": "Data Validation",
+      "theme_vocab": "Geiger Check",
+      "emoji": "☢️",
+      "context": "Testing if something is safe"
+    },
+    "optimization": {
+      "system_var": "Optimization",
+      "theme_vocab": "Vault Repair",
+      "emoji": "🔧",
+      "context": "Making the shelter work better"
+    },
+    "disaster_recovery": {
+      "system_var": "Disaster Recovery",
+      "theme_vocab": "Last Stand Protocol",
+      "emoji": "⚡",
+      "context": "Fighting to survive against impossible odds"
+    }
+  }
+}

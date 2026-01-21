@@ -1,0 +1,835 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+
+/* Import shared utilities and component styles */
+@import "$lib/styles/utilities.css";
+
+/* 
+ * uDOS Typography System
+
+/* 
+ * uDOS Typography System
+ * 
+ * Tailwind Typography Fonts (Primary):
+ *   H (Headings): Inter (sans), Merriweather (serif), JetBrains Mono (mono)
+ *   B (Body): Inter (sans), Merriweather (serif), JetBrains Mono (mono)
+ *   M (Code): JetBrains Mono (primary), Monaco, Teletext50, PetMe64, SF Mono, PressStart2P
+ *   Bundled in: /library/fonts/tailwind/
+ *
+ * All modes default to:
+ *   - Headings: Inter (sans)
+ *   - Body: Inter (sans)
+ *   - Code: JetBrains Mono
+ *
+ * Retro Fonts (specialized modes - Terminal/Teledesk):
+ *   - Available via M button cycle for grid-based displays
+ *   - Teletext50, PetMe64, Monaco (optimized for 24x24 pixel grids)
+ *   Bundled in: /library/fonts/retro/
+ */
+
+/* Tailwind Typography Web Fonts */
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/tailwind/sans/Inter-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/tailwind/sans/Inter-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/tailwind/sans/Inter-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("/fonts/tailwind/sans/Inter-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("/fonts/tailwind/serif/Merriweather-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("/fonts/tailwind/serif/Merriweather-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Merriweather";
+  src: url("/fonts/tailwind/serif/Merriweather-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/tailwind/mono/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/tailwind/mono/JetBrainsMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/tailwind/mono/JetBrainsMono-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Retro Monospace Fonts */
+@font-face {
+  font-family: "PressStart2P";
+  src: url("/fonts/retro/PressStart2P-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "PetMe64";
+  src: url("/fonts/retro/c64/PetMe64.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Teletext50";
+  src: url("/fonts/retro/teletext/Teletext50.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Classic Apple Mac Fonts */
+@font-face {
+  font-family: "ChicagoFLF";
+  src: url("/fonts/retro/apple/ChicagoFLF.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Los Altos";
+  src: url("/fonts/retro/apple/Los Altos.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Los Altos";
+  src: url("/fonts/retro/apple/Los Altos.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Monaco";
+  src: url("/fonts/retro/apple/monaco.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SF Mono";
+  src: url("/fonts/retro/apple/SFMono-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Sanfrisco";
+  src: url("/fonts/retro/apple/Sanfrisco.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "UnifrakturCook";
+  src: url("/fonts/UnifrakturCook/UnifrakturCook-Bold.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Display & Serif Additions */
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("/fonts/Libre_Baskerville/LibreBaskerville-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Libre Baskerville";
+  src: url("/fonts/Libre_Baskerville/LibreBaskerville-Italic-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "VAG Primer";
+  src: url("/fonts/vag_primer_by_liam_butler_deqszdu.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/fonts/Playfair_Display/PlayfairDisplay-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  src: url("/fonts/Playfair_Display/PlayfairDisplay-Italic-VariableFont_wght.ttf")
+    format("truetype");
+  font-weight: 400 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* Blackletter & Script */
+@font-face {
+  font-family: "UnifrakturMaguntia";
+  src: url("/fonts/UnifrakturMaguntia/UnifrakturMaguntia-Regular.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Great Vibes";
+  src: url("/fonts/Great_Vibes/GreatVibes-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  /* ========================================
+     UDOS 32-Color Palette v2.0.0
+     Terrain | Markers | Greyscale | Accents
+     ======================================== */
+
+  /* Terrain Colors (0-7) */
+  --color-udos-forest: #2d5016;
+  --color-udos-grass: #4c9a2a;
+  --color-udos-deep-water: #1b4965;
+  --color-udos-water: #3a86ff;
+  --color-udos-earth: #6b4423;
+  --color-udos-sand: #d4a574;
+  --color-udos-mountain: #5a6f7d;
+  --color-udos-snow: #e8f1f5;
+
+  /* Marker Colors (8-15) */
+  --color-udos-danger: #dc2626;
+  --color-udos-alert: #fb5607;
+  --color-udos-waypoint: #ffbe0b;
+  --color-udos-safe: #06ffa5;
+  --color-udos-cyan: #00d9ff;
+  --color-udos-purple: #8338ec;
+  --color-udos-pink: #ff006e;
+  --color-udos-magenta: #ff1fb3;
+
+  /* Greyscale Colors (16-23) */
+  --color-udos-black: #000000;
+  --color-udos-dark-grey: #1a1a1a;
+  --color-udos-charcoal: #333333;
+  --color-udos-grey: #666666;
+  --color-udos-steel: #999999;
+  --color-udos-light-grey: #cccccc;
+  --color-udos-off-white: #e6e6e6;
+  --color-udos-white: #ffffff;
+
+  /* Accent Colors (24-31) */
+  --color-udos-skin-light: #ffe0bd;
+  --color-udos-skin-medium: #ffcd94;
+  --color-udos-skin-tan: #d2a679;
+  --color-udos-skin-dark: #8d5524;
+  --color-udos-lava: #ff4500;
+  --color-udos-ice: #a7c7e7;
+  --color-udos-toxic: #39ff14;
+  --color-udos-deep-sea: #003366;
+
+  /* Semantic aliases (for backwards compatibility) */
+  --color-udos-primary: var(--color-udos-cyan);
+  --color-udos-secondary: var(--color-udos-deep-water);
+  --color-udos-accent: var(--color-udos-alert);
+  --color-udos-bg: var(--color-udos-black);
+  --color-udos-surface: var(--color-udos-dark-grey);
+  --color-udos-text: var(--color-udos-off-white);
+
+  /* Terminal/Grid text colors */
+  --color-udos-green: var(--color-udos-grass);
+  --color-udos-red: var(--color-udos-danger);
+
+  /* Font families - Tailwind Typography (3 core fonts) */
+  --font-family-sans:
+    "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --font-family-serif: "Merriweather", Georgia, "Times New Roman", serif;
+  /* JetBrains Mono is the primary Tailwind code font */
+  --font-family-mono: "JetBrains Mono", monospace;
+
+  /* Map Tailwind's font-mono class to JetBrains Mono */
+  --font-mono: var(--font-family-mono);
+
+  /* Retro monospace fonts for specialized modes */
+  --font-family-pressstart: "PressStart2P", monospace;
+  --font-family-c64: "PetMe64", monospace;
+  --font-family-teletext: "Teletext50", monospace;
+
+  /* Dynamic font variables - controlled by user preferences */
+  --font-heading: var(--font-family-sans);
+  --font-body: var(--font-family-sans);
+  --font-mono-variant: var(--font-family-mono);
+
+  /* Character width normalization - ensure all mono fonts render at same width */
+  --mono-char-width: 0.6em; /* Base reference width */
+  --char-width-scale: 1; /* Default - updated per font via data attribute */
+}
+
+/* Font-specific width corrections for grid alignment */
+/* JetBrains Mono is the baseline (no scaling needed) */
+[data-mono-variant="jetbrains"] {
+  --char-width-scale: 1;
+}
+
+/* PetMe64 (C64 font) is slightly wider - compress horizontally */
+[data-mono-variant="c64"] {
+  --char-width-scale: 0.88;
+}
+
+/* Teletext50 is narrower - expand slightly */
+[data-mono-variant="teletext"] {
+  --char-width-scale: 1.08;
+}
+
+/* PressStart2P is wider - compress more */
+[data-mono-variant="pressstart"] {
+  --char-width-scale: 0.82;
+}
+
+/* Monaco has similar characteristics to JetBrains Mono */
+[data-mono-variant="monaco"] {
+  --char-width-scale: 1;
+}
+
+/* SF Mono has similar characteristics to JetBrains Mono */
+[data-mono-variant="sfmono"] {
+  --char-width-scale: 1;
+}
+
+/* Global Styles - Applied via CSS Variables */
+html {
+  font-size: var(--content-font-size, 20px);
+}
+
+/* Font Hierarchy - Applied via CSS Variables */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+}
+
+/* Disable bold for pixel-perfect retro fonts that don't have bold variants */
+:root[data-heading-font="chicagoflf"] h1,
+:root[data-heading-font="chicagoflf"] h2,
+:root[data-heading-font="chicagoflf"] h3,
+:root[data-heading-font="chicagoflf"] h4,
+:root[data-heading-font="chicagoflf"] h5,
+:root[data-heading-font="chicagoflf"] h6,
+:root[data-heading-font="chicagoflf"] .prose h1,
+:root[data-heading-font="chicagoflf"] .prose h2,
+:root[data-heading-font="chicagoflf"] .prose h3,
+:root[data-heading-font="chicagoflf"] .prose h4,
+:root[data-heading-font="chicagoflf"] .prose h5,
+:root[data-heading-font="chicagoflf"] .prose h6,
+:root[data-heading-font="unifraktur"] h1,
+:root[data-heading-font="unifraktur"] h2,
+:root[data-heading-font="unifraktur"] h3,
+:root[data-heading-font="unifraktur"] h4,
+:root[data-heading-font="unifraktur"] h5,
+:root[data-heading-font="unifraktur"] h6,
+:root[data-heading-font="unifraktur"] .prose h1,
+:root[data-heading-font="unifraktur"] .prose h2,
+:root[data-heading-font="unifraktur"] .prose h3,
+:root[data-heading-font="unifraktur"] .prose h4,
+:root[data-heading-font="unifraktur"] .prose h5,
+:root[data-heading-font="unifraktur"] .prose h6 {
+  font-weight: 400 !important;
+}
+
+/* Menu bar uses heading font (controlled by H button) */
+nav,
+header,
+.menu-bar {
+  font-family: var(--font-heading);
+  font-size: 14px; /* Fixed base size across all modes */
+}
+
+/* Menu bar scales with zoom but maintains consistent base */
+header.menu-bar {
+  font-size: clamp(12px, 14px * var(--zoom-scale, 1), 18px);
+}
+
+/* Menu bar buttons and dropdowns inherit heading font and sizing */
+header.menu-bar button,
+header.menu-bar div {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+/* Body text uses body font - comprehensive coverage */
+/* Note: Buttons excluded here to preserve menu bar heading font */
+body,
+p,
+li,
+td,
+th,
+article,
+section,
+div,
+span,
+input,
+textarea,
+select,
+label,
+.prose p,
+.prose li,
+.prose td,
+.prose th {
+  font-family: var(--font-body);
+}
+
+/* Buttons use body font EXCEPT menu bar buttons (which use heading font) */
+button:not(header.menu-bar button):not(header.menu-bar *) {
+  font-family: var(--font-body);
+}
+
+/* Prose content should respect body font - override Tailwind Typography */
+.prose {
+  font-family: var(--font-body) !important;
+}
+
+/* Prose elements not already covered above */
+.prose ul,
+.prose ol,
+.prose blockquote,
+.prose figcaption,
+.prose dl,
+.prose dd,
+.prose dt {
+  font-family: var(--font-body) !important;
+}
+
+/* Desktop icon SVGs - Mono style with proper dark mode support */
+.desktop-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+  stroke: currentColor;
+  color: #000000;
+}
+
+.dark .desktop-icon svg {
+  color: #ffffff;
+}
+
+.desktop-icon svg path,
+.desktop-icon svg circle,
+.desktop-icon svg rect,
+.desktop-icon svg polygon {
+  fill: currentColor !important;
+  stroke: none !important;
+}
+
+/* Teledesk navigation should use mono variant for all text */
+.teledesk-nav,
+.teledesk-nav * {
+  font-family: var(--font-mono-variant) !important;
+}
+
+/* Inline code - standard size for readability in prose */
+code {
+  font-family: var(--font-mono-variant);
+  background-color: #f5f5f5;
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em; /* Slightly smaller than surrounding text */
+}
+
+/* Code editor textarea uses mono variant (M button toggles between fonts) */
+textarea.font-mono,
+textarea[data-content] {
+  font-family: var(--font-mono-variant) !important;
+  font-size: inherit; /* Use editor's font size */
+}
+
+/* Code blocks use mono variant (M button toggles between fonts) */
+pre,
+pre code {
+  font-family: var(--font-mono-variant) !important;
+  font-size: 0.875rem; /* 14px - standard code block size */
+  line-height: 1.5; /* Normal line height for readability */
+}
+
+/**
+ * Unified Button Component Style
+ * Used across editor, table, and typo pages for consistent sizing and behavior
+ * Matches Tailwind sizing: min-w[2.5rem] = 40px, p-2 = 8px padding, rounded-lg = 8px
+ */
+.button {
+  display: flex;
+  min-width: 2.5rem; /* 40px - matches icon + minimal padding */
+  height: 2.5rem; /* 40px - square */
+  min-height: 2.5rem; /* 40px - square by default */
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem; /* Spacing between icon and text */
+  border-radius: 0.5rem; /* rounded-lg */
+  padding: 0.5rem; /* p-2 */
+  font-weight: 600; /* font-semibold */
+  letter-spacing: 0.025em; /* tracking-wide */
+  border: none;
+  cursor: pointer;
+  transition: all 150ms ease;
+  background-color: rgba(31, 41, 55, 0.8); /* bg-gray-800/80 */
+  color: inherit;
+  line-height: 1; /* Prevent text from expanding button height */
+}
+
+.button:hover {
+  background-color: rgb(55, 65, 81); /* bg-gray-700 */
+  transform: scale(1.03);
+}
+
+.button:active {
+  background-color: rgb(75, 85, 99); /* bg-gray-600 */
+  transform: scale(0.95);
+}
+
+.button:disabled {
+  cursor: not-allowed;
+  color: rgb(156, 163, 175); /* text-gray-400 */
+}
+
+.button:disabled:hover {
+  background-color: transparent;
+  transform: none;
+}
+
+.dark .button {
+  background-color: rgba(229, 231, 235, 0.2); /* dark:bg-gray-200/20 */
+}
+
+.dark .button:hover {
+  background-color: rgba(107, 114, 128, 0.2); /* dark:hover:bg-gray-500/20 */
+}
+
+.dark .button:active {
+  background-color: rgba(107, 114, 128, 0.3); /* dark:active:bg-gray-500/30 */
+}
+
+.dark code {
+  background-color: var(--color-udos-surface);
+}
+
+pre {
+  background-color: #f5f5f5;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+.dark pre {
+  background-color: var(--color-udos-surface);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(128, 128, 128, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 128, 0.4);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(128, 128, 128, 0.6);
+}
+
+/* Prose typography - scales with global font size */
+.prose {
+  color: var(--color-udos-text);
+  font-size: 0.8em; /* Relative to root font-size controlled by +/- buttons */
+}
+
+/* Prose size variants - scale with global font size */
+.prose-sm {
+  font-size: 0.7em;
+}
+.prose-base {
+  font-size: 0.8em;
+}
+.prose-lg {
+  font-size: 0.9em;
+}
+.prose-xl {
+  font-size: 1em;
+}
+.prose-2xl {
+  font-size: 1.2em;
+}
+
+/* Prose heading sizes - scale relative to prose font size */
+.prose h1 {
+  font-size: 2.25em;
+  margin-top: 0;
+  margin-bottom: 0.8888889em;
+  line-height: 1.1111111;
+}
+.prose h2 {
+  font-size: 1.875em;
+  margin-top: 1.3333333em;
+  margin-bottom: 0.6666667em;
+  line-height: 1.3333333;
+}
+.prose h3 {
+  font-size: 1.5em;
+  margin-top: 1.3333333em;
+  margin-bottom: 0.6666667em;
+  line-height: 1.3333333;
+}
+.prose h4 {
+  font-size: 1.25em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+.prose h5 {
+  font-size: 1em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+.prose h6 {
+  font-size: 0.875em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  line-height: 1.5;
+}
+
+/* Prose spacing for body elements */
+.prose p,
+.prose ul,
+.prose ol {
+  margin-top: 1.25em;
+  margin-bottom: 1.25em;
+}
+.prose li {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+/* uDOS Grid System - Natural monospace character alignment */
+.udos-grid-line {
+  display: block;
+  white-space: pre;
+  margin: 0;
+  padding: 0;
+  overflow: visible;
+  font-variant-ligatures: none;
+  word-spacing: 0;
+  letter-spacing: 0;
+
+  /* Fixed line height for consistent grid */
+  line-height: 24px;
+
+  /* Default font size */
+  font-size: 24px;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: geometricPrecision;
+
+  /* Lock character width */
+  width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* ========================================
+   GRID-BASED MONO FONT SIZING
+   (Terminal/Teledesk/Pixel Editor ONLY)
+   ======================================== */
+
+/* These sizes are specifically for grid-based displays where characters
+   must align perfectly in 24px line-height grids. Regular code blocks
+   and editors use standard sizing (0.875rem with 1.5 line-height). */
+
+/* Modern code fonts - 22px size for grid alignment */
+[data-mono-variant="jetbrains"] .udos-grid-line {
+  font-size: 22px;
+  line-height: 24px;
+}
+
+/* Monaco - full-sized coding font optimized for 24x24 tiles */
+[data-mono-variant="monaco"] .udos-grid-line {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+[data-mono-variant="sfmono"] .udos-grid-line {
+  font-size: 22px;
+  line-height: 24px;
+}
+
+/* Retro pixel fonts - grid-optimized sizes for perfect 24x24 tile alignment */
+
+/* Teletext50 - designed for 24px line height */
+[data-mono-variant="teletext"] .udos-grid-line {
+  font-size: 24px;
+  line-height: 24px;
+}
+
+/* PetMe64 (C64) - 8x8 bitmap font scaled to fit 24x24 */
+[data-mono-variant="c64"] .udos-grid-line {
+  font-size: 18px;
+  line-height: 24px;
+}
+
+/* PressStart2P - NES/arcade style, wider characters */
+[data-mono-variant="pressstart"] .udos-grid-line {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+/* Ensure consistent rendering for teledesk navigation */
+.teledesk-nav * {
+  font-size: inherit !important;
+}
+
+/* ========================================
+   SHARED GRID/TERMINAL FONT SIZE CLASSES
+   Works for both Teledesk (.udos-grid-line) and Terminal (.line)
+   Override base grid line styles for special formatting
+   High specificity to override data-mono-variant selectors
+   ======================================== */
+
+/* Title font - large retro C64 style */
+[data-mono-variant] .udos-grid-line.font-title,
+[data-mono-variant] .line.font-title,
+.udos-grid-line.font-title,
+.line.font-title {
+  font-family: var(--font-family-c64) !important;
+  font-size: 48px !important;
+  line-height: 48px !important;
+  height: 48px !important;
+}
+
+/* Heading font - arcade/NES style */
+[data-mono-variant] .udos-grid-line.font-heading,
+[data-mono-variant] .line.font-heading,
+.udos-grid-line.font-heading,
+.line.font-heading {
+  font-family: var(--font-family-pressstart) !important;
+  font-size: 24px !important;
+  line-height: 24px !important;
+}
+
+/* Body font - standard teletext */
+[data-mono-variant] .udos-grid-line.font-body,
+[data-mono-variant] .line.font-body,
+.udos-grid-line.font-body,
+.line.font-body {
+  font-family: var(--font-family-teletext) !important;
+  font-size: 24px !important;
+  line-height: 24px !important;
+}
+
+/* Heading double - classic teletext double-height text */
+[data-mono-variant] .udos-grid-line.font-heading-double,
+[data-mono-variant] .line.font-heading-double,
+.udos-grid-line.font-heading-double,
+.line.font-heading-double {
+  font-family: var(--font-family-teletext) !important;
+  font-size: 24px !important;
+  line-height: 48px !important;
+  height: 48px !important;
+}
+
+/* Alt-heading - Teletext50 double-height variant for emphasis */
+[data-mono-variant] .udos-grid-line.font-alt-heading,
+[data-mono-variant] .line.font-alt-heading,
+.udos-grid-line.font-alt-heading,
+.line.font-alt-heading {
+  font-family: var(--font-family-teletext) !important;
+  font-size: 48px !important;
+  line-height: 48px !important;
+  height: 48px !important;
+}

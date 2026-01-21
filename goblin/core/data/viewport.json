@@ -1,0 +1,26 @@
+{
+  "detection_method": "auto",
+  "terminal_chars": {
+    "width": 60,
+    "height": 24
+  },
+  "calculated_cells": {
+    "width": 60,
+    "height": 24
+  },
+  "screen_tier": {
+    "tier": 6,
+    "label": "Small Notebook",
+    "description": "Compact laptop",
+    "width_cells": 64,
+    "height_cells": 40,
+    "aspect": "16:10",
+    "actual_width_cells": 60,
+    "actual_height_cells": 24,
+    "width_pixels": 1440,
+    "height_pixels": 576,
+    "distance": 16.492422502470642
+  },
+  "orientation": "horizontal",
+  "last_updated": "auto-detect"
+}

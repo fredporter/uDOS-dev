@@ -1,0 +1,12 @@
+{
+  "identifier": "file-operations",
+  "description": "Allow dialog operations for file management",
+  "platforms": ["macOS", "linux", "windows"],
+  "permissions": [
+    "dialog:allow-open",
+    "dialog:allow-save",
+    "dialog:allow-message",
+    "dialog:allow-ask",
+    "dialog:allow-confirm"
+  ]
+}
