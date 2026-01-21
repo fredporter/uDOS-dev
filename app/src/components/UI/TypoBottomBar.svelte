@@ -40,6 +40,8 @@
   export let onDarkModeToggle: () => void = () => {};
   export let viewMode: boolean = false;
   export let onToggleView: () => void = () => {};
+  export let charCount: number = 0;
+  export let wordCount: number = 0;
 
   let isFullscreen = false;
 
@@ -127,6 +129,9 @@
         "",
       )}</span
     >
+    {#if charCount > 0 || wordCount > 0}
+      <span class="status-text">· {charCount} char · {wordCount} word</span>
+    {/if}
   </div>
 
   <!-- Right side: Controls -->

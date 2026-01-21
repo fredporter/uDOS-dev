@@ -23,43 +23,43 @@
   const formats = [
     {
       id: "editor",
-      title: "Markdown Editor",
+      title: "Editor",
       description: "Distraction-free markdown writing",
       icon: Document,
     },
     {
       id: "guide",
-      title: "Guide Reader",
+      title: "Guide",
       description: "Knowledge base and documentation",
       icon: Info,
     },
     {
       id: "story",
-      title: "Interactive Story",
+      title: "Story",
       description: "Typeform-style questionnaires",
       icon: Bullet,
     },
     {
       id: "marp",
-      title: "Slide Presentation",
+      title: "Present",
       description: "Beautiful presentation slides",
       icon: Slideshow,
     },
     {
       id: "ucode",
-      title: "uCode Runtime",
+      title: "uCode",
       description: "Executable markdown documents",
       icon: CodeBracket,
     },
     {
       id: "fonts",
-      title: "Font Manager",
+      title: "Fonts",
       description: "Customize typography",
       icon: Type,
     },
     {
       id: "config",
-      title: "Config Settings",
+      title: "Config",
       description: "App configuration & preferences",
       icon: Settings,
     },
@@ -73,10 +73,12 @@
 </script>
 
 <!-- Modal Overlay -->
-<div class="fixed inset-0 z-300 flex items-center justify-center bg-black/40">
+<div
+  class="fixed inset-0 z-300 flex items-center justify-center bg-black/40 pointer-events-none"
+>
   <!-- Modal Card -->
   <div
-    class="relative w-full max-w-2xl mx-auto bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-8 sm:p-12 flex flex-col gap-8 border border-gray-200 dark:border-gray-700"
+    class="relative w-full max-w-2xl max-h-[90vh] mx-auto bg-white dark:bg-gray-900 rounded-2xl shadow-2xl p-4 sm:p-6 flex flex-col gap-3 border border-gray-200 dark:border-gray-700 overflow-y-auto pointer-events-auto"
   >
     <!-- Close Button -->
     <button
@@ -101,21 +103,20 @@
         {/if}
       </button>
     </div>
-    <p class="text-lg text-gray-600 dark:text-gray-400 text-center">
-      Pick a format below to get started. Each renderer provides a unique way to
-      experience your markdown documents.
+    <p class="text-xs text-gray-600 dark:text-gray-400 text-center">
+      Pick a format below to get started.
     </p>
     <!-- Format Grid -->
-    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <div class="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
       {#each formats as format (format.id)}
         <button
           on:click={() => onRendererSelect(format.id)}
-          class="group relative flex flex-col items-start rounded-xl border border-gray-200 bg-white p-5 text-left transition-all hover:border-gray-300 hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-gray-700 dark:hover:shadow-lg"
+          class="group relative flex flex-col items-start rounded-xl border border-gray-200 bg-white p-3 text-left transition-all hover:border-gray-300 hover:shadow-md dark:border-gray-800 dark:bg-gray-900 dark:hover:border-gray-700 dark:hover:shadow-lg"
         >
-          <div class="mb-3">
+          <div class="mb-2">
             <svelte:component
               this={format.icon}
-              class="w-6 h-6 text-gray-700 dark:text-gray-300"
+              className="w-6 h-6 text-gray-700 dark:text-gray-300"
             />
           </div>
           <h3 class="text-base font-semibold">{format.title}</h3>
@@ -130,7 +131,7 @@
     </div>
     <!-- Show on Startup Checkbox and Continue -->
     <div
-      class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-2"
+      class="flex flex-col sm:flex-row items-center justify-between gap-3 mt-1"
     >
       <label class="flex items-center gap-2 cursor-pointer">
         <input
