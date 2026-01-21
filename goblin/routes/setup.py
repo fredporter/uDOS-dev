@@ -156,11 +156,12 @@ async def validate_databases():
 @router.post("/github/oauth-start")
 async def github_oauth_start(client_id: str):
     """Start GitHub OAuth flow."""
-    auth_url = f"https://github.com/login/oauth/authorize?{urlencode({
+    params = {
         'client_id': client_id,
         'scope': 'repo,user',
         'redirect_uri': 'http://127.0.0.1:8767/api/v0/setup/github/callback'
-    })}"
+    }
+    auth_url = f"https://github.com/login/oauth/authorize?{urlencode(params)}"
     
     return {
         "status": "ready",
