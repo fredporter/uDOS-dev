@@ -360,7 +360,7 @@ if __name__ == "__main__":
         print_error(f"Cannot connect to server at {BASE_URL}")
         print(f"   Error: {e}")
         print("\n   Start the server with:")
-        print("   bin/Launch-Goblin-Dev.command")
+        print("   dev/goblin/launch-goblin-dev.sh")
         exit(1)
     
     # Run test

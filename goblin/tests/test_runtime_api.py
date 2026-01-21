@@ -219,7 +219,7 @@ def check_server():
         pass
     
     print(f"❌ Server not reachable at {BASE_URL}")
-    print("   Start server with: bin/Launch-Goblin-Dev.command")
+    print("   Start server with: dev/goblin/launch-goblin-dev.sh")
     return False
 
 

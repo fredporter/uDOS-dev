@@ -57,7 +57,7 @@ def check_server():
         print_error("Cannot connect to server at {BASE_URL}")
         print(f"   Error: {e}")
         print("\n   Start the server with:")
-        print("   bin/Launch-Goblin-Dev.command")
+        print("   dev/goblin/launch-goblin-dev.sh")
         assert False, "Test failed"
 
 

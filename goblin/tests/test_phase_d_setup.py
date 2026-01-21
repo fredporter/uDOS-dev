@@ -37,7 +37,7 @@ class PhaseDSetup:
                 return False
         except requests.exceptions.ConnectionError:
             self.errors.append("❌ Goblin server NOT running on port 8767")
-            self.errors.append("   Run: bin/Launch-Goblin-Dev.command")
+            self.errors.append("   Run: dev/goblin/launch-goblin-dev.sh")
             return False
         except Exception as e:
             self.errors.append(f"❌ Server check failed: {e}")
