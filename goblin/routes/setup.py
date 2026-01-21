@@ -198,11 +198,12 @@ async def hubspot_oauth_start(client_id: str):
     """Start HubSpot OAuth flow."""
     scope = "contacts.lists.read,contacts.lists.write,crm.objects.contacts.read,crm.objects.contacts.write"
     
-    auth_url = f"https://app.hubspot.com/oauth/authorize?{urlencode({
+    params = {
         'client_id': client_id,
         'scope': scope,
         'redirect_uri': 'http://127.0.0.1:8767/api/v0/setup/hubspot/callback'
-    })}"
+    }
+    auth_url = f"https://app.hubspot.com/oauth/authorize?{urlencode(params)}"
     
     return {
         "status": "ready",
