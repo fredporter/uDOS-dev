@@ -236,6 +236,7 @@
     bottom: 0;
     left: 0;
     width: 100vw;
+    height: var(--typo-bottom-bar-height, 44px);
     background: #f8fafc;
     color: #1e293b;
     display: flex;

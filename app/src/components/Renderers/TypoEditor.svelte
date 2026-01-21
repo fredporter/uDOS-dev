@@ -5,8 +5,6 @@
     Save,
     Copy,
     Eye,
-    Sun,
-    Moon,
     Bullet,
     Blockquote,
     Link,
@@ -194,9 +192,10 @@ clickHere();
 </script>
 
 <div
-  class="flex h-dvh flex-col {isDark
+  class="flex flex-col {isDark
     ? 'bg-gray-950 text-gray-50'
     : 'bg-white text-gray-900'} selection:bg-gray-400/40"
+  style="height: calc(100dvh - var(--typo-bottom-bar-height, 44px));"
 >
   <!-- Top Header -->
   {#if !viewMode}
@@ -238,7 +237,7 @@ clickHere();
   >
     {#if !viewMode}
       <!-- Editor -->
-      <div class="flex flex-col overflow-hidden min-h-0">
+      <div class="flex flex-col overflow-hidden min-h-0 h-full">
         <textarea
           bind:this={editorTextarea}
           bind:value={content}
@@ -250,37 +249,24 @@ clickHere();
           style="font-family: var(--typo-font-family, 'Atkinson Hyperlegible'), monospace; font-size: var(--typo-font-size, 1em);"
           placeholder="# Title"
         />
-        <!-- Formatting Toolbar + Editor Bottom Bar -->
-        <div class="flex flex-col gap-0 w-full">
-          <div
-            class="flex flex-wrap gap-1 p-2 w-full {isDark
-              ? 'bg-gray-900 border-gray-800'
-              : 'bg-gray-100 border-gray-200'} border-t"
+        <!-- Formatting Toolbar -->
+        <div
+          class="flex flex-wrap gap-1 p-2 w-full shrink-0 {isDark
+            ? 'bg-gray-900 border-gray-800'
+            : 'bg-gray-100 border-gray-200'} border-t"
+        >
+          <button class="button" title="Heading">H</button>
+          <button class="button" title="Bullet"><Bullet /></button>
+          <button class="button" title="Blockquote"><Blockquote /></button>
+          <button class="button italic" title="Italic">I</button>
+          <button class="button font-bold" title="Bold">B</button>
+          <button class="button" title="Anchor"><Link /></button>
+          <button class="button" title="Image"><Image /></button>
+          <button class="button" title="Table"><Table /></button>
+          <button class="button" title="Code"
+            ><CodeBracket className="" /></button
           >
-            <button class="button" title="Heading">H</button>
-            <button class="button" title="Bullet"><Bullet /></button>
-            <button class="button" title="Blockquote"><Blockquote /></button>
-            <button class="button italic" title="Italic">I</button>
-            <button class="button font-bold" title="Bold">B</button>
-            <button class="button" title="Anchor"><Link /></button>
-            <button class="button" title="Image"><Image /></button>
-            <button class="button" title="Table"><Table /></button>
-            <button class="button" title="Code"
-              ><CodeBracket className="" /></button
-            >
-            <button class="button" title="Slide"><Slideshow /></button>
-          </div>
-          <!-- Editor Bottom Bar: char/word count, dark mode, view toggle -->
-          <div
-            class="flex items-center justify-between px-4 py-1 {isDark
-              ? 'bg-gray-950 border-gray-800'
-              : 'bg-gray-50 border-gray-200'} border-t text-xs"
-          >
-            <div class="flex items-center gap-4">
-              <span>{charCount} char</span>
-              <span>{wordCount} word</span>
-            </div>
-          </div>
+          <button class="button" title="Slide"><Slideshow /></button>
         </div>
       </div>
     {/if}
@@ -303,42 +289,6 @@ clickHere();
           {@html renderMarkdown(content)}
         </div>
       </div>
-
-      <!-- Preview Controls Footer -->
-      <div
-        class="group flex items-center justify-between py-2 {isDark
-          ? 'bg-gray-950 text-gray-50 border-gray-800'
-          : 'bg-gray-50 text-gray-900 border-gray-200'} border-t shrink-0"
-      >
-        <div class="flex items-center gap-4 mx-auto max-w-[72ch] w-full px-8">
-          <span class="text-xs leading-5">{charCount} char</span>
-          <span class="text-xs leading-5">{wordCount} word</span>
-        </div>
-        <div class="flex items-center gap-1 pr-2" style="visibility: hidden;">
-          <button
-            on:click={onDarkModeToggle}
-            class="button"
-            aria-label="Toggle dark mode"
-          >
-            {#if isDark}
-              <Sun class="w-5 h-5" />
-            {:else}
-              <Moon class="w-5 h-5" />
-            {/if}
-          </button>
-          <button
-            title={viewMode ? "Edit" : "View"}
-            class="button"
-            on:click={toggleView}
-          >
-            {#if viewMode}
-              <span class="w-5 h-5">✎</span>
-            {:else}
-              <Eye class="w-5 h-5" />
-            {/if}
-          </button>
-        </div>
-      </div>
     </div>
   </main>
 </div>
@@ -350,10 +300,6 @@ clickHere();
 
   .prose {
     padding: 0.5rem 2rem 2rem 2rem !important;
-  }
-
-  .group > div:first-child {
-    padding-left: 2rem !important;
   }
 
   :global(.button) {
