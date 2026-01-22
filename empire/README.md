@@ -7,6 +7,50 @@
 
 ---
 
+## UI Shell (Tailwind + Svelte)
+
+A minimal Svelte + Tailwind shell now lives in `dev/empire/` aligned with the Wizard dashboard styles (same Tailwind config and app.css).
+
+- Install: `cd dev/empire && npm install`
+- Run dev server: `npm run dev` (default port 5175)
+- Build: `npm run build`
+
+Use this shell as the starting point for Empire dashboards; add Svelte components under `src/`.
+
+## Scripts
+
+All runnable scripts now live under `dev/empire/scripts/` and are constrained to `memory/inbox/` via `path_guard.resolve_inbox_path()`.
+
+- Example: `python -m dev.empire.scripts.process_inbox --pattern "*.csv"`
+- Output: defaults to `memory/inbox/processed/`
+
+## HubSpot Integration
+
+HubSpot CRM synchronization is now owned by Empire (moved from Wizard, since it only syncs Empire's contacts.db).
+
+**Setup:**
+```bash
+export HUBSPOT_API_KEY=your_hubspot_api_key
+```
+
+**Usage:**
+```python
+from dev.empire.empire import Empire
+
+empire = Empire()
+
+# Bidirectional sync
+stats = await empire.sync_hubspot()  # {imported: N, exported: M}
+
+# One-way import
+stats = await empire.sync_hubspot(direction="import")
+
+# One-way export
+stats = await empire.sync_hubspot(direction="export")
+```
+
+---
+
 ## Overview
 
 **Empire Private Server** is a unified private CRM and business intelligence system that consolidates:
