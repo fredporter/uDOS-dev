@@ -499,12 +499,26 @@ async def global_exception_handler(request: Request, exc: Exception):
 
 # Main entry point
 if __name__ == "__main__":
+    import webbrowser
+    import threading
+    import time
+
     logger.info("=" * 60)
     logger.info("🧌 Goblin Dev Server")
     logger.info(f"   Version: {VERSION}")
     logger.info(f"   Port: {GOBLIN_PORT}")
-    logger.info(f"   Docs: http://{GOBLIN_HOST}:{GOBLIN_PORT}/docs")
+    logger.info(f"   Dashboard: http://{GOBLIN_HOST}:{GOBLIN_PORT}")
+    logger.info(f"   API Docs: http://{GOBLIN_HOST}:{GOBLIN_PORT}/docs")
     logger.info("   Status: EXPERIMENTAL - Expect breaking changes!")
     logger.info("=" * 60)
+
+    # Open dashboard in browser after short delay
+    def open_browser():
+        time.sleep(1.5)  # Wait for server to start
+        dashboard_url = f"http://{GOBLIN_HOST}:{GOBLIN_PORT}"
+        logger.info(f"[GOBLIN] Opening dashboard in browser: {dashboard_url}")
+        webbrowser.open(dashboard_url)
+
+    threading.Thread(target=open_browser, daemon=True).start()
 
     uvicorn.run(app, host=GOBLIN_HOST, port=GOBLIN_PORT, log_level="debug")

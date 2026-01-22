@@ -2,6 +2,7 @@
   import Header from "./components/Header.svelte";
   import StatusGrid from "./components/StatusGrid.svelte";
   import WarningBanner from "./components/WarningBanner.svelte";
+  import Features from "./components/Features.svelte";
   import QuickLinks from "./components/QuickLinks.svelte";
   import Footer from "./components/Footer.svelte";
 </script>
@@ -11,6 +12,7 @@
     <Header />
     <StatusGrid />
     <WarningBanner />
+    <Features />
     <QuickLinks />
     <Footer />
   </div>
@@ -35,7 +37,7 @@
   }
 
   .container {
-    max-width: 700px;
+    max-width: 900px;
     background: white;
     border-radius: 16px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
