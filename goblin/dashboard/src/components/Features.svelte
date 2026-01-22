@@ -3,75 +3,75 @@
     name: string;
     description: string;
     endpoint: string;
-    status: 'active' | 'experimental' | 'planned';
+    status: "active" | "experimental" | "planned";
   }
 
   const features: Feature[] = [
     {
-      name: 'Notion Sync',
-      description: 'Bidirectional Notion ↔ Markdown synchronization',
-      endpoint: '/api/v0/notion/webhook',
-      status: 'active'
+      name: "Notion Sync",
+      description: "Bidirectional Notion ↔ Markdown synchronization",
+      endpoint: "/api/v0/notion/webhook",
+      status: "active",
     },
     {
-      name: 'TS Runtime',
-      description: 'Execute TypeScript Markdown runtime blocks',
-      endpoint: '/api/v0/runtime/execute',
-      status: 'active'
+      name: "TS Runtime",
+      description: "Execute TypeScript Markdown runtime blocks",
+      endpoint: "/api/v0/runtime/execute",
+      status: "active",
     },
     {
-      name: 'Task Scheduler',
-      description: 'Organic cron task scheduling (Plant → Sprout → Harvest)',
-      endpoint: '/api/v0/tasks/schedule',
-      status: 'active'
+      name: "Task Scheduler",
+      description: "Organic cron task scheduling (Plant → Sprout → Harvest)",
+      endpoint: "/api/v0/tasks/schedule",
+      status: "active",
     },
     {
-      name: 'Binder Compiler',
-      description: 'Multi-format document compilation (MD, PDF, JSON, Brief)',
-      endpoint: '/api/v0/binder/compile',
-      status: 'active'
+      name: "Binder Compiler",
+      description: "Multi-format document compilation (MD, PDF, JSON, Brief)",
+      endpoint: "/api/v0/binder/compile",
+      status: "active",
     },
     {
-      name: 'AI Assistant',
-      description: 'Mistral/Vibe CLI integration for code assistance',
-      endpoint: '/api/v0/ai/query',
-      status: 'experimental'
+      name: "AI Assistant",
+      description: "Mistral/Vibe CLI integration for code assistance",
+      endpoint: "/api/v0/ai/query",
+      status: "experimental",
     },
     {
-      name: 'GitHub Tools',
-      description: 'GitHub CLI integration (issues, PRs, devlog)',
-      endpoint: '/api/v0/github/repos',
-      status: 'experimental'
+      name: "GitHub Tools",
+      description: "GitHub CLI integration (issues, PRs, devlog)",
+      endpoint: "/api/v0/github/repos",
+      status: "experimental",
     },
     {
-      name: 'Workflow Manager',
-      description: 'Native project and task management',
-      endpoint: '/api/v0/workflow/projects',
-      status: 'experimental'
-    }
+      name: "Workflow Manager",
+      description: "Native project and task management",
+      endpoint: "/api/v0/workflow/projects",
+      status: "experimental",
+    },
   ];
 
   function getStatusColor(status: string): string {
     switch (status) {
-      case 'active':
-        return '#10b981';
-      case 'experimental':
-        return '#f59e0b';
-      case 'planned':
-        return '#6b7280';
+      case "active":
+        return "#10b981";
+      case "experimental":
+        return "#f59e0b";
+      case "planned":
+        return "#6b7280";
       default:
-        return '#6b7280';
+        return "#6b7280";
     }
   }
 
   function getStatusLabel(status: string): string {
     switch (status) {
-      case 'active':
-        return '✓ Active';
-      case 'experimental':
-        return '⚗️ Experimental';
-      case 'planned':
-        return '📋 Planned';
+      case "active":
+        return "✓ Active";
+      case "experimental":
+        return "⚗️ Experimental";
+      case "planned":
+        return "📋 Planned";
       default:
         return status;
     }
@@ -87,11 +87,12 @@
       <div class="feature-card">
         <div class="feature-header">
           <h4>{feature.name}</h4>
-          <span 
-            class="status-badge" 
+          <span
+            class="status-badge"
             style="background-color: {getStatusColor(feature.status)}20; 
                    color: {getStatusColor(feature.status)}; 
-                   border: 1px solid {getStatusColor(feature.status)}">
+                   border: 1px solid {getStatusColor(feature.status)}"
+          >
             {getStatusLabel(feature.status)}
           </span>
         </div>
@@ -161,7 +162,7 @@
 
   .endpoint {
     display: block;
-    font-family: 'Monaco', 'Courier New', monospace;
+    font-family: "Monaco", "Courier New", monospace;
     font-size: 0.8em;
     color: #667eea;
     background: rgba(102, 126, 234, 0.1);
