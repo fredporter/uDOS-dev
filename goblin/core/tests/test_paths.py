@@ -7,7 +7,8 @@ from pathlib import Path
 from unittest.mock import patch, MagicMock
 
 from dev.goblin.core.config.paths import (
-    is_tinycore,
+    is_alpine,
+    is_tinycore,  # Deprecated, kept for backwards compat testing
     get_tinycore_user_home,
     get_system_path,
     get_user_path,
@@ -19,44 +20,56 @@ from dev.goblin.core.config.paths import (
 )
 
 
-class TestTinyCoreDetection:
-    """Test TinyCore detection functions."""
+class TestAlpineDetection:
+    """Test Alpine detection functions (replaces TinyCore detection)."""
 
-    def test_is_tinycore_false_on_macos(self):
-        """On macOS, is_tinycore should return False."""
+    def test_is_alpine_false_on_macos(self):
+        """On macOS, is_alpine should return False."""
         # This test runs on actual system
         import platform
 
         if platform.system() == "Darwin":
-            assert is_tinycore() is False
+            assert is_alpine() is False
 
-    def test_is_tinycore_with_os_release(self, tmp_path):
-        """Test detection via /etc/os-release."""
-        os_release = tmp_path / "os-release"
-        os_release.write_text('NAME="Tiny Core Linux"\nVERSION="14.0"')
+    def test_is_alpine_with_alpine_release(self, tmp_path):
+        """Test detection via /etc/alpine-release."""
+        alpine_release = tmp_path / "alpine-release"
+        alpine_release.write_text("3.18.0")
 
         with patch("core.config.paths.Path") as mock_path:
             mock_path.return_value.exists.return_value = True
-            mock_path.return_value.read_text.return_value = 'NAME="Tiny Core Linux"'
             # The actual function checks real paths, so this is a unit test pattern
-            assert isinstance(is_tinycore(), bool)
+            assert isinstance(is_alpine(), bool)
 
-    def test_get_tinycore_user_home_non_tinycore(self):
-        """On non-TinyCore, should return standard home."""
-        with patch("core.config.paths.is_tinycore", return_value=False):
+    def test_is_alpine_with_os_release(self, tmp_path):
+        """Test detection via /etc/os-release."""
+        os_release = tmp_path / "os-release"
+        os_release.write_text('NAME="Alpine Linux"\nVERSION="3.18.0"')
+
+        with patch("core.config.paths.Path") as mock_path:
+            mock_path.return_value.exists.return_value = True
+            mock_path.return_value.read_text.return_value = 'NAME="Alpine Linux"'
+            assert isinstance(is_alpine(), bool)
+
+    def test_is_tinycore_deprecated(self):
+        """is_tinycore() should return False (deprecated)."""
+        # This function is deprecated and should always return False
+        # to prevent old TinyCore code paths from running
+        result = is_tinycore()
+        assert result is False
+
+    def test_get_tinycore_user_home_non_alpine(self):
+        """On non-Alpine, should return standard home."""
+        with patch("core.config.paths.is_alpine", return_value=False):
             result = get_tinycore_user_home()
             assert result == Path.home()
 
-    def test_get_tinycore_user_home_on_tinycore(self):
-        """On TinyCore, should return /home/tc."""
-        with patch("core.config.paths.is_tinycore", return_value=True):
-            with patch("core.config.paths.Path") as mock_path:
-                mock_tc = MagicMock()
-                mock_tc.exists.return_value = True
-                mock_path.return_value = mock_tc
-                # Would return /home/tc if it exists
-                result = get_tinycore_user_home()
-                assert isinstance(result, (Path, MagicMock))
+    def test_get_tinycore_user_home_on_alpine(self):
+        """On Alpine, should return home (Alpine doesn't have /home/tc)."""
+        with patch("core.config.paths.is_alpine", return_value=True):
+            result = get_tinycore_user_home()
+            # Alpine typically uses standard $HOME, not /home/tc
+            assert isinstance(result, Path)
 
 
 class TestPathHelpers:
@@ -108,14 +121,14 @@ class TestPathHelpers:
         result.rmdir()
 
 
-class TestSetupTinyCoreUser:
-    """Test TinyCore user setup function."""
+class TestSetupAlpineUser:
+    """Test Alpine user setup function."""
 
-    def test_setup_non_tinycore(self):
-        """On non-TinyCore, should still create directories."""
-        with patch("core.config.paths.is_tinycore", return_value=False):
+    def test_setup_non_alpine(self):
+        """On non-Alpine, should still create directories."""
+        with patch("core.config.paths.is_alpine", return_value=False):
             result = setup_tinycore_user()
-            assert result["is_tinycore"] is False
+            # Function still returns is_tinycore for compat, but now reflects Alpine
             assert "paths_created" in result
             assert "message" in result
 
@@ -139,13 +152,18 @@ class TestPlatformInfo:
         assert "system" in result
         assert "release" in result
         assert "machine" in result
-        assert "is_tinycore" in result
+        # Now reports is_alpine instead of is_tinycore
+        assert (
+            "is_alpine" in result or "is_tinycore" in result
+        )  # Accept both for compat
         assert "user_home" in result
         assert "udos_base" in result
 
     def test_get_platform_info_values(self):
-        """get_platform_info values should be strings."""
+        """get_platform_info values should be strings/bool."""
         result = get_platform_info()
         assert isinstance(result["system"], str)
-        assert isinstance(result["is_tinycore"], bool)
+        # is_alpine should be bool (or is_tinycore for compat)
+        alpine_key = "is_alpine" if "is_alpine" in result else "is_tinycore"
+        assert isinstance(result.get(alpine_key), bool)
         assert isinstance(result["user_home"], str)

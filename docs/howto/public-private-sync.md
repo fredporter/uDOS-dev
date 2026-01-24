@@ -18,7 +18,7 @@
 - Public (publish):
   - Source code: `core/` (includes `core/docs/`), `extensions/api/`, `knowledge/`, `data/`
   - Distribution: `distribution/` (installer, TCZ packaging, stacks)
-  - Tools: `library/tinycore/` (ISO downloader/manager)
+  - Tools: `library/alpine/` (ISO downloader/manager)
   - Root: Auto-generated `README.md` with links, `LICENSE.txt`
 
 **Exclusions from public sync:**
@@ -107,9 +107,9 @@ git clone https://github.com/fredporter/uDOS-core.git /tmp/uDOS-core
 rsync -av --delete --exclude='__pycache__' --exclude='*.pyc' --exclude='tests/' --exclude='.dev' --exclude='.archive' core/ /tmp/uDOS-core/core/
 rsync -av --delete --exclude='__pycache__' --exclude='*.pyc' --exclude='tests/' --exclude='.dev' --exclude='.archive' extensions/api/ /tmp/uDOS-core/extensions/api/
 
-# Copy distribution and tinycore tools
+# Copy distribution and library assets
 rsync -av --delete --exclude='*.iso' --exclude='builds/' --exclude='test/' distribution/ /tmp/uDOS-core/distribution/
-rsync -av --delete --exclude='__pycache__' --exclude='*.pyc' --exclude='*.iso' library/tinycore/ /tmp/uDOS-core/library/tinycore/
+rsync -av --delete --exclude='__pycache__' --exclude='*.pyc' library/ /tmp/uDOS-core/library/
 
 # Copy data and knowledge (core/ already includes core/docs/)
 rsync -av --delete data/ /tmp/uDOS-core/data/
@@ -123,7 +123,7 @@ rsync -av LICENSE.txt /tmp/uDOS-core/
 cd /tmp/uDOS-core
 git checkout -B main
 git add -A
-git commit -m "Sync vX.Y.Z: core, extensions/api, distribution, library/tinycore, data, knowledge"
+git commit -m "Sync vX.Y.Z: core, extensions/api, distribution, library, data, knowledge"
 git push origin main
 ```
 

@@ -1,8 +1,8 @@
-# TinyCore Distribution
+# ⚠️ Deprecated: TinyCore Distribution
 
 > **Version:** Core v1.0.0.64
 
-uDOS is designed as an overlay OS for Tiny Core Linux, providing a complete offline-first system on minimal hardware.
+This document is deprecated. uDOS now targets Alpine Linux for distribution and packaging. See updated Alpine docs in `/docs/howto/alpine-install.md` and Wizard packaging notes.
 
 ---
 
@@ -39,9 +39,9 @@ uDOS is designed as an overlay OS for Tiny Core Linux, providing a complete offl
 
 | Component | Minimum | Recommended |
 | --------- | ------- | ----------- |
-| RAM | 128MB | 512MB+ |
-| Storage | 256MB | 2GB+ |
-| CPU | i486+ | Any modern |
+| RAM       | 128MB   | 512MB+      |
+| Storage   | 256MB   | 2GB+        |
+| CPU       | i486+   | Any modern  |
 
 ### Quick Install
 
@@ -119,12 +119,12 @@ STACK STATUS
 
 ### Stack Definitions
 
-| Stack | Packages | Description |
-| ----- | -------- | ----------- |
+| Stack      | Packages              | Description         |
+| ---------- | --------------------- | ------------------- |
 | `meshcore` | meshtastic, bluetooth | P2P mesh networking |
-| `audio` | pygame, portaudio | Groovebox audio |
-| `wizard` | openssl, curl | Wizard server |
-| `dev` | git, gcc | Development tools |
+| `audio`    | pygame, portaudio     | Groovebox audio     |
+| `wizard`   | openssl, curl         | Wizard server       |
+| `dev`      | git, gcc              | Development tools   |
 
 ---
 
@@ -353,4 +353,4 @@ dd if=distribution/udos.img of=/dev/sdb bs=4M
 
 ---
 
-*Part of the [uDOS Wiki](README.md)*
+_Part of the [uDOS Wiki](README.md)_

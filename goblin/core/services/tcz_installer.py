@@ -1,21 +1,29 @@
 """
-TCZ Installer Service for uDOS
-=============================
+⚠️ DEPRECATED: TCZ Installer Service for uDOS
+=============================================
 
-Handles Tiny Core Linux extension (.tcz) installation and management.
-Works on both Tiny Core (native) and other systems (compatibility mode).
+**Status:** DEPRECATED — Use APK packages instead
+**Date:** 2026-01-24
+**Migration:** See docs/decisions/ADR-0003-alpine-linux-migration.md
 
-Flow:
-1. Receive TCZ package (via mesh, QR, audio transport)
-2. Verify package integrity (checksum, signature)
-3. Install to appropriate location
-4. Mount or extract based on system type
-5. Register with extension system
+This module is kept for backwards compatibility only.
+uDOS has migrated from TinyCore to Alpine Linux.
+
+For Alpine Linux:
+    # Use APK package manager
+    apk add udos-core
+
+    # Or use unified installer
+    ./bin/install.sh
+
+Legacy Usage (DO NOT USE):
+    Handles Tiny Core Linux extension (.tcz) installation and management.
 
 Author: uDOS Team
-Version: 1.0.0.0
+Version: 1.0.0.0 (DEPRECATED)
 """
 
+import warnings
 import hashlib
 import json
 import os
@@ -26,6 +34,15 @@ from datetime import datetime
 from enum import Enum
 from pathlib import Path
 from typing import Dict, List, Optional
+
+# Deprecation warning on module import
+warnings.warn(
+    "dev.goblin.core.services.tcz_installer is deprecated. "
+    "uDOS uses Alpine APK packages. Use 'apk add udos-*' instead. "
+    "See docs/decisions/ADR-0003-alpine-linux-migration.md",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 # ============================================================================
 # Enums

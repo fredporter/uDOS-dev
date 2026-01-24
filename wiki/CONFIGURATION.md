@@ -6,14 +6,14 @@ uDOS uses a unified configuration system based on a user-editable markdown file.
 
 ## Quick Reference
 
-| Command | Description |
-|---------|-------------|
-| `PROFILE` | View current profile |
-| `PROFILE SETUP` | Run setup wizard |
-| `PROFILE EDIT` | Open udos.md in editor |
-| `PROFILE SET $VAR value` | Set a variable |
-| `PROFILE GET $VAR` | Get a variable value |
-| `GET $VAR` | Shorthand for getting a variable |
+| Command                  | Description                      |
+| ------------------------ | -------------------------------- |
+| `PROFILE`                | View current profile             |
+| `PROFILE SETUP`          | Run setup wizard                 |
+| `PROFILE EDIT`           | Open udos.md in editor           |
+| `PROFILE SET $VAR value` | Set a variable                   |
+| `PROFILE GET $VAR`       | Get a variable value             |
+| `GET $VAR`               | Shorthand for getting a variable |
 
 ---
 
@@ -35,7 +35,7 @@ This is a markdown file you can edit directly with any text editor.
 ## Profile
 
 $USER_NAME: survivor
-$USER_EMAIL: 
+$USER_EMAIL:
 $USER_LOCATION: 
 $USER_TIMEZONE: UTC
 
@@ -56,12 +56,12 @@ $COLOR_MODE: auto
 ## Project
 
 $PROJECT_NAME: 
-$PROJECT_DESCRIPTION: 
+$PROJECT_DESCRIPTION:
 
 ## Custom Variables
 
 $MY_VAR_1: 
-$MY_VAR_2: 
+$MY_VAR_2:
 ```
 
 ---
@@ -70,43 +70,43 @@ $MY_VAR_2:
 
 ### Profile Variables
 
-| Variable | Type | Default | Description |
-|----------|------|---------|-------------|
-| `$USER_NAME` | string | survivor | Your display name |
-| `$USER_EMAIL` | string | | Email address (optional) |
-| `$USER_LOCATION` | string | | Your location |
-| `$USER_TIMEZONE` | string | UTC | IANA timezone |
+| Variable         | Type   | Default  | Description              |
+| ---------------- | ------ | -------- | ------------------------ |
+| `$USER_NAME`     | string | survivor | Your display name        |
+| `$USER_EMAIL`    | string |          | Email address (optional) |
+| `$USER_LOCATION` | string |          | Your location            |
+| `$USER_TIMEZONE` | string | UTC      | IANA timezone            |
 
 ### Security Variables
 
-| Variable | Type | Default | Description |
-|----------|------|---------|-------------|
-| `$AUTH_ENABLED` | bool | false | Enable session security |
-| `$AUTH_METHOD` | string | none | `none`, `pin`, or `password` |
-| `$SESSION_TIMEOUT` | int | 0 | Auto-lock minutes (0=never) |
+| Variable           | Type   | Default | Description                  |
+| ------------------ | ------ | ------- | ---------------------------- |
+| `$AUTH_ENABLED`    | bool   | false   | Enable session security      |
+| `$AUTH_METHOD`     | string | none    | `none`, `pin`, or `password` |
+| `$SESSION_TIMEOUT` | int    | 0       | Auto-lock minutes (0=never)  |
 
 ### Preference Variables
 
-| Variable | Type | Default | Description |
-|----------|------|---------|-------------|
-| `$THEME` | string | foundation | `foundation`, `galaxy`, `survival`, `retro` |
-| `$SOUND_ENABLED` | bool | true | Enable sound effects |
-| `$TIPS_ENABLED` | bool | true | Show helpful tips |
-| `$AUTO_SAVE` | bool | true | Auto-save documents |
-| `$COLOR_MODE` | string | auto | `light`, `dark`, `auto` |
+| Variable         | Type   | Default    | Description                                 |
+| ---------------- | ------ | ---------- | ------------------------------------------- |
+| `$THEME`         | string | foundation | `foundation`, `galaxy`, `survival`, `retro` |
+| `$SOUND_ENABLED` | bool   | true       | Enable sound effects                        |
+| `$TIPS_ENABLED`  | bool   | true       | Show helpful tips                           |
+| `$AUTO_SAVE`     | bool   | true       | Auto-save documents                         |
+| `$COLOR_MODE`    | string | auto       | `light`, `dark`, `auto`                     |
 
 ### Project Variables
 
-| Variable | Type | Default | Description |
-|----------|------|---------|-------------|
-| `$PROJECT_NAME` | string | | Current project name |
-| `$PROJECT_DESCRIPTION` | string | | Project description |
-| `$PROJECT_START` | string | | Project start date |
+| Variable               | Type   | Default | Description          |
+| ---------------------- | ------ | ------- | -------------------- |
+| `$PROJECT_NAME`        | string |         | Current project name |
+| `$PROJECT_DESCRIPTION` | string |         | Project description  |
+| `$PROJECT_START`       | string |         | Project start date   |
 
 ### Custom Variables
 
-| Variable | Type | Description |
-|----------|------|-------------|
+| Variable                        | Type   | Description            |
+| ------------------------------- | ------ | ---------------------- |
 | `$MY_VAR_1` through `$MY_VAR_5` | string | User-defined variables |
 
 Use custom variables in templates:
@@ -117,13 +117,13 @@ Hello $MY_VAR_1!
 
 ### System Variables (Read-Only)
 
-| Variable | Description |
-|----------|-------------|
-| `$SYS_VERSION` | uDOS version |
-| `$SYS_DEVICE` | Device name |
-| `$SYS_MODE` | `PROD`, `DEV`, or `OFFLINE` |
-| `$SYS_REALM` | `USER_MESH` or `WIZARD` |
-| `$SYS_TIMESTAMP` | Current timestamp |
+| Variable         | Description                 |
+| ---------------- | --------------------------- |
+| `$SYS_VERSION`   | uDOS version                |
+| `$SYS_DEVICE`    | Device name                 |
+| `$SYS_MODE`      | `PROD`, `DEV`, or `OFFLINE` |
+| `$SYS_REALM`     | `USER_MESH` or `WIZARD`     |
+| `$SYS_TIMESTAMP` | Current timestamp           |
 
 ---
 
@@ -149,11 +149,11 @@ export UDOS_THEME=galaxy
 
 ### Authentication Methods
 
-| Method | Description | Storage |
-|--------|-------------|---------|
-| `none` | No authentication | - |
-| `pin` | 4-6 digit PIN | Hashed in keystore |
-| `password` | Password | bcrypt hash in keystore |
+| Method     | Description       | Storage                 |
+| ---------- | ----------------- | ----------------------- |
+| `none`     | No authentication | -                       |
+| `pin`      | 4-6 digit PIN     | Hashed in keystore      |
+| `password` | Password          | bcrypt hash in keystore |
 
 **Important:** Credentials are stored in the encrypted keystore at `core/security/.keys/`, NOT in udos.md.
 
@@ -167,21 +167,21 @@ Set `$SESSION_TIMEOUT` to auto-lock after inactivity:
 
 ---
 
-## TinyCore Compliance
+## Alpine Compliance
 
-The configuration system follows TinyCore principles:
+The configuration system follows Alpine principles:
 
-| Principle | Implementation |
-|-----------|----------------|
-| Minimal footprint | Single config file |
-| No root required | User-space only |
-| Portable | `/home/tc/udos/` structure |
-| Human-readable | Markdown format |
+| Principle         | Implementation             |
+| ----------------- | -------------------------- |
+| Minimal footprint | Single config file         |
+| No root required  | User-space only            |
+| Portable          | `/home/tc/udos/` structure |
+| Human-readable    | Markdown format            |
 
-### TinyCore Structure
+### Alpine Structure
 
 ```
-/home/tc/udos/
+/home/user/udos/
 ├── udos.md              # User config (editable)
 ├── .credentials/        # Encrypted secrets (700)
 ├── memory/              # User workspace (755)
@@ -215,7 +215,7 @@ The configuration system provides form definitions for the uCode Markdown App:
       "type": "text",
       "label": "Your display name",
       "value": "survivor",
-      "validation": {"minLength": 1, "maxLength": 50}
+      "validation": { "minLength": 1, "maxLength": 50 }
     }
   ]
 }
@@ -278,5 +278,5 @@ Message: $MY_VAR_1
 
 ---
 
-*Last updated: 2026-01-07*  
-*uDOS Alpha v1.1.0.0*
+_Last updated: 2026-01-07_  
+_uDOS Alpha v1.1.0.0_

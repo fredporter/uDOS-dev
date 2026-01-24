@@ -1,20 +1,30 @@
 """
-uDOS TCZ Package Builder
-========================
-Builds Tiny Core Extension packages (.tcz) for uDOS components.
+⚠️ DEPRECATED: uDOS TCZ Package Builder
+========================================
 
-Usage:
+**Status:** DEPRECATED — Use APKBuilder instead
+**Date:** 2026-01-24
+**Migration:** See docs/decisions/ADR-0003-alpine-linux-migration.md
+
+This module is kept for backwards compatibility only.
+uDOS has migrated from TinyCore to Alpine Linux.
+
+Use instead:
+    from wizard.services.plugin_factory import APKBuilder
+    builder = APKBuilder()
+    builder.build_apk('core')
+
+Legacy Usage (DO NOT USE):
     from dev.goblin.core.services.tcz_builder import TCZBuilder
 
-    builder = TCZBuilder()
+    builder = TCZBuilder()  # ← Will raise deprecation warning
     builder.build_package('core')      # Build udos-core.tcz
-    builder.build_package('knowledge') # Build udos-knowledge.tcz
-    builder.build_all()                # Build all packages
 
 Author: uDOS Team
-Version: v1.0.0.14
+Version: v1.0.0.14 (DEPRECATED)
 """
 
+import warnings
 import hashlib
 import json
 import os
@@ -26,6 +36,15 @@ from dataclasses import dataclass, field
 from enum import Enum
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
+
+# Deprecation warning on module import
+warnings.warn(
+    "dev.goblin.core.services.tcz_builder is deprecated. "
+    "Use wizard.services.plugin_factory.APKBuilder for Alpine packages. "
+    "See docs/decisions/ADR-0003-alpine-linux-migration.md",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 
 class BuildResult(Enum):

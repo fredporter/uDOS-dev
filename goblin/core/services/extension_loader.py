@@ -1,7 +1,10 @@
 """
 Extension Loader
 
-Loads system and user extensions following TCZ plugin model.
+Loads system and user extensions following Alpine APK plugin model.
+
+Note: TCZ plugin support is deprecated. Use APK packages for Alpine Linux.
+See docs/decisions/ADR-0003-alpine-linux-migration.md
 """
 
 import json
@@ -30,9 +33,11 @@ class ExtensionManifest:
         self.platforms = compat.get("platforms", [])
         self.requires_gui = compat.get("requires_gui", False)
 
-        # Dependencies
+        # Dependencies (Alpine APK format preferred)
         deps = data.get("dependencies", {})
-        self.tcz_deps = deps.get("tcz", [])
+        # tcz_deps is deprecated, use apk_deps instead
+        self.tcz_deps = deps.get("tcz", [])  # DEPRECATED
+        self.apk_deps = deps.get("apk", [])  # Preferred for Alpine
         self.python_deps = deps.get("python", [])
 
         # Permissions

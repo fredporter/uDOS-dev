@@ -1,23 +1,23 @@
 """
 Path Constants for uDOS v1.0.0.44+
 
-Centralized path management with TinyCore detection.
+Centralized path management with Alpine Linux detection.
 Use these constants instead of string literals.
 
-TinyCore Path Strategy:
+Alpine Linux Path Strategy:
 - Development: ./memory/, ./core/, etc. (workspace-relative)
-- TinyCore: /opt/udos/ (persistent), /tmp/udos/ (ephemeral)
-- Detection via /etc/os-release or UDOS_TINYCORE env var
+- Alpine: /opt/udos/ (persistent), /tmp/udos/ (ephemeral)
+- Detection via /etc/alpine-release or UDOS_ALPINE env var
 
 Example:
-    from dev.goblin.core.utils.paths import PATHS, is_tinycore
+    from dev.goblin.core.utils.paths import PATHS, is_alpine
 
     # ✅ Good - works everywhere
     user_file = PATHS.MEMORY_USER / "user.json"
 
     # Check platform
-    if is_tinycore():
-        print("Running on Tiny Core Linux")
+    if is_alpine():
+        print("Running on Alpine Linux")
 """
 
 from pathlib import Path
@@ -25,20 +25,31 @@ from typing import Dict, Optional
 import os
 
 
-def is_tinycore() -> bool:
+def is_alpine() -> bool:
     """
-    Detect if running on Tiny Core Linux.
+    Detect if running on Alpine Linux.
 
     Detection methods:
-    1. UDOS_TINYCORE env var (for testing/override)
-    2. /etc/os-release contains 'Tiny Core'
-    3. /usr/bin/tce-load exists (TC package manager)
+    1. UDOS_ALPINE env var (for testing/override)
+    2. /etc/alpine-release exists
+    3. apk command exists (Alpine package manager)
+    4. /etc/os-release contains 'Alpine'
 
     Returns:
-        True if running on Tiny Core Linux
+        True if running on Alpine Linux
     """
     # Allow override via environment
-    if os.environ.get("UDOS_TINYCORE", "").lower() in ("1", "true", "yes"):
+    if os.environ.get("UDOS_ALPINE", "").lower() in ("1", "true", "yes"):
+        return True
+
+    # Check for Alpine release file
+    if Path("/etc/alpine-release").exists():
+        return True
+
+    # Check for apk package manager
+    import shutil
+
+    if shutil.which("apk") is not None:
         return True
 
     # Check /etc/os-release
@@ -46,14 +57,43 @@ def is_tinycore() -> bool:
         os_release = Path("/etc/os-release")
         if os_release.exists():
             content = os_release.read_text().lower()
-            if "tiny core" in content or "tinycore" in content:
+            if "alpine" in content:
                 return True
+    except:
+        pass
+
+    return False
+
+
+def is_tinycore() -> bool:
+    """
+    DEPRECATED: Use is_alpine() instead.
+
+    Detect if running on Tiny Core Linux.
+    This function is kept for backwards compatibility but will be removed.
+    All TinyCore logic now redirects to Alpine Linux detection.
+
+    Returns:
+        False (TinyCore is deprecated, use Alpine Linux)
+    """
+    # Check for actual TinyCore environment (for migration warning)
+    try:
+        os_release = Path("/etc/os-release")
+        if os_release.exists():
+            content = os_release.read_text().lower()
+            if "tiny core" in content or "tinycore" in content:
+                print(
+                    "WARNING: TinyCore Linux detected. uDOS has migrated to Alpine Linux."
+                )
+                print("Please migrate to Alpine Linux for continued support.")
+                return False
     except:
         pass
 
     # Check for TC package manager
     if Path("/usr/bin/tce-load").exists():
-        return True
+        print("WARNING: TinyCore tools detected. uDOS has migrated to Alpine Linux.")
+        return False
 
     return False
 
@@ -70,7 +110,7 @@ def get_platform_info() -> Dict[str, str]:
     return {
         "os": platform.system(),
         "os_version": platform.version(),
-        "is_tinycore": is_tinycore(),
+        "is_alpine": is_alpine(),
         "udos_root": str(_get_udos_root()),
         "python_version": platform.python_version(),
     }
@@ -82,7 +122,7 @@ def _get_udos_root() -> Path:
 
     Priority:
     1. UDOS_ROOT environment variable
-    2. TinyCore: /opt/udos
+    2. Alpine: /opt/udos
     3. Development: Parent of core/ directory
 
     Returns:
@@ -93,11 +133,11 @@ def _get_udos_root() -> Path:
     if env_root:
         return Path(env_root)
 
-    # TinyCore deployment
-    if is_tinycore():
-        tc_root = Path("/opt/udos")
-        if tc_root.exists():
-            return tc_root
+    # Alpine deployment
+    if is_alpine():
+        alpine_root = Path("/opt/udos")
+        if alpine_root.exists():
+            return alpine_root
 
     # Development: relative to this file
     return Path(__file__).parent.parent.parent
@@ -107,13 +147,13 @@ def _get_ephemeral_root() -> Path:
     """
     Get ephemeral storage root (for temp files, caches).
 
-    TinyCore: /tmp/udos (RAM disk, cleared on reboot)
+    Alpine: /tmp/udos (RAM disk, cleared on reboot)
     Other: Standard temp or workspace .tmp/
 
     Returns:
         Path to ephemeral storage
     """
-    if is_tinycore():
+    if is_alpine():
         tmp = Path("/tmp/udos")
         tmp.mkdir(parents=True, exist_ok=True)
         return tmp

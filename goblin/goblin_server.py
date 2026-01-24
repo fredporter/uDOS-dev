@@ -303,7 +303,7 @@ def get_goblin_fallback_html() -> str:
 </head>
 <body>
     <div class="container">
-        <h1>🧌 Goblin</h1>
+        <h1>Goblin</h1>
         <p class="subtitle">Experimental Dev Server</p>
         
         <div class="status">⚠️ UNSTABLE API - EXPECT BREAKING CHANGES</div>
@@ -405,32 +405,17 @@ async def poke_url(request: Request):
 
 
 # ========================================
-# Notion Sync Endpoints (Phase B: Webhook)
+# Route Mounting
 # ========================================
 
-# Mount Notion routes
-try:
-    from routes import notion as notion_routes
+# REMOVED: Notion Sync - moved to Wizard Server (port 8765)
+# Notion endpoints should be accessed via Wizard API
 
-    app.include_router(notion_routes.router)
-except ImportError:
-    logger.warning("[GOBLIN] Could not load Notion routes")
+# REMOVED: Runtime - archived, use Core TypeScript Runtime instead
+# Runtime execution now handled by Core, not Goblin
 
-# Mount Runtime routes
-# NOTE: Archived - use Core TypeScript Runtime instead
-# try:
-#     from routes import runtime as runtime_routes
-#     app.include_router(runtime_routes.router)
-# except ImportError:
-#     logger.warning("[GOBLIN] Could not load Runtime routes")
-
-# Mount Task Scheduler routes
-try:
-    from routes import tasks as tasks_routes
-
-    app.include_router(tasks_routes.router)
-except ImportError:
-    logger.warning("[GOBLIN] Could not load Tasks routes")
+# REMOVED: Task Scheduler - moved to Wizard Server (port 8765)
+# Task scheduling endpoints should be accessed via Wizard API
 
 # Mount Binder Compiler routes
 try:
@@ -504,7 +489,7 @@ if __name__ == "__main__":
     import time
 
     logger.info("=" * 60)
-    logger.info("🧌 Goblin Dev Server")
+    logger.info("Goblin Dev Server")
     logger.info(f"   Version: {VERSION}")
     logger.info(f"   Port: {GOBLIN_PORT}")
     logger.info(f"   Dashboard: http://{GOBLIN_HOST}:{GOBLIN_PORT}")
