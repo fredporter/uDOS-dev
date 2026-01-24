@@ -8,7 +8,7 @@
 
 ## 🎯 What is uDOS?
 
-uDOS is a **Python-venv OS layer** designed to run on minimal hardware (Tiny Core Linux) while providing powerful features:
+uDOS is a **Python-venv OS layer** targeting Alpine Linux for minimal hardware while providing powerful features:
 
 - **230+ offline survival guides** in markdown format
 - **AI-powered content generation** (online via Gemini, offline via Ollama)
@@ -34,10 +34,10 @@ Every output starts as text. Graphics exist to serve communication, not decorati
 
 ### 3. Two-Realm Architecture
 
-| Realm | Purpose | Internet | Example |
-|-------|---------|----------|---------|
-| **User Mesh** | Daily use | Never | Laptops, phones, Tiny Core nodes |
-| **Wizard Server** | AI & web | When needed | Always-on home server |
+| Realm             | Purpose   | Internet    | Example                       |
+| ----------------- | --------- | ----------- | ----------------------------- |
+| **User Mesh**     | Daily use | Never       | Laptops, phones, Alpine nodes |
+| **Wizard Server** | AI & web  | When needed | Always-on home server         |
 
 The Wizard Server handles web-dependent tasks (Gemini AI, web scraping, email) and communicates with user devices over **private transports only**.
 
@@ -74,7 +74,7 @@ Commands typed in TUI or executed from `.udos.md` scripts:
 
 ```bash
 GUIDE survival/water      # Browse knowledge
-BUNDLE START survival     # Begin learning bundle  
+BUNDLE START survival     # Begin learning bundle
 CAPTURE https://example.com  # Save web content
 MAKE TEXT "water guide"   # Generate with AI
 ```
@@ -83,7 +83,7 @@ MAKE TEXT "water guide"   # Generate with AI
 
 Markdown files with embedded scripts:
 
-```markdown
+````markdown
 ---
 title: Water Purification Guide
 type: knowledge
@@ -98,7 +98,9 @@ Methods for making water safe...
 # Embedded script
 result = GUIDE.SEARCH("filter")
 ```
-```
+````
+
+````
 
 ### Bundles
 
@@ -111,7 +113,7 @@ drip:
   items_per_session: 1
 wellbeing:
   energy_cost: medium
-```
+````
 
 ---
 
@@ -133,7 +135,7 @@ wellbeing:
 
 ---
 
-*"Computing should serve humans, not surveil them."*
+_"Computing should serve humans, not surveil them."_
 
 ---
 

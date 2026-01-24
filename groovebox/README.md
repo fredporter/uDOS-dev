@@ -182,13 +182,13 @@ t125 l16 o4 v14
 
 - `mido` - MIDI file generation
 - `numpy` - Audio processing
-- `sounddevice` - Realtime playback (optional, TinyCore compatible)
+- `sounddevice` - Realtime playback (optional, Alpine-compatible)
 
 **Optional Bridges:**
 
 - LMMS (installed via TCZ package or Wizard)
 - VCV Rack (Wizard Server only, web-capable)
-- FluidSynth (TinyCore compatible)
+- FluidSynth (Alpine-compatible)
 - LilyPond (score generation, optional)
 
 **Distribution:**

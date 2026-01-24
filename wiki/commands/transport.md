@@ -40,14 +40,14 @@ MESH [PEERS|SEND|BROADCAST|STATUS|JOIN|LEAVE]
 
 ### Subcommands
 
-| Command | Description |
-| ------- | ----------- |
-| `STATUS` | Show mesh status |
-| `PEERS` | List connected peers |
+| Command             | Description           |
+| ------------------- | --------------------- |
+| `STATUS`            | Show mesh status      |
+| `PEERS`             | List connected peers  |
 | `SEND <peer> <msg>` | Send to specific peer |
-| `BROADCAST <msg>` | Send to all peers |
-| `JOIN <network>` | Join mesh network |
-| `LEAVE` | Leave current network |
+| `BROADCAST <msg>`   | Send to all peers     |
+| `JOIN <network>`    | Join mesh network     |
+| `LEAVE`             | Leave current network |
 
 ### Examples
 
@@ -81,13 +81,13 @@ PAIR [CONSOLE|DEVICE|LIST|REMOVE|STATUS]
 
 ### Subcommands
 
-| Command | Description |
-| ------- | ----------- |
-| `CONSOLE` | Pair mobile console |
-| `DEVICE` | Pair generic device |
-| `LIST` | List paired devices |
-| `REMOVE <id>` | Unpair device |
-| `STATUS` | Pairing status |
+| Command       | Description         |
+| ------------- | ------------------- |
+| `CONSOLE`     | Pair mobile console |
+| `DEVICE`      | Pair generic device |
+| `LIST`        | List paired devices |
+| `REMOVE <id>` | Unpair device       |
+| `STATUS`      | Pairing status      |
 
 ### Examples
 
@@ -160,26 +160,26 @@ uDOS enforces strict transport policies:
 
 ### Private Transports (Commands + Data)
 
-| Transport | Description |
-| --------- | ----------- |
-| MeshCore | Primary P2P mesh |
+| Transport         | Description         |
+| ----------------- | ------------------- |
+| MeshCore          | Primary P2P mesh    |
 | Bluetooth Private | Paired devices only |
-| NFC | Physical contact |
-| QR Relay | Visual transfer |
-| Audio Relay | Acoustic packets |
+| NFC               | Physical contact    |
+| QR Relay          | Visual transfer     |
+| Audio Relay       | Acoustic packets    |
 
 ### Public Channels (Signal Only)
 
-| Channel | Allowed |
-| ------- | ------- |
+| Channel          | Allowed               |
+| ---------------- | --------------------- |
 | Bluetooth Public | Presence beacons ONLY |
-| Never | uDOS commands or data |
+| Never            | uDOS commands or data |
 
 ### Realm Rules
 
-| Realm | Internet | Use Case |
-| ----- | -------- | -------- |
-| **A** (User Mesh) | Never | Daily use |
+| Realm                 | Internet    | Use Case       |
+| --------------------- | ----------- | -------------- |
+| **A** (User Mesh)     | Never       | Daily use      |
 | **B** (Wizard Server) | When needed | AI, web, email |
 
 ---
@@ -217,8 +217,8 @@ SYNC NOW              # Force immediate sync
 
 - [Vision - Transport Policy](../VISION.md#transport-policy)
 - [Groovebox](../groovebox/README.md) - Audio transport
-- [TinyCore](../tinycore/README.md) - Network setup
+- [Alpine](../tinycore/README.md) - Network setup (updated)
 
 ---
 
-*Part of the [Command Reference](README.md)*
+_Part of the [Command Reference](README.md)_

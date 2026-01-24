@@ -18,14 +18,14 @@ SYSTEM [subcommand] [args]
 
 ### Subcommands
 
-| Command | Description |
-| ------- | ----------- |
-| `STATUS` | Show system status (default) |
-| `INFO` | Detailed system information |
-| `REBOOT` | Restart uDOS |
-| `SHUTDOWN` | Exit uDOS |
-| `CONFIG` | View/edit configuration |
-| `REPAIR` | Run diagnostics |
+| Command    | Description                  |
+| ---------- | ---------------------------- |
+| `STATUS`   | Show system status (default) |
+| `INFO`     | Detailed system information  |
+| `REBOOT`   | Restart uDOS                 |
+| `SHUTDOWN` | Exit uDOS                    |
+| `CONFIG`   | View/edit configuration      |
+| `REPAIR`   | Run diagnostics              |
 
 ### Examples
 
@@ -90,13 +90,13 @@ STACK [ADD|REMOVE|LIST|STATUS] [capability]
 
 ### Available Stacks
 
-| Stack | Packages | Description |
-| ----- | -------- | ----------- |
+| Stack      | Packages              | Description         |
+| ---------- | --------------------- | ------------------- |
 | `meshcore` | meshtastic, bluetooth | P2P mesh networking |
-| `audio` | pygame, portaudio | Groovebox audio |
-| `wizard` | openssl, curl | Wizard server deps |
-| `dev` | git, gcc | Development tools |
-| `graphics` | pillow, svgwrite | Image generation |
+| `audio`    | pygame, portaudio     | Groovebox audio     |
+| `wizard`   | openssl, curl         | Wizard server deps  |
+| `dev`      | git, gcc              | Development tools   |
+| `graphics` | pillow, svgwrite      | Image generation    |
 
 ### Examples
 
@@ -111,7 +111,7 @@ STACK REMOVE audio    # Remove audio capability
 
 ## INSTALL
 
-TCZ package management for Tiny Core Linux.
+Plugin/package management for Alpine Linux.
 
 ### Syntax
 
@@ -134,7 +134,7 @@ INSTALL REMOVE nano   # Remove package
 
 ### Notes
 
-- Tiny Core specific (TCZ packages)
+- Alpine-specific (apk or plugin bundles)
 - Requires internet for download
 - Packages persist across reboots with proper setup
 
@@ -152,17 +152,17 @@ BUILD [OFFLINE|ISO|USB] [options]
 
 ### Subcommands
 
-| Command | Description |
-| ------- | ----------- |
-| `OFFLINE` | Create portable archive |
-| `ISO` | Build bootable ISO image |
-| `USB <device>` | Create bootable USB |
+| Command        | Description              |
+| -------------- | ------------------------ |
+| `OFFLINE`      | Create portable archive  |
+| `ISO`          | Build bootable ISO image |
+| `USB <device>` | Create bootable USB      |
 
 ### Examples
 
 ```bash
 BUILD OFFLINE         # Create udos-offline.tar.gz
-BUILD ISO             # Create udos-tinycore.iso
+BUILD ISO             # Create udos-alpine.iso
 BUILD USB /dev/sdb    # Write to USB drive
 ```
 
@@ -171,7 +171,7 @@ BUILD USB /dev/sdb    # Write to USB drive
 ```
 distribution/
 ├── udos-offline-v1.0.0.64.tar.gz
-├── udos-tinycore.iso
+├── udos-alpine.iso
 └── checksums.txt
 ```
 
@@ -189,13 +189,13 @@ REPAIR [component]
 
 ### Components
 
-| Component | Description |
-| --------- | ----------- |
-| (none) | Full system check |
-| `config` | Reset configuration |
-| `handlers` | Verify command handlers |
+| Component   | Description             |
+| ----------- | ----------------------- |
+| (none)      | Full system check       |
+| `config`    | Reset configuration     |
+| `handlers`  | Verify command handlers |
 | `knowledge` | Rebuild knowledge index |
-| `cache` | Clear all caches |
+| `cache`     | Clear all caches        |
 
 ### Examples
 
@@ -230,12 +230,12 @@ SET tui.rainbow_splash false
 
 ### Common Fields
 
-| Field | Description |
-| ----- | ----------- |
-| `tui.theme` | Color theme |
-| `tui.width` | Grid width |
-| `tui.rainbow_splash` | Splash animation |
-| `wizard.provider` | Default AI provider |
+| Field                | Description         |
+| -------------------- | ------------------- |
+| `tui.theme`          | Color theme         |
+| `tui.width`          | Grid width          |
+| `tui.rainbow_splash` | Splash animation    |
+| `wizard.provider`    | Default AI provider |
 
 ---
 
@@ -247,4 +247,4 @@ SET tui.rainbow_splash false
 
 ---
 
-*Part of the [Command Reference](README.md)*
+_Part of the [Command Reference](README.md)_

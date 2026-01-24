@@ -2,8 +2,25 @@
 
 **Current Version:** Core v1.1.0.0 | API v1.1.0.0 | App v1.0.3.0 | Wizard v1.1.0.0 | Goblin v0.2.0.0 | Binder v1.0.6.0 | TUI v1.0.0.0  
 **Release:** Alpha v1.0.6.0 Phase 5G ✅ **COMPLETE** 2026-01-18  
-**Next Target:** Phase 6: Wizard Integration (OAuth + Services) OR v1.0.7.0 Teletext Grid Runtime  
-**Last Updated:** 2026-01-18
+**Next Target:** v1.0.7.0 (TS Markdown Runtime + Grid System) OR Phase 6 (Wizard OAuth Integration)  
+**Last Updated:** 2026-01-24
+
+---
+
+## 📋 Development Streams Overview
+
+**For comprehensive development planning, see:**
+
+- [Development Streams Document](../../docs/development-streams.md) — Complete roadmap organization
+- [Specifications](../../docs/specs/) — Technical specs for all components
+- [Examples](../../docs/examples/) — Reference implementations
+
+**Active Streams:**
+
+1. **Core Runtime** — TypeScript Markdown + Grid System (v1.0.7.0)
+2. **Wizard Server** — OAuth + Workflow Management (Phase 6)
+3. **Goblin Dev** — Binder/Screwdriver/MeshCore (v0.2.0+)
+4. **App Development** — Typo Editor + Converters (v1.0.4.0+)
 
 ---
 

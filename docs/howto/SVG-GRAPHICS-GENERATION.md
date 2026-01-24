@@ -142,7 +142,7 @@ Diagram of uDOS system architecture:
 - Arrows showing data flow
 
 Labels:
-- TinyCore Linux
+- Alpine Linux
 - Tauri + Svelte
 - FastAPI port 8765
 - Transport layer
@@ -158,7 +158,7 @@ svg = await gen.generate_diagram(description, style="technical")
   <!-- Core Runtime (left box) -->
   <rect x="50" y="100" width="150" height="200" stroke="black" fill="none"/>
   <text x="75" y="130">Core Runtime</text>
-  <text x="60" y="200">TinyCore Linux</text>
+    <text x="60" y="200">Alpine Linux</text>
 
   <!-- Wizard Server (center) -->
   <circle cx="400" cy="300" r="80" stroke="black" fill="none"/>
