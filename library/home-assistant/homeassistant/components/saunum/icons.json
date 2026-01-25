@@ -1,9 +1,0 @@
-{
-  "entity": {
-    "sensor": {
-      "heater_elements_active": {
-        "default": "mdi:radiator"
-      }
-    }
-  }
-}
