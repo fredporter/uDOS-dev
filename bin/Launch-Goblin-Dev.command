@@ -11,6 +11,7 @@ set -e
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 UDOS_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 source "$UDOS_ROOT/bin/udos-common.sh"
+parse_rebuild_flag "$@"
 cd "$UDOS_ROOT"
 
 clear
@@ -26,6 +27,9 @@ echo ""
 # Setup Python environment (venv + dependencies)
 ensure_python_env || exit 1
 echo -e "${GREEN}✅ Log directory ready${NC}"
+
+# Optional rebuild for Goblin UI dependencies
+maybe_npm_install "$UDOS_ROOT/dev/goblin" || exit 1
 
 # Check port availability
 if lsof -Pi :8767 -sTCP:LISTEN -t >/dev/null 2>&1; then
