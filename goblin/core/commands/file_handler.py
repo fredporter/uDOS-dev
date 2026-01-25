@@ -177,7 +177,7 @@ class FileCommandHandler(BaseCommandHandler):
 
         # Ask for filename if not provided
         if not filename:
-            filename = prompt.ask_text("📄 File name", default="new_file.txt")
+            filename = prompt.ask_text("📄 File name", default="new_file.md")
             if not filename:
                 return "❌ File creation cancelled"
 

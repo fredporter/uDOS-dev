@@ -10,6 +10,19 @@
 
 set -e
 
+# Parse args
+UDOS_FORCE_REBUILD=0
+ARGS=()
+for arg in "$@"; do
+    if [ "$arg" = "--rebuild" ]; then
+        UDOS_FORCE_REBUILD=1
+    else
+        ARGS+=("$arg")
+    fi
+done
+export UDOS_FORCE_REBUILD
+set -- "${ARGS[@]}"
+
 cd "$(dirname "$0")/.."
 
 # ═══════════════════════════════════════════════════════════════════════════
@@ -92,6 +105,12 @@ if [ ! -f "$UDOS_ROOT/.venv/bin/activate" ]; then
 fi
 
 source "$UDOS_ROOT/.venv/bin/activate"
+
+# Optional rebuild for Empire UI dependencies (if any)
+if [ "$UDOS_FORCE_REBUILD" = "1" ] && [ -f "$UDOS_ROOT/dev/empire/package.json" ]; then
+    echo -e "${YELLOW}[REBUILD]${NC} Installing Empire dependencies..."
+    (cd "$UDOS_ROOT/dev/empire" && npm install --no-fund --no-audit) || true
+fi
 
 # ═══════════════════════════════════════════════════════════════════════════
 # Get Version

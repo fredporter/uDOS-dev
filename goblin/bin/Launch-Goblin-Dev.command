@@ -14,6 +14,19 @@ REPO_ROOT="$(cd "$SCRIPT_DIR/../../.." && pwd)"
 
 cd "$REPO_ROOT"
 
+# Parse args
+UDOS_FORCE_REBUILD=0
+ARGS=()
+for arg in "$@"; do
+    if [ "$arg" = "--rebuild" ]; then
+        UDOS_FORCE_REBUILD=1
+    else
+        ARGS+=("$arg")
+    fi
+done
+export UDOS_FORCE_REBUILD
+set -- "${ARGS[@]}"
+
 # Display banner
 cat << 'EOF'
 ╔═══════════════════════════════════════════════════════════════╗
@@ -62,6 +75,14 @@ if [ $? -eq 0 ]; then
     echo "[✓] Dependencies installed and ready"
 else
     echo "[⚠] Some dependencies may be missing"
+fi
+
+# Optional rebuild for Goblin UI dependencies
+if [ "$UDOS_FORCE_REBUILD" = "1" ] || [ ! -d "$REPO_ROOT/dev/goblin/node_modules" ] || [ "$REPO_ROOT/dev/goblin/package.json" -nt "$REPO_ROOT/dev/goblin/package-lock.json" ]; then
+    echo "[BOOT] Installing Goblin UI dependencies..."
+    (cd "$REPO_ROOT/dev/goblin" && npm install --no-fund --no-audit) || {
+        echo "[✗] Failed to install Goblin UI dependencies"
+    }
 fi
 
 # Self-healing: Kill any existing Goblin instance

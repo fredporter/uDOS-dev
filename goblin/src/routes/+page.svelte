@@ -25,24 +25,6 @@
       note: "Teletext/grid demos with router",
     },
     {
-      title: "Layer Editor",
-      path: "/layer-editor",
-      tag: "maps",
-      note: "Tile/layer map editor",
-    },
-    {
-      title: "Font Manager",
-      path: "/font",
-      tag: "fonts",
-      note: "uFont repo + preview",
-    },
-    {
-      title: "Pixel Editor",
-      path: "/pixel-editor",
-      tag: "pixels",
-      note: "Sprite/pixel tooling",
-    },
-    {
       title: "Table Editor",
       path: "/table",
       tag: "tables",

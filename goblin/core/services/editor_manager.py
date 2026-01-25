@@ -24,6 +24,7 @@ class EditorManager:
         if user_data_path is None:
             user_data_path = PATHS.MEMORY_BANK / "user/user.json"
         self.user_data_path = user_data_path
+        self.library_dir = PATHS.ROOT / "library"
         self.extensions_dir = Path("extensions")
         self.native_dir = self.extensions_dir / "native"
         self.web_dir = self.extensions_dir / "web"
@@ -43,14 +44,24 @@ class EditorManager:
 
         # Check for CLI editors
         cloned_dir = self.extensions_dir / "cloned"
+        library_micro = [
+            self.library_dir / "micro" / "micro",
+            self.library_dir / "micro" / "bin" / "micro",
+        ]
         cli_editors = [
-            ("micro", cloned_dir / "micro" / "micro"),  # Cloned from GitHub
+            ("micro", library_micro[0]),  # Preferred: /library/micro
+            ("micro-alt", library_micro[1]),
+            ("micro-clone", cloned_dir / "micro" / "micro"),  # Legacy clone
             ("nano", "nano"),  # System (always available)
         ]
 
         for name, path in cli_editors:
             if self._is_available(path):
-                available["CLI"].append(name)
+                if name == "micro" or name == "micro-alt" or name == "micro-clone":
+                    if "micro" not in available["CLI"]:
+                        available["CLI"].append("micro")
+                else:
+                    available["CLI"].append(name)
 
         # Check for web editors
         web_editors = [
@@ -180,6 +191,15 @@ class EditorManager:
 
     def _get_editor_path(self, editor_name):
         """Get the full path to an editor."""
+        if editor_name == "micro":
+            library_paths = [
+                self.library_dir / "micro" / "micro",
+                self.library_dir / "micro" / "bin" / "micro",
+            ]
+            for path in library_paths:
+                if path.exists():
+                    return str(path.absolute())
+
         # Check cloned micro first
         cloned_dir = self.extensions_dir / "cloned"
         cloned_path = cloned_dir / editor_name / editor_name

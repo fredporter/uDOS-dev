@@ -106,9 +106,6 @@
     "terminal",
     "teledesk",
     "blocks",
-    "svg-processor",
-    "pixel-editor",
-    "layer-editor",
   ] as const;
   type ValidMode = (typeof VALID_MODES)[number];
 
