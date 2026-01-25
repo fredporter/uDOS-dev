@@ -1,0 +1,13 @@
+# /dev/library - PRIVATE local reference clones
+# Only setup scripts and documentation are tracked.
+# Cloned/downloaded external repos are local-only (not synced to remote).
+
+# Ignore all directories by default
+*/
+
+# Whitelist setup files and documentation only
+!*/setup.sh
+!*/setup.py
+!*/README.md
+!/README.md
+!.gitkeep
