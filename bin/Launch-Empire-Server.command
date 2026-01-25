@@ -40,38 +40,11 @@ NC='\033[0m'
 BOLD='\033[1m'
 
 # ═══════════════════════════════════════════════════════════════════════════
-# Helper: Find uDOS root
-# ═══════════════════════════════════════════════════════════════════════════
-find_repo_root() {
-    local start="$1"
-    while [ -n "$start" ] && [ "$start" != "/" ]; do
-        if [ -f "$start/uDOS.py" ]; then
-            echo "$start"
-            return 0
-        fi
-        start="$(dirname "$start")"
-    done
-    return 1
-}
-
-# ═══════════════════════════════════════════════════════════════════════════
 # Resolve uDOS root
 # ═══════════════════════════════════════════════════════════════════════════
-resolve_udos_root() {
-    if [ -n "$UDOS_ROOT" ] && [ -f "$UDOS_ROOT/uDOS.py" ]; then
-        echo "$UDOS_ROOT"
-        return 0
-    fi
-
-    local script_dir
-    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    local found
-    found="$(find_repo_root "$script_dir")" && { echo "$found"; return 0; }
-
-    found="$(find_repo_root "$(pwd)")" && { echo "$found"; return 0; }
-
-    return 1
-}
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# shellcheck source=/dev/null
+source "$script_dir/../../bin/udos-common.sh"
 
 # ═══════════════════════════════════════════════════════════════════════════
 # Main

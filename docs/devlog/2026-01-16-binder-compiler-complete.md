@@ -231,7 +231,7 @@ Response (400):
 bin/Launch-Goblin-Dev.command
 
 # Run binder tests
-cd /Users/fredbook/Code/uDOS
+cd ~/uDOS
 source .venv/bin/activate
 python dev/goblin/tests/test_binder_compiler_api.py
 

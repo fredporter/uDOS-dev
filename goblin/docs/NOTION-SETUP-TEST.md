@@ -203,7 +203,7 @@ if __name__ == "__main__":
 ### 3.2 Run Test
 
 ```bash
-cd /Users/fredbook/Code/uDOS
+cd ~/uDOS
 python -m pytest dev/goblin/tests/test_notion_integration.py -v -s
 ```
 

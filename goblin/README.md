@@ -82,7 +82,7 @@ Goblin is **intentionally unstable**. Breaking changes are expected and encourag
 **Launch Goblin:**
 
 ```bash
-cd /Users/fredbook/Code/uDOS
+cd ~/uDOS
 source .venv/bin/activate
 python dev/goblin/goblin_server.py
 # → Server running on http://localhost:8767
@@ -191,7 +191,7 @@ GET    /api/v0/binder/chapters          # List chapters
 ### 1. Start Goblin Dev Server
 
 ```bash
-cd /Users/fredbook/Code/uDOS
+cd ~/uDOS
 source .venv/bin/activate
 python dev/goblin/goblin_server.py
 ```

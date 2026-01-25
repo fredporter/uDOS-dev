@@ -8,7 +8,7 @@
 
 ```bash
 # Distribute fonts to all targets
-cd /Users/fredbook/Code/uDOS/dev/goblin/fonts
+cd ~/uDOS/dev/goblin/fonts
 ./distribute.sh
 
 # Check what's in the repository

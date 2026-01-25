@@ -264,7 +264,7 @@ All documents are in: `docs/devlog/2026-01-14-*.md`
 
 **Quick Access:**
 ```bash
-cd /Users/fredbook/Code/uDOS
+cd ~/uDOS
 
 # Main audit report
 cat docs/devlog/2026-01-14-CORE-AUDIT-DUPLICATES.md

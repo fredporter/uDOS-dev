@@ -34,7 +34,7 @@ uDOS provides **offline-first AI** through two complementary systems:
 **Automated:**
 
 ```bash
-cd /Users/fredbook/Code/uDOS
+cd ~/uDOS
 bin/Setup-Vibe.command
 ```
 
@@ -187,7 +187,7 @@ OpenRouter is an **API aggregator** giving you:
 **Using Secret Store:**
 
 ```bash
-cd /Users/fredbook/Code/uDOS
+cd ~/uDOS
 source .venv/bin/activate
 
 # Add OpenRouter API key

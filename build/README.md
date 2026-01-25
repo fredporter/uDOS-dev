@@ -9,7 +9,7 @@
 ```
 
 **What you get:**
-- ✅ Full access to your local uDOS folder (`/Users/fredbook/Code/uDOS/`)
+- ✅ Full access to your local uDOS folder (`~/uDOS/`)
 - ✅ All 71+ commands work (routes to backend API)
 - ✅ Can read/write `/memory/`, `/core/`, user files
 - ✅ Hot reload during development

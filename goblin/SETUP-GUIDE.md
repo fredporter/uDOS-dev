@@ -11,7 +11,7 @@
 ### 1. Copy Environment Template
 
 ```bash
-cd /Users/fredbook/Code/uDOS/dev/goblin
+cd ~/uDOS/dev/goblin
 cp .env.example .env
 ```
 
@@ -463,10 +463,10 @@ Ensure file is in the right location:
 
 ```bash
 # Should be here:
-/Users/fredbook/Code/uDOS/dev/goblin/.env
+~/uDOS/dev/goblin/.env
 
 # Not here:
-/Users/fredbook/Code/uDOS/.env
+~/uDOS/.env
 ```
 
 ---

@@ -140,7 +140,7 @@
       "command": "ERROR",
       "timestamp": "2025-12-24T23:43:38.699060",
       "params": [
-        "Invalid command: cat >> /Users/fredbook/Code/uDOS/extensions/tauri/src/styles/system7-theme.css << 'EOF'"
+        "Invalid command: cat >> ~/uDOS/extensions/tauri/src/styles/system7-theme.css << 'EOF'"
       ],
       "success": false,
       "context": {}

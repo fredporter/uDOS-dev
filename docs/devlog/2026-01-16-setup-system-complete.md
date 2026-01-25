@@ -130,7 +130,7 @@ All endpoints support lazy-loading and validation:
 ### 1. **Copy Configuration Template**
 
 ```bash
-cd /Users/fredbook/Code/uDOS/dev/goblin
+cd ~/uDOS/dev/goblin
 cp .env.example .env
 ```
 

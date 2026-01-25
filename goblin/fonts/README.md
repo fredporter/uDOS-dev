@@ -95,7 +95,7 @@ Fonts copied to:
 Run the distribution script to copy fonts to all targets:
 
 ```bash
-cd /Users/fredbook/Code/uDOS/dev/goblin/fonts
+cd ~/uDOS/dev/goblin/fonts
 ./distribute.sh
 ```
 

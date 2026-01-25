@@ -7,16 +7,40 @@
   // Experiments list (Terminal/Teledesk are minimal, not Tailwind-styled)
   const experiments = [
     {
+      title: "Dashboard",
+      path: "/dashboard",
+      tag: "home",
+      note: "Alias for Goblin home",
+    },
+    {
+      title: "Desktop",
+      path: "/desktop",
+      tag: "ui",
+      note: "Desktop shell prototype",
+    },
+    {
       title: "Terminal",
       path: "/terminal",
       tag: "core",
       note: "Hybrid router, WS; minimal styling",
     },
     {
+      title: "Teletext",
+      path: "/teletext",
+      tag: "teletext",
+      note: "Alias for Teledesk",
+    },
+    {
       title: "Teledesk",
       path: "/teledesk",
       tag: "teletext",
       note: "Teletext UI; not Tailwind-styled",
+    },
+    {
+      title: "Web Hub",
+      path: "/web",
+      tag: "web",
+      note: "Publishing and sandbox web tools",
     },
     {
       title: "Grid",

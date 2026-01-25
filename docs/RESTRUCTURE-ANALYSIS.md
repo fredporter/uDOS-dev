@@ -13,7 +13,7 @@ The repository has been successfully restructured with a cleaner organization:
 ### New Directory Layout
 
 ```
-/Users/fredbook/Code/uDOS/
+~/uDOS/
 ├── core/                    # TypeScript runtime (v1.1.0)
 ├── app/                     # Tauri/Svelte app (v1.0.3.0)
 ├── docs/                    # Engineering documentation

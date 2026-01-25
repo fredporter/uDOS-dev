@@ -249,9 +249,9 @@ Output
 
 ## References
 
-- **Code:** /Users/fredbook/Code/uDOS/core/
-- **Docs:** /Users/fredbook/Code/uDOS/docs/PHASE-2B-COMPLETE.md
-- **Roadmap:** /Users/fredbook/Code/uDOS/docs/roadmap.md
+- **Code:** ~/uDOS/core/
+- **Docs:** ~/uDOS/docs/PHASE-2B-COMPLETE.md
+- **Roadmap:** ~/uDOS/docs/roadmap.md
 - **Examples:** example-script.md, movement-demo-script.md
 
 ---
