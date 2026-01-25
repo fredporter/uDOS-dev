@@ -21,7 +21,7 @@ Validate uDOS packages on TinyCore VM (offline).
 
 ```sh
 # On host
-cd /Users/fredbook/Code/uDOS
+cd ~/uDOS
 # Ensure packages + metadata exist
 ls distribution/tcz/udos-*.tcz
 ```

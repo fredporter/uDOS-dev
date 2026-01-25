@@ -523,7 +523,7 @@ Run the comprehensive test suite:
 
 ```bash
 source .venv/bin/activate
-PYTHONPATH=/Users/fredbook/Code/uDOS:$PYTHONPATH pytest memory/tests/integration/test_phase_6a_npc_system.py -v
+PYTHONPATH=~/uDOS:$PYTHONPATH pytest memory/tests/integration/test_phase_6a_npc_system.py -v
 ```
 
 **Test Coverage:**

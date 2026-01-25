@@ -10,7 +10,7 @@
 
 ### 1️⃣ AGENTS.md (Most Important)
 
-**Location:** `/Users/fredbook/Code/uDOS/AGENTS.md`  
+**Location:** `~/uDOS/AGENTS.md`  
 **References:** 12 instances  
 **Update pattern:**
 
@@ -29,7 +29,7 @@
 
 ### 2️⃣ docs/roadmap.md (Comprehensive)
 
-**Location:** `/Users/fredbook/Code/uDOS/docs/roadmap.md`  
+**Location:** `~/uDOS/docs/roadmap.md`  
 **References:** 25+ instances  
 **Update pattern:** Same as above
 
@@ -42,7 +42,7 @@
 
 ### 3️⃣ .vibe/CONTEXT.md (Supporting)
 
-**Location:** `/Users/fredbook/Code/uDOS/.vibe/CONTEXT.md`  
+**Location:** `~/uDOS/.vibe/CONTEXT.md`  
 **References:** 6 instances  
 **Updates needed:**
 

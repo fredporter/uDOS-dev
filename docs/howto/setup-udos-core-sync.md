@@ -83,7 +83,7 @@ README.md         → Auto-generated public README
 Option A: **Push to main** (automatic trigger)
 
 ```bash
-cd /Users/fredbook/Code/uDOS
+cd ~/uDOS
 git push origin main
 ```
 
@@ -224,7 +224,7 @@ If the automated workflow isn't working, sync manually:
 #!/bin/bash
 # Sync private repo content to public repo
 
-PRIVATE_REPO="/Users/fredbook/Code/uDOS"
+PRIVATE_REPO="~/uDOS"
 PUBLIC_REPO_URL="https://github.com/fredporter/uDOS-core.git"
 PUBLIC_TOKEN="your_github_pat_here"
 TEMP_DIR="/tmp/uDOS-core-sync"

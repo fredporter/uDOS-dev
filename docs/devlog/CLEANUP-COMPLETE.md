@@ -51,7 +51,7 @@ dcf9ce2 - ci: fix test and sync workflows
 ### 3. **Folder Structure Reorganized** ✅
 
 ```
-/Users/fredbook/Code/uDOS/
+~/uDOS/
 ├── /public/                    ← Syncs to fredporter/uDOS-core
 │   ├── /wizard/ (v1.1.0.0)
 │   ├── /extensions/

@@ -175,7 +175,7 @@ dev/goblin/             # Experimental dev server
 ## Directory Structure (Updated)
 
 ```
-/Users/fredbook/Code/uDOS/
+~/uDOS/
 ├── /public/                        ← Synced to GitHub
 │   ├── /wizard/                    → Production Server v1.1.0
 │   ├── /extensions/                → Public APIs
