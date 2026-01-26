@@ -1,0 +1,16 @@
+{
+  "$schema": "../../core/version.schema.json",
+  "component": "goblin",
+  "version": "0.2.0",
+  "name": "Goblin Dev Server",
+  "description": "Experimental development server for Notion sync, task scheduling, binder compilation, and runtime execution",
+  "status": "experimental",
+  "lastUpdated": "2026-01-21",
+  "milestone": "Step 1 + Move 3 Complete",
+  "features": [
+    "Notion webhook handlers (stub)",
+    "Task scheduler (organic cron model)",
+    "Binder compiler (multi-format)",
+    "Runtime executor (stub)"
+  ]
+}

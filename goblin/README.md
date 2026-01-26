@@ -1,98 +1,21 @@
-# Goblin Dev Server
+# Goblin - MODE Experimental Playground
 
-**Status:** Development v0.1.0.0 (experimental, unstable)  
+**Version:** v0.2.0.0 (Nuclear Clean - 2026-01-26)  
 **Port:** 8767  
-**Scope:** Local development only (localhost)
+**Status:** Experimental MODE testing only
 
 ---
 
 ## Purpose
 
-Goblin is the **experimental development server** for uDOS. Features are built here first, then promoted to:
+Goblin is the **experimental MODE playground** for uDOS. Test new rendering modes, ANSI patterns, and terminal features before promoting to Core.
 
-- `/core/` — Core runtime
-- `/extensions/` — Public extensions
-- `/wizard/` — Production server
+### Current MODEs
 
-Goblin is **intentionally unstable**. Breaking changes are expected and encouraged.
+1. **Teletext** - Retro teletext patterns, ANSI art, 80x30 grids
+2. **Terminal** - Terminal emulation, escape codes, color schemes
 
----
-
-## Goblin vs Wizard
-
-| Aspect         | Wizard Server                            | Goblin Dev Server                             |
-| -------------- | ---------------------------------------- | --------------------------------------------- |
-| **Port**       | 8765                                     | 8767                                          |
-| **Status**     | Production v1.1.0.0                      | Development v0.1.0.0                          |
-| **Stability**  | Stable, frozen                           | Unstable, experimental                        |
-| **Access**     | Public (auth required)                   | Local-only (localhost)                        |
-| **Config**     | `/wizard/config/wizard.json` (committed) | `/dev/goblin/config/goblin.json` (gitignored) |
-| **Purpose**    | Always-on services                       | Feature development                           |
-| **API Prefix** | `/api/v1/*`                              | `/api/v0/*`                                   |
-
----
-
-## Features (Experimental)
-
-### Notion Sync
-
-- Webhook handlers
-- SQLite mapping tables
-- Publish mode + limited live sync
-- Conflict resolution
-
-### TS Markdown Runtime
-
-- Parse runtime blocks (`state`, `set`, `form`, `if/else`, `nav`)
-- Execute with sandboxed state
-- SQLite data binding
-- Variable interpolation
-
-### Task Scheduler
-
-- Organic cron model (Plant → Sprout → Prune → Trellis → Harvest → Compost)
-- Project/mission management
-- Provider rotation (Ollama → OpenRouter escalation)
-- Quota-aware pacing
-
-### Binder Compiler
-
-- Multi-chapter generation
-- Format exports (Markdown, PDF, JSON)
-- Knowledge synthesis
-
----
-
-## Quick Start — Move 1 (Notion Integration)
-
-**Entry Points:**
-
-1. **[Move 1 Quick Start](./MOVE-1-QUICK-START.md)** — Setup & implementation phases
-2. **[Block Mapper Implementation](./BLOCK-MAPPER-IMPLEMENTATION.md)** — Parse markdown ↔ Notion blocks
-3. **[Notion-Compatible Block Spec](../../docs/specs/notion-compatible-blocks.md)** — Design
-
-**Setup:**
-
-1. Create Notion Internal Integration at https://www.notion.so/my-integrations
-2. Grant integration page access (Read/Update/Insert/Delete)
-3. Configure `dev/goblin/config/goblin.json` with API key + webhook secret
-4. Launch Goblin server (see below)
-5. Implement `BlockMapper` (Phase A)
-
-**Launch Goblin:**
-
-```bash
-cd ~/uDOS
-source .venv/bin/activate
-python dev/goblin/goblin_server.py
-# → Server running on http://localhost:8767
-```
-
-Or use launcher:
-
-```bash
-bin/Launch-Goblin-Dev.command
-```
+When a MODE is stable and tested, it graduates to `/core/runtime/modes/`.
 
 ---
 
@@ -100,222 +23,149 @@ bin/Launch-Goblin-Dev.command
 
 ```
 /dev/goblin/
-  goblin_server.py          # Main server (port 8767)
-  README.md                 # This file
-  config/
-    goblin.json             # Local config (gitignored)
-    goblin.example.json     # Template
-  services/
-    notion_sync_service.py  # Notion webhooks + publish
-    runtime_executor.py     # TS runtime integration
-    task_scheduler.py       # Organic scheduling
-    binder_compiler.py      # Chapter compilation
-  routes/
-    notion.py               # /api/v0/notion/*
-    runtime.py              # /api/v0/runtime/*
-    tasks.py                # /api/v0/tasks/*
-    binder.py               # /api/v0/binder/*
+├── goblin_server.py         # FastAPI server (port 8767)
+├── modes/
+│   ├── teletext/           # Teletext MODE experiments
+│   └── terminal/           # Terminal MODE experiments
+├── routes/
+│   ├── mode_routes.py      # /api/v0/modes/*
+│   └── dashboard_routes.py # Dashboard API
+├── dashboard/              # Svelte + Tailwind UI
+│   ├── src/
+│   │   ├── routes/
+│   │   │   ├── +layout.svelte  # Top nav + bottom bar
+│   │   │   ├── +page.svelte    # Home
+│   │   │   ├── Teletext.svelte
+│   │   │   └── Terminal.svelte
+│   │   └── lib/
+│   │       ├── components/
+│   │       └── styles/
+│   ├── static/
+│   └── package.json
+├── config/
+│   └── goblin.json         # Local config (gitignored)
+└── tests/
+    ├── test_teletext.py
+    └── test_terminal.py
 ```
 
 ---
 
-## Configuration
+## Quick Start
 
-### goblin.json (Local Only)
-
-```json
-{
-  "server": {
-    "host": "127.0.0.1",
-    "port": 8767,
-    "debug": true
-  },
-  "notion": {
-    "webhook_secret": "your-webhook-secret",
-    "sync_mode": "publish"
-  },
-  "runtime": {
-    "max_state_size": 1048576,
-    "timeout_ms": 5000
-  },
-  "scheduler": {
-    "organic_mode": true,
-    "daily_quota_calls": 200
-  }
-}
-```
-
-**Security:** Secrets stored in macOS Keychain, referenced by ID.
-
----
-
-## Endpoints (Unstable - `/api/v0/*`)
-
-### Notion Sync
-
-```
-POST   /api/v0/notion/webhook           # Incoming Notion changes
-GET    /api/v0/notion/sync/status       # Current sync state
-GET    /api/v0/notion/maps              # Local ↔ Notion mappings
-POST   /api/v0/notion/publish           # Publish local → Notion
-```
-
-### TS Runtime
-
-```
-POST   /api/v0/runtime/parse            # Parse .md to AST
-POST   /api/v0/runtime/execute          # Execute runtime block
-GET    /api/v0/runtime/state            # Get state
-PUT    /api/v0/runtime/state            # Set state variables
-```
-
-### Task Scheduler
-
-```
-POST   /api/v0/tasks/schedule           # Schedule task
-GET    /api/v0/tasks/queue              # View scheduled queue
-GET    /api/v0/tasks/runs               # Execution history
-```
-
-### Binder Compiler
-
-```
-POST   /api/v0/binder/compile           # Compile binder outputs
-GET    /api/v0/binder/chapters          # List chapters
-```
-
----
-
-## Development Workflow
-
-### 1. Start Goblin Dev Server
+### Interactive Mode (Recommended)
 
 ```bash
-cd ~/uDOS
-source .venv/bin/activate
-python dev/goblin/goblin_server.py
+# Launch server + TUI + auto-open dashboard
+./dev/bin/Launch-Goblin-Dev.command
 ```
 
-### 2. Test Features Locally
+**What happens:**
 
-````bash
-# Test Notion webhook
-curl -X POST http://localhost:8767/api/v0/notion/webhook \
-  -H "Content-Type: application/json" \
-  -d '{"type": "page.created", "data": {...}}'
+1. ✅ Server starts on port 8767 (background)
+2. ✅ Dashboard auto-opens at http://localhost:5174
+3. ✅ Interactive `goblin>` prompt for testing
+4. Type `help` for commands, `exit` to quit
 
-# Test runtime execution
-curl -X POST http://localhost:8767/api/v0/runtime/execute \
-  -H "Content-Type: application/json" \
-  -d '{"markdown": "# Test\n```state\n$name = \"Fred\"\n```"}'
-````
+See [TUI-GUIDE.md](TUI-GUIDE.md) for full documentation.
 
-### 3. Promote to Production
+### Manual Mode
 
-When feature is stable:
+```bash
+# Install dependencies
+cd /Users/fredbook/Code/uDOS/dev/goblin/dashboard
+npm install
 
-1. Write tests
-2. Create proper API versioning
-3. Move to appropriate location:
-   - Core functionality → `/core/`
-   - Extension → `/extensions/`
-   - Production service → `/wizard/`
-4. Update version numbers
-5. Document in AGENTS.md
+# Start server (in one terminal)
+cd /Users/fredbook/Code/uDOS/dev/goblin
+source ../../.venv/bin/activate
+python goblin_server.py
 
----
-
-## Promotion Checklist
-
-Before moving feature from Goblin to production:
-
-- [ ] Feature is stable (no known breaking bugs)
-- [ ] Tests written (unit + integration)
-- [ ] Documentation complete
-- [ ] API versioned properly (`/api/v1/*`)
-- [ ] Config schema defined
-- [ ] Security reviewed
-- [ ] Performance acceptable
-- [ ] Error handling comprehensive
-- [ ] Logging consistent with uDOS standards
-- [ ] Version bumped appropriately
-
----
-
-## Design Principles
-
-1. **Break Fast** — Goblin is for experimentation
-2. **Local Only** — Never expose to public
-3. **Feature Flags** — Easy to enable/disable
-4. **Clear Promotion Path** — Features graduate to production
-5. **Isolated State** — Don't pollute production data
-6. **Verbose Logging** — Debug everything
-7. **No Assumptions** — All features optional
-
----
-
-## Status & Roadmap
-
-### Current (v0.1.0.0)
-
-- ✅ Server structure
-- 🔄 Notion sync service (in progress)
-- 🔄 TS runtime executor (in progress)
-- 📋 Task scheduler (planned)
-- 📋 Binder compiler (planned)
-
-### Next (v0.2.0.0)
-
-- Complete Notion webhook handlers
-- SQLite mapping table queries
-- Runtime state management
-- Basic task scheduling
-
-### Future
-
-- Provider rotation logic
-- Organic cron implementation
-- Multi-chapter binder compilation
-- Cost tracking integration
-
----
-
-## Logging
-
-All Goblin logs go to:
-
-- `memory/logs/goblin-YYYY-MM-DD.log`
-- `memory/logs/goblin-debug-YYYY-MM-DD.log`
-
-Use canonical logger:
-
-```python
-from core.services.logging_manager import get_logger
-
-logger = get_logger('goblin-server')
-logger.info('[GOBLIN] Feature tested successfully')
+# Start dashboard (in another terminal)
+cd /Users/fredbook/Code/uDOS/dev/goblin/dashboard
+npm run dev
 ```
 
----
+**URLs:**
 
-## FAQ
-
-**Q: Why "Goblin"?**  
-A: Wizard = stable production magic. Goblin = chaotic experimental workshop.
-
-**Q: Can I run Wizard and Goblin simultaneously?**  
-A: Yes! Different ports (8765 vs 8767), isolated configs.
-
-**Q: What happens to features that don't graduate?**  
-A: Archive to `.archive/goblin-experiments-YYYY-MM-DD/`
-
-**Q: How do I know when to promote?**  
-A: When you've used it successfully for 2+ weeks without issues.
-
-**Q: Is Goblin ever in git?**  
-A: Yes, but `config/goblin.json` is gitignored. Code is committed.
+- Server: http://localhost:8767
+- Dashboard: http://localhost:5174
 
 ---
 
-_Last Updated: 2026-01-15_  
-_Goblin Dev Server v0.1.0.0_
+## MODEs
+
+### Teletext MODE
+
+**Features:**
+
+- ANSI pattern rendering
+- Teletext-style grids (80x30)
+- Color palettes (Commodore 64, BBC Micro, etc.)
+- Frame-by-frame animation
+
+**Routes:**
+
+- `GET /api/v0/modes/teletext/patterns` - List available patterns
+- `GET /api/v0/modes/teletext/render?pattern=chevrons` - Render pattern
+- `GET /api/v0/modes/teletext/animate?pattern=raster` - Animated frames
+
+### Terminal MODE
+
+**Features:**
+
+- ANSI escape code testing
+- Color scheme experiments
+- Terminal emulation patterns
+- Text effects (bold, italic, underline)
+
+**Routes:**
+
+- `GET /api/v0/modes/terminal/schemes` - List color schemes
+- `GET /api/v0/modes/terminal/render?text=test` - Render with effects
+- `GET /api/v0/modes/terminal/test` - Terminal capability tests
+
+---
+
+## Development
+
+### Adding a New MODE
+
+1. Create mode directory: `modes/new_mode/`
+2. Implement renderer: `modes/new_mode/renderer.py`
+3. Add routes: `routes/mode_routes.py`
+4. Add dashboard page: `dashboard/src/routes/NewMode.svelte`
+5. Test: `tests/test_new_mode.py`
+
+### Promoting to Core
+
+When MODE is stable:
+
+1. Move to `/core/runtime/modes/`
+2. Update Core imports
+3. Add to Core version
+4. Archive Goblin experiments
+
+---
+
+## Size Target
+
+**< 100MB total** (compared to old 580MB)
+
+- No duplicate `/core/` (import from main Core)
+- Minimal Svelte deps (Tailwind only, no heavy libs)
+- No Notion sync, no screwdriver, no meshcore
+- MODE experiments only
+
+---
+
+## References
+
+- [Wizard Dashboard](../../wizard/dashboard/) - Structure reference
+- [Core Runtime](../../core/) - Import services from here
+- [Teletext Patterns](../../wizard/services/teletext_patterns.py) - Production patterns
+
+---
+
+**Last Updated:** 2026-01-26  
+**Nuclear Clean:** Old Goblin archived to `.archive/2026-01-26-goblin-nuclear-clean/`

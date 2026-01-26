@@ -1,238 +1,125 @@
-# Goblin Dev Server Quick Reference
+# Goblin Quick Reference
 
-**Port:** 8767 (localhost only)  
-**Version:** v0.1.0.0 (unstable)  
-**Purpose:** Experimental development features
+**Version:** v0.2.0.0 (Nuclear Clean)  
+**Purpose:** MODE experimental playground
 
 ---
 
-## 🚀 Quick Start
+## Launch
 
 ```bash
-# 1. Configure (first time only)
-cp dev/goblin/config/goblin.example.json dev/goblin/config/goblin.json
-# Edit goblin.json with your API keys
+# Terminal 1: Start server
+cd /Users/fredbook/Code/uDOS/dev/goblin
+source ../../.venv/bin/activate
+python goblin_server.py
 
-# 2. Launch server
-./bin/Launch-Goblin-Dev.command
-
-# 3. Test endpoints
-curl http://localhost:8767/health
+# Terminal 2: Start dashboard
+cd /Users/fredbook/Code/uDOS/dev/goblin/dashboard
+npm install  # First time only
+npm run dev
 ```
+
+**URLs:**
+
+- Server: http://localhost:8767
+- Dashboard: http://localhost:5174
 
 ---
 
-## 📡 API Endpoints
+## API Endpoints
 
-### Notion Sync
+### Teletext MODE
 
 ```bash
-# Webhook (incoming from Notion)
-POST http://localhost:8767/api/v0/notion/webhook
+# List patterns
+curl http://localhost:8767/api/v0/modes/teletext/patterns
 
-# Get sync status
-GET http://localhost:8767/api/v0/notion/sync/status
+# Render frame
+curl "http://localhost:8767/api/v0/modes/teletext/render?pattern=chevrons&width=80"
 
-# Get mappings
-GET http://localhost:8767/api/v0/notion/maps
-
-# Publish to Notion
-POST http://localhost:8767/api/v0/notion/publish
+# Animate
+curl "http://localhost:8767/api/v0/modes/teletext/animate?pattern=raster&frames=10"
 ```
 
-### TS Markdown Runtime
+### Terminal MODE
 
 ```bash
-# Parse markdown
-POST http://localhost:8767/api/v0/runtime/parse
-Body: {"markdown": "..."}
+# List schemes
+curl http://localhost:8767/api/v0/modes/terminal/schemes
 
-# Execute block
-POST http://localhost:8767/api/v0/runtime/execute
-Body: {"block_type": "state", "content": "...", "state": {...}}
+# Render text
+curl "http://localhost:8767/api/v0/modes/terminal/render?text=hello&fg=green&style=bold"
 
-# Get state
-GET http://localhost:8767/api/v0/runtime/state
+# Run tests
+curl http://localhost:8767/api/v0/modes/terminal/test
 
-# Set state
-PUT http://localhost:8767/api/v0/runtime/state
-Body: {"state": {...}}
-```
-
-### Task Scheduler
-
-```bash
-# Schedule task
-POST http://localhost:8767/api/v0/tasks/schedule
-Body: {
-  "name": "Research Topic X",
-  "type": "research",
-  "cadence": "once",
-  "priority": "high"
-}
-
-# View queue
-GET http://localhost:8767/api/v0/tasks/queue
-
-# Execution history
-GET http://localhost:8767/api/v0/tasks/runs
-```
-
-### Binder Compiler
-
-```bash
-# Compile binder
-POST http://localhost:8767/api/v0/binder/compile
-Body: {
-  "binder_id": "my-binder",
-  "formats": ["markdown", "pdf", "json"]
-}
-
-# Get chapters
-GET http://localhost:8767/api/v0/binder/chapters?binder_id=my-binder
+# Apply scheme
+curl "http://localhost:8767/api/v0/modes/terminal/scheme?text=hello&scheme=solarized"
 ```
 
 ---
 
-## ⚙️ Configuration
+## Structure
 
-**File:** `dev/goblin/config/goblin.json` (gitignored)
-
-**Example:**
-
-```json
-{
-  "server": {
-    "host": "127.0.0.1",
-    "port": 8767,
-    "debug": true
-  },
-  "notion": {
-    "webhook_secret_keychain_id": "notion-webhook-secret",
-    "api_token_keychain_id": "notion-api-token",
-    "publish_mode": "on_demand"
-  },
-  "runtime": {
-    "max_state_size_bytes": 1048576,
-    "execution_timeout_ms": 5000
-  },
-  "scheduler": {
-    "organic_mode": true,
-    "daily_quota_calls": 200
-  },
-  "providers": {
-    "ollama": {
-      "base_url": "http://localhost:11434"
-    },
-    "openrouter": {
-      "api_key_keychain_id": "openrouter-api-key"
-    }
-  }
-}
+```
+/dev/goblin/
+├── goblin_server.py         # FastAPI server (8767)
+├── modes/
+│   ├── teletext_mode.py     # Teletext renderer
+│   └── terminal_mode.py     # Terminal renderer
+├── routes/
+│   └── mode_routes.py       # /api/v0/modes/*
+├── dashboard/               # Svelte app (5174)
+│   ├── src/routes/
+│   │   ├── +layout.svelte   # Top nav + bottom bar
+│   │   ├── +page.svelte     # Home
+│   │   ├── teletext/        # Teletext MODE
+│   │   └── terminal/        # Terminal MODE
+│   └── package.json
+└── bin/
+    ├── launch-goblin-server.sh
+    └── launch-goblin-dashboard.sh
 ```
 
 ---
 
-## 🧪 Runtime Block Examples
+## Development
 
-### State Block
+### Adding a New Pattern (Teletext)
 
-```markdown
-\`\`\`state
-$name = "Fred"
-$coins = 10
-$has_key = false
-\`\`\`
-```
+1. Add to `wizard/services/teletext_patterns.py`
+2. Update `PatternName` enum
+3. Test via Goblin API
+4. When stable, promote to Core
 
-### Set Block
+### Adding a New Scheme (Terminal)
 
-```markdown
-\`\`\`set
-set $coins 50
-inc $coins 10
-dec $coins 5
-toggle $has_key
-\`\`\`
-```
-
-### Form Block
-
-```markdown
-\`\`\`form
-fields:
-
-- name: username
-  type: text
-  required: true
-- name: email
-  type: email
-  required: true
-  \`\`\`
-```
-
-### Panel Block (with interpolation)
-
-```markdown
-\`\`\`panel
-
-# Welcome, $name!
-
-You have $coins coins.
-Key status: $has_key
-\`\`\`
-```
+1. Add to `modes/terminal_mode.py` schemes dict
+2. Update `list_schemes()` method
+3. Test via dashboard
+4. Document in README
 
 ---
 
-## 🔄 Organic Cron Phases
+## Promotion Path
 
-1. **Plant** — Expand project into tasks
-2. **Sprout** — Execute initial drafts
-3. **Prune** — Remove low-quality outputs
-4. **Trellis** — Guide refinement passes
-5. **Harvest** — Collect completed work
-6. **Compost** — Extract learnings
+When MODE is stable:
 
----
-
-## 📋 Promotion Checklist
-
-When feature is ready for production:
-
-- [ ] Tests (unit + integration)
-- [ ] Documentation (user-facing + API)
-- [ ] Version API (`/api/v0/*` → `/api/v1/*`)
-- [ ] Security review
-- [ ] Performance testing
-- [ ] Production config
-- [ ] Monitoring setup
-- [ ] Deploy to Wizard or new Extension
-- [ ] Migration plan
-- [ ] Deprecate in Goblin
+1. Move to `/core/runtime/modes/`
+2. Update Core imports
+3. Add tests to Core test suite
+4. Archive Goblin experiments
 
 ---
 
-## 🆚 Wizard vs Goblin
+## Size
 
-| Aspect   | Wizard (8765)      | Goblin (8767)  |
-| -------- | ------------------ | -------------- |
-| Status   | Production stable  | Experimental   |
-| API      | `/api/v1/*`        | `/api/v0/*`    |
-| Access   | Public (with auth) | Localhost only |
-| Breaking | Never              | Expected       |
-| Config   | Versioned          | Gitignored     |
+**Target:** < 100MB (vs old 580MB)
+
+- No duplicate Core
+- Minimal Svelte deps
+- MODE experiments only
 
 ---
 
-## 📚 Documentation
-
-- **Architecture:** `/dev/goblin/README.md`
-- **AGENTS.md:** Sections 3.3.1-3.3.2
-- **Roadmap:** `/docs/roadmap.md`
-- **Step 1 Summary:** `/docs/devlog/2026-01-15-step-1-complete.md`
-
----
-
-_Last Updated: 2026-01-15_  
-_Goblin Dev Server v0.1.0.0_
+_Last Updated: 2026-01-26_

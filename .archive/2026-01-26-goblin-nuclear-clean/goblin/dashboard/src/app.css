@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Font utility classes */
+.font-old-style {
+  font-family: "Iowan Old Style", "Palatino Linotype", "URW Palladio L", P052, serif;
+}
+
+.font-sans-rounded {
+  font-family: ui-rounded, "Hiragino Maru Gothic ProN", Quicksand, Comfortaa, Manjari,
+    "Arial Rounded MT", "Arial Rounded MT Bold", Calibri, source-sans-pro, sans-serif;
+}
+
+.font-humanist {
+  font-family: Seravek, "Gill Sans Nova", Ubuntu, Calibri, "DejaVu Sans", source-sans-pro, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  background: #18181b;
+  color-scheme: light;
+}
+
+html.dark {
+  background: #0f172a;
+  color-scheme: dark;
+}
+
+/* Goblin custom MDK styling */
+.goblin-top-bar {
+  background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.goblin-bar-content {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.goblin-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #a78bfa;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.goblin-nav-desktop {
+  display: none;
+  gap: 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .goblin-nav-desktop {
+    display: flex;
+  }
+}
+
+.nav-button {
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  border-radius: 0.375rem;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.nav-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.nav-button.active {
+  background: rgba(167, 139, 250, 0.2);
+  color: #a78bfa;
+}
+
+.hamburger-button {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  border-radius: 0.375rem;
+  transition: all 0.2s;
+}
+
+.hamburger-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+.menu-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 1.5rem;
+  margin-top: 0.5rem;
+  background: rgba(15, 23, 42, 0.98);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  min-width: 200px;
+  z-index: 200;
+}
+
+.menu-item {
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.8);
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: all 0.2s;
+  display: block;
+}
+
+.menu-item:hover {
+  background: rgba(167, 139, 250, 0.1);
+  color: #a78bfa;
+}
+
+.menu-item.active {
+  background: rgba(167, 139, 250, 0.2);
+  color: #a78bfa;
+  font-weight: 600;
+}
+
+.menu-separator {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 0.5rem 0;
+}
+
+.menu-label {
+  padding: 0.5rem 1rem;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
