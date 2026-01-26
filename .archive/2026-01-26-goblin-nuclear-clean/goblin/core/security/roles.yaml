@@ -1,0 +1,226 @@
+# uDOS Security - Role Definitions
+# Alpha v1.0.0.2+
+#
+# Defines roles and their capabilities in the uDOS system.
+# Roles determine what operations a device/user can perform.
+
+version: "1.0.0.2"
+realm_policy: two_realm  # User Mesh (A) vs Wizard Server (B)
+
+roles:
+  # === Realm A: User Device Mesh ===
+  
+  device_owner:
+    realm: user_mesh
+    description: "Primary device owner with full local control"
+    capabilities:
+      - local_file_access
+      - workflow_management
+      - ucode_execution
+      - mesh_communication
+      - private_transport_use
+      - device_pairing
+      - security_config
+    restrictions:
+      - no_web_access
+      - no_cloud_apis
+      - no_gmail_relay
+    transport_allowed:
+      - meshcore
+      - bluetooth_private
+      - nfc
+      - qr_relay
+      - audio_relay
+    transport_forbidden:
+      - bluetooth_public  # Signal only
+      - internet
+      - web_sockets
+  
+  paired_device:
+    realm: user_mesh
+    description: "Device paired via private transport (laptop, desktop, tablet)"
+    capabilities:
+      - local_file_access
+      - workflow_read
+      - workflow_write_limited
+      - mesh_communication
+      - private_transport_use
+    restrictions:
+      - no_security_config
+      - no_web_access
+      - no_sensitive_keys
+    transport_allowed:
+      - meshcore
+      - bluetooth_private
+      - nfc
+      - qr_relay
+      - audio_relay
+  
+  mobile_console:
+    realm: user_mesh
+    description: "Mobile/tablet as terminal client (read-only console)"
+    capabilities:
+      - workflow_read
+      - command_restricted
+      - file_read_sandbox
+    restrictions:
+      - no_python_venv
+      - no_core_access
+      - no_file_write
+      - no_security_config
+    allowed_commands:
+      - VIEW
+      - LIST
+      - HELP
+      - SEARCH
+      - READ
+    transport_allowed:
+      - qr_relay
+      - audio_relay
+      - nfc
+  
+  # === Realm B: Wizard Server ===
+  
+  wizard_server:
+    realm: wizard_server
+    description: "Always-on server with web/cloud capabilities"
+    capabilities:
+      - web_access
+      - cloud_api_calls
+      - gmail_relay
+      - ai_gateway
+      - heavy_processing
+      - plugin_repository
+      - github_cloning
+      - rate_limiting
+      - cost_tracking
+    restrictions:
+      - no_expose_child_devices
+      - private_transport_to_devices
+    transport_allowed:
+      - meshcore
+      - bluetooth_private
+      - nfc
+      - qr_relay
+      - audio_relay
+      - internet  # Wizard only
+      - web_sockets  # Wizard only
+    transport_forbidden:
+      - bluetooth_public  # Never use for data
+
+# Capability → Permission mapping
+capabilities:
+  local_file_access:
+    read: true
+    write: true
+    delete: true
+    paths:
+      - memory/
+      - knowledge/
+      - core/data/
+  
+  workflow_management:
+    create: true
+    edit: true
+    delete: true
+    execute: true
+  
+  workflow_read:
+    read: true
+    execute: false
+  
+  workflow_write_limited:
+    read: true
+    create: false
+    edit: true
+    delete: false
+  
+  ucode_execution:
+    run_scripts: true
+    import_modules: true
+    system_calls: restricted
+  
+  mesh_communication:
+    send: true
+    receive: true
+    relay: true
+    discovery: true
+  
+  private_transport_use:
+    meshcore: true
+    bluetooth_private: true
+    nfc: true
+    qr_relay: true
+    audio_relay: true
+  
+  device_pairing:
+    initiate: true
+    accept: true
+    revoke: true
+  
+  security_config:
+    edit_roles: true
+    manage_keys: true
+    configure_policy: true
+  
+  command_restricted:
+    whitelist_only: true
+    no_system_commands: true
+    no_file_operations: true
+  
+  file_read_sandbox:
+    paths:
+      - memory/workflows/
+      - knowledge/
+    read_only: true
+  
+  web_access:
+    http_get: true
+    http_post: true
+    webscraping: true
+  
+  cloud_api_calls:
+    gemini: true
+    claude: true
+    gpt4: true
+    mistral: true
+  
+  gmail_relay:
+    oauth: true
+    send_email: true
+    read_email: true
+  
+  ai_gateway:
+    route_requests: true
+    aggregate_responses: true
+    cost_tracking: true
+  
+  plugin_repository:
+    host: true
+    package: true
+    distribute: true
+
+# Transport policy references
+transport_rules:
+  private_transports:
+    - meshcore
+    - bluetooth_private
+    - nfc
+    - qr_relay
+    - audio_relay
+  
+  public_signal_only:
+    - bluetooth_public  # Presence/discovery only, NEVER data
+  
+  wizard_only_transports:
+    - internet
+    - web_sockets
+
+# Logging requirements
+logging:
+  tag_format: "[ROLE] [TRANSPORT] operation"
+  examples:
+    - "[DEVICE_OWNER] [LOCAL] File created"
+    - "[PAIRED_DEVICE] [MESH] Workflow synced"
+    - "[WIZARD] [WEB] API call to Gemini"
+    - "[MOBILE_CONSOLE] [QR] Command received"

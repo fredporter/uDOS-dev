@@ -1,0 +1,188 @@
+{
+  "theme_name": "Stranger Things - Supernatural 80s D&D",
+  "theme_id": "stranger-things",
+  "style": "80s D&D campaign, upside-down supernatural, spooky/quirky",
+  "emoji_set": ["📺", "🎲", "🕯️", "☠️", "🌀", "🎸", "❌", "🪡", "👹", "⚰️"],
+  "metadata": {
+    "creator": "Community Theme Pack",
+    "release_date": "2026-01-14",
+    "version": "1.0.0",
+    "theme_category": "narrative_immersive"
+  },
+  "variables": {
+    "sandbox": {
+      "system_var": "Sandbox",
+      "theme_vocab": "The Campaigns",
+      "emoji": "📺",
+      "context": "Your isolated command environment, like a tabletop campaign setting"
+    },
+    "error": {
+      "system_var": "Syntax Error",
+      "theme_vocab": "Demogorgon Breach",
+      "emoji": "👹",
+      "context": "Critical failure—something from the Upside Down got through the ward"
+    },
+    "runtime_error": {
+      "system_var": "Runtime Error",
+      "theme_vocab": "Campaign Collapse",
+      "emoji": "☠️",
+      "context": "The campaign fell apart mid-session; players lost their characters"
+    },
+    "warning": {
+      "system_var": "Warning",
+      "theme_vocab": "Eerie Feeling",
+      "emoji": "🕯️",
+      "context": "DM sense: something's off but not deadly... yet"
+    },
+    "success": {
+      "system_var": "Success",
+      "theme_vocab": "Natural 20 Rolled",
+      "emoji": "🎲",
+      "context": "Critical success! The dice gods smile upon you"
+    },
+    "status": {
+      "system_var": "Status",
+      "theme_vocab": "Campaign Status",
+      "emoji": "📺",
+      "context": "How's the campaign progressing? Status check with retro TV vibes"
+    },
+    "progress": {
+      "system_var": "Progress",
+      "theme_vocab": "Story Arc Progress",
+      "emoji": "🌀",
+      "context": "Moving through the narrative (like chapters of an 80s adventure)"
+    },
+    "debug_mode": {
+      "system_var": "Debug Mode",
+      "theme_vocab": "Dungeon Master Insight",
+      "emoji": "🎲",
+      "context": "Behind-the-scenes campaign mechanics made visible"
+    },
+    "cache": {
+      "system_var": "Cache",
+      "theme_vocab": "Character Sheet Archive",
+      "emoji": "📄",
+      "context": "Saved character data and campaign memories"
+    },
+    "log_file": {
+      "system_var": "Log File",
+      "theme_vocab": "Campaign Record",
+      "emoji": "📖",
+      "context": "Historical record of all campaign events"
+    },
+    "process_queue": {
+      "system_var": "Process Queue",
+      "theme_vocab": "Initiative Order",
+      "emoji": "🎲",
+      "context": "Tasks waiting to execute, lined up like turn order"
+    },
+    "memory_usage": {
+      "system_var": "Memory Usage",
+      "theme_vocab": "Mana Pool",
+      "emoji": "⚡",
+      "context": "System resource consumption (like spell slots used)"
+    },
+    "file_system": {
+      "system_var": "File System",
+      "theme_vocab": "The Realm",
+      "emoji": "🗺️",
+      "context": "Territory and locations in the campaign world"
+    },
+    "network": {
+      "system_var": "Network",
+      "theme_vocab": "Walkie-Talkie Network",
+      "emoji": "📻",
+      "context": "Connection to external systems (very 80s comms)"
+    },
+    "security_check": {
+      "system_var": "Security Check",
+      "theme_vocab": "Protection Circle",
+      "emoji": "🪡",
+      "context": "Magical ward to keep the Upside Down at bay"
+    },
+    "backup": {
+      "system_var": "Backup",
+      "theme_vocab": "Resurrection Scroll",
+      "emoji": "⚰️",
+      "context": "Data redundancy—bringing fallen campaigns back to life"
+    },
+    "update": {
+      "system_var": "Update",
+      "theme_vocab": "Campaign Patch",
+      "emoji": "🔄",
+      "context": "Updating spells, items, and campaign rules"
+    },
+    "initialization": {
+      "system_var": "Initialization",
+      "theme_vocab": "Session Begins",
+      "emoji": "🕯️",
+      "context": "DM lights candles, everyone gathers around the table"
+    },
+    "shutdown": {
+      "system_var": "Shutdown",
+      "theme_vocab": "Session Ends",
+      "emoji": "😴",
+      "context": "Campaign suspended until next week"
+    },
+    "timeout": {
+      "system_var": "Timeout",
+      "theme_vocab": "Lost Signal",
+      "emoji": "❌",
+      "context": "Connection severed—character left hanging mid-turn"
+    },
+    "overflow": {
+      "system_var": "Overflow",
+      "theme_vocab": "Critical Hit on Self",
+      "emoji": "💥",
+      "context": "System capacity exceeded—disaster!"
+    },
+    "permission_denied": {
+      "system_var": "Permission Denied",
+      "theme_vocab": "Dungeon Master Says No",
+      "emoji": "❌",
+      "context": "DM ruling: that action is not permitted in this campaign"
+    },
+    "file_not_found": {
+      "system_var": "File Not Found",
+      "theme_vocab": "Character Sheet Lost",
+      "emoji": "🤷",
+      "context": "Someone's character data has vanished (to the Upside Down?)"
+    },
+    "connection_error": {
+      "system_var": "Connection Error",
+      "theme_vocab": "Interdimensional Interference",
+      "emoji": "🌀",
+      "context": "Can't reach the network—the Upside Down is interfering"
+    },
+    "configuration": {
+      "system_var": "Configuration",
+      "theme_vocab": "Campaign Settings",
+      "emoji": "⚙️",
+      "context": "Game rules, difficulty level, house rules"
+    },
+    "loop_execution": {
+      "system_var": "Loop Execution",
+      "theme_vocab": "Endless Corridor",
+      "emoji": "🌀",
+      "context": "Repetitive operation—like being stuck in the Upside Down"
+    },
+    "data_validation": {
+      "system_var": "Data Validation",
+      "theme_vocab": "Roll for Accuracy",
+      "emoji": "🎲",
+      "context": "Checking if data meets specifications (like testing a new spell)"
+    },
+    "optimization": {
+      "system_var": "Optimization",
+      "theme_vocab": "Combat Maneuver",
+      "emoji": "⚡",
+      "context": "Making systems run better (like a critical success)"
+    },
+    "disaster_recovery": {
+      "system_var": "Disaster Recovery",
+      "theme_vocab": "TPK Recovery Ritual",
+      "emoji": "🪡",
+      "context": "Recovering from a total party kill scenario"
+    }
+  }
+}

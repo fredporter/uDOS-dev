@@ -1,0 +1,63 @@
+{
+  "theme_name": "Retro Computing - DOS/Apple II Era",
+  "templates": {
+    "error": {
+      "prefix": "❌",
+      "verb": "SYSTEM FAULT",
+      "format": "{prefix} {verb} - {message}",
+      "subtext": "ABORT, RETRY, FAIL?",
+      "color": "red",
+      "examples": [
+        "❌ SYSTEM FAULT - Illegal instruction at address 0x4A2B",
+        "❌ SYSTEM FAULT - Disk read error on drive C:"
+      ]
+    },
+    "success": {
+      "prefix": "✅",
+      "verb": "PROCESS COMPLETED SUCCESSFULLY",
+      "format": "{prefix} {verb} - {message}",
+      "subtext": "All systems nominal.",
+      "color": "green",
+      "examples": [
+        "✅ PROCESS COMPLETED SUCCESSFULLY - File copy completed",
+        "✅ PROCESS COMPLETED SUCCESSFULLY - Installation done"
+      ]
+    },
+    "warning": {
+      "prefix": "⚠️",
+      "verb": "DISK SPACE WARNING",
+      "format": "{prefix} {verb} - {message}",
+      "subtext": "Please free up disk space before continuing.",
+      "color": "yellow",
+      "examples": [
+        "⚠️ DISK SPACE WARNING - Less than 1MB remaining",
+        "⚠️ DISK SPACE WARNING - Memory low on your system"
+      ]
+    },
+    "status": {
+      "prefix": "📊",
+      "verb": "STATUS REPORT",
+      "format": "{prefix} {verb} - {message}",
+      "subtext": "System status normal.",
+      "color": "cyan",
+      "examples": [
+        "📊 STATUS REPORT - All peripherals online",
+        "📊 STATUS REPORT - 640K base memory available"
+      ]
+    }
+  },
+  "flavor_text": {
+    "startup": "🖥️ ▓▓▓▓▓▓▓▓ SYSTEM BOOT\nWelcome to RetroCompute OS\n",
+    "shutdown": "⏻️ SHUTDOWN SEQUENCE INITIATED\nPlease wait... Do not power off.",
+    "empty_result": "No data retrieved. Returning to command prompt.\nC:\\>",
+    "long_operation": "⏳ Processing... ▓▓▓▓░░░░░░ 42%",
+    "completion": "✅ COMPLETE - System returned to command prompt."
+  },
+  "style_guide": {
+    "punctuation": "Use hyphens (-) like old DOS, all caps for emphasis, period at end",
+    "tone": "Technical, matter-of-fact, slightly anxious, helpful but no-nonsense, beige and tan",
+    "emoji_usage": "Emojis represent hardware and system states",
+    "formatting": "Use DOS-style headers, 'ABORT RETRY FAIL' humor, technical jargon",
+    "flavor": "1980s/90s computer lab vibes, dial-up internet references, floppy disk nostalgia"
+  }
+}

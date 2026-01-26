@@ -1,0 +1,171 @@
+dev/
+├── bin/
+│   ├── .DS_Store
+│   ├── Launch-Empire-Server.command
+│   └── Launch-Goblin-Dev.command
+├── build/
+│   └── README.md
+├── docs/
+│   ├── decisions/
+│   ├── devlog/
+│   ├── howto/
+│   ├── specs/
+│   ├── .DS_Store
+│   ├── REPOSITORY-RENAME-COMPLETE.md
+│   ├── RESTRUCTURE-ANALYSIS.md
+│   ├── RESTRUCTURE-COMPLETION-REPORT.md
+│   ├── RESTRUCTURE-QUICK-REFERENCE.md
+│   ├── RESTRUCTURE-SUMMARY.md
+│   ├── RESTRUCTURE-VALIDATION.md
+│   ├── roadmap.md
+│   ├── SECURITY-INCIDENT-2026-01-18.md
+│   ├── v1.0.7.0-PHASE-5E-HANDLERS.md
+│   ├── v1.0.7.0-QUICK-REFERENCE.md
+│   ├── V1.0.7.0-SPEC-COMPLETE.md
+│   └── WIZARD-INTEGRATION-STUBS-COMPLETE.md
+├── empire/
+│   ├── scripts/
+│   ├── src/
+│   ├── __init__.py
+│   ├── contact_extractor.py
+│   ├── EMPIRE-SERVER.md
+│   ├── empire.py
+│   ├── enrichment_client.py
+│   ├── entity_resolver.py
+│   ├── google_business_client.py
+│   ├── hubspot_handler.py
+│   ├── id_generator.py
+│   ├── index.html
+│   ├── keyword_generator.py
+│   ├── location_resolver.py
+│   ├── marketing_db.py
+│   ├── message_pruner.py
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── QUICK-REFERENCE.md
+│   ├── README.md
+│   ├── social_clients.py
+│   ├── svelte.config.js
+│   ├── tailwind.config.js
+│   ├── TESTING-COMPLETE.md
+│   ├── tui.py
+│   ├── version.json
+│   ├── vite.config.js
+│   ├── website_parser.py
+│   └── WORKFLOW-AUTOMATION.md
+├── examples/
+│   └── input_system/
+├── goblin/
+│   ├── .archive/
+│   ├── .svelte-kit/
+│   ├── bin/
+│   ├── build/
+│   ├── config/
+│   ├── core/
+│   ├── core-ts/
+│   ├── dashboard/
+│   ├── docs/
+│   ├── fonts/
+│   ├── memory/
+│   ├── public/
+│   ├── routes/
+│   ├── schemas/
+│   ├── services/
+│   ├── src/
+│   ├── static/
+│   ├── tests/
+│   ├── .DS_Store
+│   ├── .gitignore
+│   ├── __init__.py
+│   ├── ARCHIVAL_MAP.md
+│   ├── config_manager.py
+│   ├── DASHBOARD-STATUS.md
+│   ├── goblin_server.py
+│   ├── launch-dev.sh
+│   ├── launch-goblin-dev.sh
+│   ├── meshcore_device_manager.py
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── QUICK-REFERENCE.md
+│   ├── README.md
+│   ├── screwdriver_flash_packs.py
+│   ├── screwdriver_handler.py
+│   ├── screwdriver_provisioner.py
+│   ├── SETUP-GUIDE.md
+│   ├── svelte.config.js
+│   ├── tailwind.config.js
+│   ├── tsconfig.json
+│   ├── version.json
+│   └── vite.config.ts
+├── groovebox/
+│   ├── engine/
+│   ├── instruments/
+│   ├── library/
+│   ├── plugins/
+│   ├── src/
+│   ├── tests/
+│   ├── .DS_Store
+│   ├── .gitignore
+│   ├── __init__.py
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── README.md
+│   ├── svelte.config.js
+│   ├── tsconfig.json
+│   ├── version.json
+│   └── vite.config.ts
+├── library/
+│   ├── gtx-form/
+│   ├── handy/
+│   ├── home-assistant/
+│   ├── piper/
+│   ├── remark/
+│   ├── songscribe/
+│   ├── .DS_Store
+│   └── .gitignore
+├── roadmap/
+│   ├── .archive/
+│   ├── .DS_Store
+│   ├── alpine-core.md
+│   ├── beacon-portal.md
+│   ├── beacon-vpn-tunnel.md
+│   ├── README.md
+│   └── wizard-networking.md
+├── scripts/
+│   └── migrate_user_config.py
+├── tests/
+│   ├── test_command_routing.py
+│   ├── test_debug_sync.py
+│   ├── test_dev_mode.sh
+│   ├── test_framework_api.py
+│   ├── test_goblin_startup.py
+│   ├── test_modular_routing.py
+│   ├── test_modular_services.py
+│   ├── test_prompt_visual.py
+│   ├── test_routes_fixed.py
+│   ├── test_secure_config_panel.py
+│   ├── test_server_integration.py
+│   ├── test_ui_improvements.py
+│   └── test_ui_integration.py
+├── tools/
+│   └── .DS_Store
+├── wiki-dev/
+│   ├── commands/
+│   ├── .DS_Store
+│   ├── app.md
+│   ├── ARCHITECTURE.md
+│   ├── CONFIGURATION.md
+│   ├── credits.json
+│   ├── CREDITS.md
+│   ├── credits.schema.json
+│   ├── groovebox.md
+│   ├── MOOD-FACTORS-SPEC.md
+│   ├── README.md
+│   ├── Style-Guide.md
+│   ├── tui.md
+│   ├── VISION.md
+│   └── wizard-server.md
+├── __init__.py
+└── README.md

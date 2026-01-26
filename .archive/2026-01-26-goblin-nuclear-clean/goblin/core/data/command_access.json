@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "description": "Command access levels for API vs TUI",
+  "updated": "2026-01-05",
+  
+  "levels": {
+    "user": {
+      "description": "Safe for API and Tauri app",
+      "requires_auth": false
+    },
+    "wizard": {
+      "description": "Requires Wizard Server auth",
+      "requires_auth": true
+    },
+    "dev": {
+      "description": "TUI only - development/admin operations",
+      "requires_auth": false,
+      "tui_only": true
+    }
+  },
+  
+  "commands": {
+    "user": [
+      "HELP",
+      "VERSION",
+      "STATUS",
+      "FILE READ",
+      "FILE LIST",
+      "FILE INFO",
+      "FILE FIND",
+      "KNOWLEDGE",
+      "K",
+      "SEARCH",
+      "VIEW",
+      "PEEK",
+      "TREE",
+      "TILE",
+      "PANEL",
+      "GUIDE",
+      "GET",
+      "LOCATE",
+      "CHECKLIST",
+      "MISSION",
+      "WORKFLOW",
+      "SCHEDULE",
+      "INBOX",
+      "ARCHIVE LIST",
+      "ARCHIVE SEARCH",
+      "MAP",
+      "USER",
+      "COLOR",
+      "DISPLAY"
+    ],
+    
+    "wizard": [
+      "OK",
+      "AI",
+      "CHAT",
+      "COMPLETE",
+      "SCRAPE",
+      "PROXY",
+      "GMAIL",
+      "PAIR",
+      "MESH"
+    ],
+    
+    "dev": [
+      "REPAIR",
+      "CLEAN",
+      "TIDY",
+      "BACKUP",
+      "RESTORE",
+      "BUILD",
+      "DEPLOY",
+      "INSTALL",
+      "STACK",
+      "PLUGIN",
+      "GIT",
+      "VIBE",
+      "CONFIG SET",
+      "CONFIG DELETE",
+      "KEY SET",
+      "KEY DELETE",
+      "FILE WRITE",
+      "FILE DELETE",
+      "FILE NEW",
+      "FILE COPY",
+      "FILE MOVE",
+      "ARCHIVE CREATE",
+      "ARCHIVE DELETE",
+      "SANDBOX",
+      "LOADER",
+      "REBOOT"
+    ]
+  },
+  
+  "api_blocked_patterns": [
+    "BUILD *",
+    "DEPLOY *",
+    "INSTALL *",
+    "REPAIR *",
+    "CLEAN *",
+    "TIDY *",
+    "BACKUP *",
+    "RESTORE *",
+    "GIT *",
+    "VIBE *",
+    "CONFIG SET *",
+    "CONFIG DELETE *",
+    "KEY SET *",
+    "KEY DELETE *",
+    "FILE WRITE *",
+    "FILE DELETE *",
+    "FILE NEW *",
+    "FILE COPY *",
+    "FILE MOVE *",
+    "SANDBOX *",
+    "LOADER *",
+    "REBOOT"
+  ]
+}

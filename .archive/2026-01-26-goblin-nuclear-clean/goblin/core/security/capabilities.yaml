@@ -1,0 +1,308 @@
+# uDOS Security - Capability Bindings
+# Alpha v1.0.0.2+
+#
+# Maps commands/operations to required capabilities and exposure tiers.
+# Used for policy enforcement and access control.
+
+version: "1.0.0.2"
+
+# Exposure Tiers
+# - LOCAL: Device-only operations
+# - PRIVATE_SAFE: Safe for private transports (mesh, BT private, NFC, QR, audio)
+# - WIZARD_ONLY: Requires Wizard Server role (web/cloud access)
+
+command_bindings:
+  # File Operations
+  FILE:
+    exposure_tier: LOCAL
+    required_capabilities:
+      - local_file_access
+    transports_allowed:
+      - meshcore  # Can sync via mesh
+      - bluetooth_private
+  
+  NEW:
+    exposure_tier: LOCAL
+    required_capabilities:
+      - local_file_access
+    transports_allowed:
+      - meshcore
+  
+  DELETE:
+    exposure_tier: LOCAL
+    required_capabilities:
+      - local_file_access
+    roles_allowed:
+      - device_owner
+      - paired_device
+  
+  # Workflow Operations
+  WORKFLOW:
+    exposure_tier: PRIVATE_SAFE
+    required_capabilities:
+      - workflow_management
+    transports_allowed:
+      - meshcore
+      - bluetooth_private
+      - qr_relay
+  
+  # uPY/uCODE Execution
+  RUN:
+    exposure_tier: LOCAL
+    required_capabilities:
+      - ucode_execution
+    roles_allowed:
+      - device_owner
+      - paired_device
+  
+  # Network/Mesh Operations
+  MESH:
+    exposure_tier: PRIVATE_SAFE
+    required_capabilities:
+      - mesh_communication
+      - private_transport_use
+    transports_allowed:
+      - meshcore
+      - bluetooth_private
+      - nfc
+  
+  PAIR:
+    exposure_tier: PRIVATE_SAFE
+    required_capabilities:
+      - device_pairing
+    transports_allowed:
+      - bluetooth_private
+      - nfc
+      - qr_relay
+  
+  # Wizard Server Operations
+  WEB:
+    exposure_tier: WIZARD_ONLY
+    required_capabilities:
+      - web_access
+    roles_allowed:
+      - wizard_server
+    transports_allowed:
+      - internet
+  
+  GMAIL:
+    exposure_tier: WIZARD_ONLY
+    required_capabilities:
+      - gmail_relay
+    roles_allowed:
+      - wizard_server
+  
+  AI:
+    exposure_tier: WIZARD_ONLY
+    required_capabilities:
+      - ai_gateway
+      - cloud_api_calls
+    roles_allowed:
+      - wizard_server
+  
+  # Plugin System
+  PLUGIN:
+    exposure_tier: WIZARD_ONLY
+    required_capabilities:
+      - plugin_repository
+    roles_allowed:
+      - wizard_server
+    note: "Plugin distribution uses QR relay to devices"
+  
+  # Mobile Console Whitelist
+  VIEW:
+    exposure_tier: PRIVATE_SAFE
+    required_capabilities:
+      - workflow_read
+    roles_allowed:
+      - device_owner
+      - paired_device
+      - mobile_console
+  
+  LIST:
+    exposure_tier: PRIVATE_SAFE
+    required_capabilities:
+      - workflow_read
+    roles_allowed:
+      - device_owner
+      - paired_device
+      - mobile_console
+  
+  HELP:
+    exposure_tier: LOCAL
+    required_capabilities: []
+    roles_allowed: all
+  
+  SEARCH:
+    exposure_tier: LOCAL
+    required_capabilities:
+      - workflow_read
+    roles_allowed: all
+
+# Operation → Capability mapping
+operations:
+  file_read:
+    capabilities:
+      - local_file_access
+    or:
+      - file_read_sandbox
+  
+  file_write:
+    capabilities:
+      - local_file_access
+    not_allowed:
+      - mobile_console
+  
+  file_delete:
+    capabilities:
+      - local_file_access
+    not_allowed:
+      - mobile_console
+      - paired_device
+  
+  mesh_send:
+    capabilities:
+      - mesh_communication
+      - private_transport_use
+  
+  mesh_receive:
+    capabilities:
+      - mesh_communication
+  
+  web_fetch:
+    capabilities:
+      - web_access
+    roles_required:
+      - wizard_server
+  
+  api_call:
+    capabilities:
+      - cloud_api_calls
+    roles_required:
+      - wizard_server
+    cost_tracking: true
+
+# Transport Policy Enforcement
+transport_validation:
+  meshcore:
+    data_allowed: true
+    commands_allowed: true
+    realm: private
+  
+  bluetooth_private:
+    data_allowed: true
+    commands_allowed: true
+    realm: private
+    pairing_required: true
+  
+  bluetooth_public:
+    data_allowed: false  # NEVER
+    commands_allowed: false  # NEVER
+    signal_only: true
+    use_case: "Presence/discovery beacons only"
+  
+  nfc:
+    data_allowed: true
+    commands_allowed: true
+    realm: private
+    range: contact
+  
+  qr_relay:
+    data_allowed: true
+    commands_allowed: true
+    realm: private
+    chunked: true
+  
+  audio_relay:
+    data_allowed: true
+    commands_allowed: true
+    realm: private
+    error_correction: true
+  
+  internet:
+    data_allowed: true
+    commands_allowed: true
+    realm: wizard_only
+    roles_required:
+      - wizard_server
+  
+  web_sockets:
+    data_allowed: true
+    commands_allowed: true
+    realm: wizard_only
+    roles_required:
+      - wizard_server
+
+# Logging requirements by tier
+logging_policy:
+  LOCAL:
+    tag: "[LOCAL]"
+    log_level: INFO
+    include_user: false
+  
+  PRIVATE_SAFE:
+    tag: "[MESH]"
+    log_level: INFO
+    include_transport: true
+    include_peer: true
+  
+  WIZARD_ONLY:
+    tag: "[WIZ]"
+    log_level: WARNING
+    include_cost: true
+    include_api: true
+    audit: true
+
+# User Secrets Operations (v1.0.0.24+)
+secrets_bindings:
+  SECRET_GET:
+    exposure_tier: LOCAL
+    required_capabilities:
+      - local_file_access
+    privacy_tiers:
+      public: all_roles
+      shared: [device_owner, paired_device]
+      private: [device_owner]
+      system: [wizard_server]
+  
+  SECRET_SET:
+    exposure_tier: LOCAL
+    required_capabilities:
+      - local_file_access
+      - security_config
+    roles_allowed:
+      - device_owner
+  
+  SECRET_SHARE:
+    exposure_tier: PRIVATE_SAFE
+    required_capabilities:
+      - local_file_access
+    transports_allowed:
+      - meshcore
+      - bluetooth_private
+      - qr_relay
+    note: "Only SHARED tier secrets can be shared"
+  
+  SECRET_DELETE:
+    exposure_tier: LOCAL
+    required_capabilities:
+      - local_file_access
+      - security_config
+    roles_allowed:
+      - device_owner
+
+# Storage modes
+storage_modes:
+  tomb:
+    description: "Archive mode - unencrypted, access-logged"
+    encryption: false
+    audit: true
+    sharing: true
+    use_case: "Static data points, public shares"
+  
+  crypt:
+    description: "Vault mode - encrypted, conditional access"
+    encryption: true
+    audit: true
+    sharing: conditional
+    use_case: "Sensitive data, private information"

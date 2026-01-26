@@ -1,0 +1,55 @@
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8767,
+    "debug": true,
+    "log_level": "debug"
+  },
+  "notion": {
+    "webhook_secret_keychain_id": "goblin-notion-webhook",
+    "integration_token_keychain_id": "goblin-notion-token",
+    "sync_mode": "publish",
+    "auto_sync": false,
+    "queue_max_size": 1000
+  },
+  "runtime": {
+    "max_state_size_bytes": 1048576,
+    "execution_timeout_ms": 5000,
+    "sandbox_enabled": true,
+    "allow_db_binding": true,
+    "max_variables": 1000
+  },
+  "scheduler": {
+    "enabled": true,
+    "organic_mode": true,
+    "daily_quota_calls": 200,
+    "cron_phases": ["plant", "sprout", "prune", "trellis", "harvest", "compost"]
+  },
+  "binder": {
+    "output_dir": "memory/binders",
+    "formats": ["markdown", "pdf", "json"],
+    "auto_compile": false
+  },
+  "providers": {
+    "ollama": {
+      "enabled": true,
+      "base_url": "http://localhost:11434",
+      "timeout": 120
+    },
+    "openrouter": {
+      "enabled": true,
+      "api_key_keychain_id": "openrouter-api-key",
+      "default_model": "anthropic/claude-3.5-sonnet",
+      "escalation_threshold": 0.7
+    }
+  },
+  "database": {
+    "path": "memory/goblin.sqlite"
+  },
+  "logging": {
+    "console": true,
+    "file": true,
+    "path": "memory/logs/goblin-{date}.log",
+    "debug_path": "memory/logs/goblin-debug-{date}.log"
+  }
+}

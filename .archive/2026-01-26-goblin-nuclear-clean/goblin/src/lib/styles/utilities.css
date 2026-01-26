@@ -1,0 +1,150 @@
+/**
+ * Tailwind Utilities - Shared style mixins and utilities for uDOS
+ * Provides consistent spacing, typography, and component patterns
+ */
+
+@layer components {
+  /* ======= Button Base Styles ======= */
+  .btn-base {
+    @apply inline-flex items-center justify-center font-medium rounded-lg transition-colors duration-200 focus:ring-4 focus:outline-none active:scale-95 transform;
+  }
+
+  .btn-primary {
+    @apply btn-base text-white bg-blue-700 dark:bg-blue-600 hover:bg-blue-800 dark:hover:bg-blue-700 focus:ring-blue-300 dark:focus:ring-blue-800 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-secondary {
+    @apply btn-base text-gray-900 bg-white border border-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 hover:bg-gray-100 hover:text-blue-700 dark:hover:text-white dark:hover:bg-gray-700 focus:ring-gray-200 dark:focus:ring-gray-700 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-outline {
+    @apply btn-base text-gray-900 dark:text-gray-400 border border-gray-800 dark:border-gray-600 hover:text-white hover:bg-gray-900 dark:hover:text-white dark:hover:bg-gray-600 focus:ring-gray-300 dark:focus:ring-gray-700 disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .btn-sm {
+    @apply px-3 py-2 text-sm;
+  }
+
+  .btn-md {
+    @apply px-5 py-2.5 text-sm;
+  }
+
+  .btn-lg {
+    @apply px-5 py-3 text-base;
+  }
+
+  /* ======= Card Styles ======= */
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700 shadow-sm;
+  }
+
+  .card-header {
+    @apply text-base font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2;
+  }
+
+  /* ======= Input Styles ======= */
+  .input-base {
+    @apply px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors;
+  }
+
+  /* ======= Sidebar Styles ======= */
+  .sidebar-base {
+    @apply border-r dark:border-gray-700 p-3 bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  }
+
+  .sidebar-item {
+    @apply block w-full text-left px-3 py-2 rounded-lg text-sm hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors;
+  }
+
+  /* ======= Toolbar Styles ======= */
+  .toolbar {
+    @apply flex items-center gap-2 px-3 py-2 border-b dark:border-gray-700 bg-white dark:bg-gray-900;
+  }
+
+  .toolbar-separator {
+    @apply w-px h-6 bg-gray-300 dark:bg-gray-600;
+  }
+
+  /* ======= Status Bar Styles ======= */
+  .status-bar {
+    @apply flex items-center justify-between px-3 py-2 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-xs text-gray-600 dark:text-gray-400;
+  }
+
+  .status-item {
+    @apply flex items-center gap-2;
+  }
+
+  /* ======= Grid Display Utilities ======= */
+  .grid-container {
+    @apply font-mono text-xs bg-gray-900 text-gray-100 p-2;
+  }
+
+  .grid-line {
+    @apply leading-tight;
+  }
+
+  /* ======= Text Styles ======= */
+  .text-label {
+    @apply text-xs font-semibold uppercase tracking-wider text-gray-600 dark:text-gray-400;
+  }
+
+  .text-muted {
+    @apply text-sm text-gray-600 dark:text-gray-400;
+  }
+
+  .text-error {
+    @apply text-red-600 dark:text-red-400;
+  }
+
+  .text-success {
+    @apply text-green-600 dark:text-green-400;
+  }
+
+  /* ======= Divider Styles ======= */
+  .divider {
+    @apply border-t border-gray-300 dark:border-gray-600 my-2;
+  }
+
+  .divider-vertical {
+    @apply border-l border-gray-300 dark:border-gray-600 mx-2 h-6;
+  }
+
+  /* ======= Badge Styles ======= */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200;
+  }
+
+  .badge-success {
+    @apply bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200;
+  }
+
+  .badge-danger {
+    @apply bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200;
+  }
+
+  .badge-warning {
+    @apply bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200;
+  }
+}
+
+@layer utilities {
+  /* Focus visibility for keyboard navigation */
+  .focus-visible\:ring-2:focus-visible {
+    @apply ring-2 ring-offset-2 ring-blue-500;
+  }
+
+  /* Disabled state consistency */
+  .disabled\:pointer-events-none:disabled {
+    @apply pointer-events-none;
+  }
+
+  /* Smooth transitions */
+  .transition-smooth {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  /* Dark mode toggle utility */
+  .dark-mode-toggle {
+    @apply cursor-pointer select-none;
+  }
+}

@@ -1,0 +1,416 @@
+{
+  "$schema": "https://json-schema.org/draft-07/schema#",
+  "title": "Solar System Planets - Hierarchical Grid",
+  "description": "Planetary bodies using 120×50 cell grid (6,000 cells per layer) with surface detail via cell nesting",
+  "version": "2.0.0",
+  "last_updated": "2026-01-04",
+  "system": "hierarchical_cells",
+
+  "grid_system": {
+    "dimensions": {"columns": 120, "rows": 50},
+    "cells_per_layer": 6000,
+    "cell_format": "CCNN (AB15, CD20, etc.)",
+    "coordinate_format": "SPACE-SOL-L[LAYER]-[CELL1]-[CELL2]...",
+    "zoom_levels": {
+      "depth_0": "Entire planet surface (6,000 cells)",
+      "depth_1": "Continental/hemisphere detail (6,000 cells per base cell)",
+      "depth_2": "Regional terrain (mountains, craters, landing sites)",
+      "depth_3": "Local features (buildings, rovers, equipment)",
+      "depth_4": "Object detail (tools, samples, instruments)"
+    }
+  },
+
+  "layer_ranges": {
+    "terrestrial": "600-609 (Mercury, Venus, Earth, Moon, Mars)",
+    "asteroid_belt": "610-619 (Ceres, Vesta, etc.)",
+    "jovian": "620-629 (Jupiter, Saturn, Uranus, Neptune)",
+    "kuiper_belt": "630-639 (Pluto, Eris, Makemake, etc.)"
+  },
+
+  "terrestrial_planets": [
+    {
+      "name": "Mercury",
+      "coordinate": "SPACE-SOL-L600",
+      "diameter_km": 4879,
+      "cell_precision_depth0": "~41 km/cell",
+      "features": ["cratered", "no_atmosphere", "extreme_temperatures"],
+      "notable_locations": [
+        {
+          "name": "Caloris Basin",
+          "coordinate": "SPACE-SOL-L600-AB20",
+          "description": "Massive impact crater (1,550 km diameter)",
+          "type": "geological_feature"
+        }
+      ],
+      "surface_grid": {
+        "equatorial_cells": "~120 cells = 360° longitude",
+        "polar_cells": "~50 cells = 180° latitude",
+        "cell_degrees": "~3° × ~3.6°"
+      }
+    },
+    {
+      "name": "Venus",
+      "coordinate": "SPACE-SOL-L601",
+      "diameter_km": 12104,
+      "cell_precision_depth0": "~100 km/cell",
+      "features": ["dense_atmosphere", "volcanic", "extreme_heat"],
+      "notable_locations": [
+        {
+          "name": "Maxwell Montes",
+          "coordinate": "SPACE-SOL-L601-BC30",
+          "description": "Highest mountain (11 km)",
+          "type": "geological_feature"
+        },
+        {
+          "name": "Venera 13 Landing Site",
+          "coordinate": "SPACE-SOL-L601-CD15-AA10",
+          "description": "Soviet lander (1982), survived 127 minutes",
+          "type": "historical_landing"
+        }
+      ]
+    },
+    {
+      "name": "Earth",
+      "coordinate": "SPACE-SOL-L602",
+      "diameter_km": 12742,
+      "cell_precision_depth0": "~333 km/cell",
+      "note": "Primary mapping in EARTH realm L100, see locations-hierarchical.json",
+      "features": ["life_bearing", "liquid_water", "atmosphere"],
+      "cross_reference": "EARTH-L100 for detailed surface mapping"
+    },
+    {
+      "name": "Moon",
+      "coordinate": "SPACE-SOL-L603",
+      "diameter_km": 3475,
+      "cell_precision_depth0": "~29 km/cell",
+      "features": ["cratered", "no_atmosphere", "tidally_locked"],
+      "notable_locations": [
+        {
+          "name": "Apollo 11 Landing Site (Tranquility Base)",
+          "coordinate": "SPACE-SOL-L603-AB25-CD20",
+          "lat_long": "0.67408°N 23.47297°E",
+          "description": "First human Moon landing (July 20, 1969)",
+          "type": "historical_landing",
+          "equipment": ["Eagle_LM", "flag", "experiments"],
+          "zoom_detail": "SPACE-SOL-L603-AB25-CD20-AA10 (footprints, equipment)"
+        },
+        {
+          "name": "Apollo 17 Landing Site (Taurus-Littrow)",
+          "coordinate": "SPACE-SOL-L603-BC30-AB15",
+          "lat_long": "20.1908°N 30.7717°E",
+          "description": "Last human Moon landing (Dec 11, 1972)",
+          "type": "historical_landing",
+          "equipment": ["Challenger_LM", "lunar_rover", "experiments"]
+        },
+        {
+          "name": "South Pole-Aitken Basin",
+          "coordinate": "SPACE-SOL-L603-CD45",
+          "description": "Largest impact crater in solar system (2,500 km)",
+          "type": "geological_feature"
+        },
+        {
+          "name": "Shackleton Crater",
+          "coordinate": "SPACE-SOL-L603-CD48-AA20",
+          "lat_long": "89.9°S",
+          "description": "Permanently shadowed, water ice deposits",
+          "type": "geological_feature",
+          "future_interest": "Artemis program target"
+        }
+      ],
+      "surface_grid": {
+        "equatorial_cells": "~120 cells = 360° longitude",
+        "cell_degrees": "~3° × ~3.6°"
+      }
+    },
+    {
+      "name": "Mars",
+      "coordinate": "SPACE-SOL-L605",
+      "diameter_km": 6779,
+      "cell_precision_depth0": "~178 km/cell",
+      "features": ["red_planet", "thin_atmosphere", "polar_ice_caps", "canyon_system"],
+      "notable_locations": [
+        {
+          "name": "Olympus Mons",
+          "coordinate": "SPACE-SOL-L605-AB20-CD15",
+          "lat_long": "18.65°N 226.2°E",
+          "description": "Tallest volcano in solar system (21.9 km high, 600 km wide)",
+          "type": "geological_feature",
+          "zoom_detail": "SPACE-SOL-L605-AB20-CD15-AA10 (caldera detail)"
+        },
+        {
+          "name": "Valles Marineris",
+          "coordinate": "SPACE-SOL-L605-BC25",
+          "description": "Largest canyon system (4,000 km long, 7 km deep)",
+          "type": "geological_feature"
+        },
+        {
+          "name": "Gale Crater (Curiosity Landing)",
+          "coordinate": "SPACE-SOL-L605-CD30-AB20",
+          "lat_long": "5.4°S 137.8°E",
+          "description": "MSL Curiosity rover (2012-present)",
+          "type": "active_mission",
+          "equipment": ["Curiosity_rover", "experiments"],
+          "zoom_detail": "SPACE-SOL-L605-CD30-AB20-BC15 (rover position)"
+        },
+        {
+          "name": "Jezero Crater (Perseverance Landing)",
+          "coordinate": "SPACE-SOL-L605-AA35-BC10",
+          "lat_long": "18.38°N 77.58°E",
+          "description": "M2020 Perseverance rover + Ingenuity helicopter (2021-present)",
+          "type": "active_mission",
+          "equipment": ["Perseverance_rover", "Ingenuity_helicopter", "sample_cache"],
+          "zoom_detail": "SPACE-SOL-L605-AA35-BC10-CD20 (Ingenuity flight paths)"
+        },
+        {
+          "name": "Utopia Planitia (Viking 2 Landing)",
+          "coordinate": "SPACE-SOL-L605-BC40-AA05",
+          "lat_long": "47.968°N 134.286°E",
+          "description": "Viking 2 lander (1976-1980)",
+          "type": "historical_landing"
+        },
+        {
+          "name": "Elysium Planitia (InSight Landing)",
+          "coordinate": "SPACE-SOL-L605-AB30-CD25",
+          "lat_long": "4.502°N 135.623°E",
+          "description": "InSight seismometer (2018-2022)",
+          "type": "completed_mission"
+        }
+      ],
+      "surface_grid": {
+        "equatorial_cells": "~120 cells = 360° longitude",
+        "cell_degrees": "~3° × ~3.6°",
+        "zoom_1_precision": "~1.48 km/cell (perfect for rover paths)",
+        "zoom_2_precision": "~12 meters/cell (equipment placement)"
+      }
+    }
+  ],
+
+  "asteroid_belt": [
+    {
+      "name": "Ceres",
+      "coordinate": "SPACE-SOL-L610",
+      "diameter_km": 939,
+      "cell_precision_depth0": "~25 km/cell",
+      "features": ["dwarf_planet", "water_ice", "bright_spots"],
+      "notable_locations": [
+        {
+          "name": "Occator Crater",
+          "coordinate": "SPACE-SOL-L610-AB20-CD15",
+          "description": "Bright spots (salt deposits), Dawn mission target",
+          "type": "geological_feature"
+        }
+      ]
+    },
+    {
+      "name": "Vesta",
+      "coordinate": "SPACE-SOL-L611",
+      "diameter_km": 525,
+      "cell_precision_depth0": "~14 km/cell",
+      "features": ["differentiated", "iron_core", "impact_basins"],
+      "notable_locations": [
+        {
+          "name": "Rheasilvia Basin",
+          "coordinate": "SPACE-SOL-L611-CD45",
+          "description": "Giant impact crater (505 km, covers south pole)",
+          "type": "geological_feature"
+        }
+      ]
+    }
+  ],
+
+  "gas_giants": [
+    {
+      "name": "Jupiter",
+      "coordinate": "SPACE-SOL-L620",
+      "diameter_km": 139820,
+      "cell_precision_depth0": "~3663 km/cell",
+      "features": ["gas_giant", "great_red_spot", "radiation_belts", "79_moons"],
+      "notable_locations": [
+        {
+          "name": "Great Red Spot",
+          "coordinate": "SPACE-SOL-L620-BC25",
+          "description": "Massive storm (16,000 km wide, 400+ years old)",
+          "type": "atmospheric_feature"
+        }
+      ],
+      "moons": {
+        "io": {
+          "coordinate": "SPACE-SOL-L621",
+          "diameter_km": 3643,
+          "features": ["volcanic", "sulfur_surface"],
+          "notable_locations": [
+            {
+              "name": "Loki Patera",
+              "coordinate": "SPACE-SOL-L621-AB20",
+              "description": "Largest volcanic depression (200 km)",
+              "type": "geological_feature"
+            }
+          ]
+        },
+        "europa": {
+          "coordinate": "SPACE-SOL-L622",
+          "diameter_km": 3122,
+          "features": ["ice_shell", "subsurface_ocean", "potential_life"],
+          "notable_locations": [
+            {
+              "name": "Pwyll Crater",
+              "coordinate": "SPACE-SOL-L622-BC30",
+              "description": "Bright ray crater (26 km diameter)",
+              "type": "geological_feature"
+            }
+          ],
+          "future_interest": "Europa Clipper mission target (2030s)"
+        },
+        "ganymede": {
+          "coordinate": "SPACE-SOL-L623",
+          "diameter_km": 5268,
+          "features": ["largest_moon", "magnetic_field", "subsurface_ocean"]
+        },
+        "callisto": {
+          "coordinate": "SPACE-SOL-L624",
+          "diameter_km": 4821,
+          "features": ["heavily_cratered", "subsurface_ocean"]
+        }
+      }
+    },
+    {
+      "name": "Saturn",
+      "coordinate": "SPACE-SOL-L625",
+      "diameter_km": 116460,
+      "cell_precision_depth0": "~3049 km/cell",
+      "features": ["gas_giant", "ring_system", "83_moons"],
+      "notable_locations": [
+        {
+          "name": "Ring System",
+          "cells": "AA00-DT49 (entire L625 grid encompasses rings)",
+          "description": "Vast ring system (282,000 km wide, <1 km thick)",
+          "type": "ring_feature"
+        }
+      ],
+      "moons": {
+        "titan": {
+          "coordinate": "SPACE-SOL-L626",
+          "diameter_km": 5149,
+          "features": ["dense_atmosphere", "liquid_methane_lakes", "organic_chemistry"],
+          "notable_locations": [
+            {
+              "name": "Huygens Landing Site",
+              "coordinate": "SPACE-SOL-L626-BC20-AB15",
+              "lat_long": "10.3°S 192.3°W",
+              "description": "Cassini Huygens probe (2005)",
+              "type": "historical_landing"
+            },
+            {
+              "name": "Kraken Mare",
+              "coordinate": "SPACE-SOL-L626-AB30",
+              "description": "Largest liquid methane sea (400,000 km²)",
+              "type": "geological_feature"
+            }
+          ]
+        },
+        "enceladus": {
+          "coordinate": "SPACE-SOL-L627",
+          "diameter_km": 504,
+          "features": ["ice_geysers", "subsurface_ocean", "potential_life"],
+          "notable_locations": [
+            {
+              "name": "Tiger Stripes",
+              "coordinate": "SPACE-SOL-L627-CD45",
+              "description": "Fractures ejecting water plumes",
+              "type": "geological_feature"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Uranus",
+      "coordinate": "SPACE-SOL-L628",
+      "diameter_km": 50724,
+      "cell_precision_depth0": "~1328 km/cell",
+      "features": ["ice_giant", "extreme_tilt", "27_moons"]
+    },
+    {
+      "name": "Neptune",
+      "coordinate": "SPACE-SOL-L629",
+      "diameter_km": 49244,
+      "cell_precision_depth0": "~1289 km/cell",
+      "features": ["ice_giant", "great_dark_spot", "supersonic_winds"],
+      "moons": {
+        "triton": {
+          "coordinate": "SPACE-SOL-L629-SUB1",
+          "diameter_km": 2707,
+          "features": ["retrograde_orbit", "nitrogen_geysers", "captured_object"]
+        }
+      }
+    }
+  ],
+
+  "kuiper_belt": [
+    {
+      "name": "Pluto",
+      "coordinate": "SPACE-SOL-L630",
+      "diameter_km": 2377,
+      "cell_precision_depth0": "~62 km/cell",
+      "features": ["dwarf_planet", "nitrogen_ice", "heart_feature"],
+      "notable_locations": [
+        {
+          "name": "Tombaugh Regio (Heart)",
+          "coordinate": "SPACE-SOL-L630-AB20",
+          "description": "Heart-shaped nitrogen ice plain (1,000 km wide)",
+          "type": "geological_feature"
+        },
+        {
+          "name": "Sputnik Planitia",
+          "coordinate": "SPACE-SOL-L630-AB20-BC15",
+          "description": "Left lobe of heart, convective nitrogen ice",
+          "type": "geological_feature"
+        }
+      ],
+      "flyby": "New Horizons (July 14, 2015)"
+    },
+    {
+      "name": "Eris",
+      "coordinate": "SPACE-SOL-L631",
+      "diameter_km": 2326,
+      "features": ["dwarf_planet", "highly_eccentric_orbit"]
+    }
+  ],
+
+  "coordinate_examples": {
+    "base_planet": "SPACE-SOL-L605 (entire Mars, 6,000 cells)",
+    "hemisphere": "SPACE-SOL-L605-AB20 (region of Mars, 6,000 sub-cells)",
+    "landing_site": "SPACE-SOL-L605-CD30-AB20 (Curiosity rover area)",
+    "equipment": "SPACE-SOL-L605-CD30-AB20-BC15 (specific rover location)"
+  },
+
+  "navigation_commands": {
+    "locate_planet": "LOCATE SPACE-SOL-L605 (Mars)",
+    "zoom_in": "ZOOM IN AB20 (zoom to region)",
+    "locate_site": "LOCATE SPACE-SOL-L605-CD30-AB20 (Gale Crater)",
+    "map": "MAP SPACE-SOL-L605 (show Mars surface, 120×50 grid)"
+  },
+
+  "integration": {
+    "space_realm": "Part of SPACE realm layers 600-699",
+    "wizard_server": "Wizard Server can fetch real-time Mars rover data via NASA APIs",
+    "mesh_core": "Device mesh shares planetary maps P2P (no internet required)",
+    "future": "Track ISS position (SPACE-SOL-L602-orbit), Mars colonies (SPACE-SOL-L605-BASE1)"
+  },
+
+  "metadata": {
+    "created": "2026-01-04",
+    "author": "uDOS Alpha v1.0.0.0",
+    "system_version": "2.0.0 (hierarchical cells)",
+    "replaces": "planets.json v1.0.0 (flat grid)",
+    "data_sources": [
+      "NASA Planetary Data System",
+      "JPL Horizons",
+      "USGS Astrogeology"
+    ],
+    "references": [
+      "MULTIVERSE-LAYERS.md",
+      "locations-hierarchical.json"
+    ]
+  }
+}
