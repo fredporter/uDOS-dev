@@ -1,7 +1,7 @@
 #!/bin/bash
 # ╔═══════════════════════════════════════════════════════════════════════════╗
-# ║                  Goblin Dev Server Unified Launcher                       ║
-# ║              Experimental server + dashboard + TUI                        ║
+# ║                  Goblin Dev Server Direct Launcher                        ║
+# ║              Experimental server + dashboard (called by launch_goblin_dev)║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
 
 set -e
@@ -9,8 +9,12 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 UDOS_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 
-# Source shared functions
-source "$UDOS_ROOT/bin/udos-common.sh"
+cd "$UDOS_ROOT"
 
-# Delegate to unified component launcher
-launch_goblin_dev "$@"
+# Ensure venv is activated
+if [ -f "$UDOS_ROOT/.venv/bin/activate" ]; then
+    source "$UDOS_ROOT/.venv/bin/activate"
+fi
+
+# Launch Goblin server directly
+exec python dev/goblin/goblin_server.py "$@"
