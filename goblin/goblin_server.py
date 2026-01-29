@@ -27,19 +27,37 @@ from wizard.services.path_utils import get_repo_root
 
 logger = get_logger("goblin-server")
 
+# Global console instance
+_console = None
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Lifespan event handler (replaces deprecated on_event)."""
+    global _console
+
     # Startup
     logger.info("[GOBLIN] 🧪 Goblin MODE Playground starting...")
     logger.info("[GOBLIN] Port: 8767 (localhost only)")
     logger.info("[GOBLIN] MODEs: Teletext, Terminal")
     logger.info("[GOBLIN] Dashboard: http://localhost:5174")
-    
+
+    # Start interactive console
+    try:
+        from services.goblin_console import create_goblin_console
+
+        config = {"port": 8767, "host": "127.0.0.1"}
+        _console = create_goblin_console(config)
+        _console.start()
+        logger.info("[GOBLIN] ✅ Interactive console started")
+    except Exception as exc:
+        logger.warning(f"[GOBLIN] ⚠️ Console failed to start: {exc}")
+
     yield
-    
+
     # Shutdown
+    if _console:
+        _console.stop()
+
     logger.info("[GOBLIN] 🛑 Goblin MODE Playground shutting down...")
 
 
