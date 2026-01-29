@@ -1,1 +1,0 @@
-"""Goblin routes package marker."""
