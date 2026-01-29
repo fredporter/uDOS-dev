@@ -1,7 +1,0 @@
-# Never commit keys or secrets
-.keys/
-*.key
-*.pem
-*.secret
-credentials.json
-token.json
