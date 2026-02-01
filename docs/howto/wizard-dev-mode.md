@@ -117,11 +117,11 @@ tail -f memory/logs/wizard-dev-$(date +%Y-%m-%d).log
 Once running, Wizard Server provides:
 
 - `GET /health` - Health check
-- `GET /api/v1/status` - Server status (auth required)
-- `GET /api/v1/plugin/list` - Plugin repository
-- `POST /api/v1/web/fetch` - Web proxy (if enabled)
-- `POST /api/v1/ai/chat` - AI gateway (if enabled)
-- `POST /api/v1/gmail/send` - Gmail relay (if configured)
+- `GET /api/status` - Server status (auth required)
+- `GET /api/plugin/list` - Plugin repository
+- `POST /api/web/fetch` - Web proxy (if enabled)
+- `POST /api/ai/chat` - AI gateway (if enabled)
+- `POST /api/gmail/send` - Gmail relay (if configured)
 
 ## Testing Integration
 

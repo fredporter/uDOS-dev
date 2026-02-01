@@ -149,7 +149,7 @@ package_data={
 | **Purpose**        | Public-facing, supports Mac/mobile apps | Development, localhost-only experiments       |
 | **Location**       | `/public/wizard/`                       | `/dev/goblin/`                                |
 | **Symlink**        | `wizard → public/wizard` ✅             | `goblin → dev/goblin` ✅                      |
-| **API Prefix**     | `/api/v1/*` (locked)                    | `/api/v0/*` (unstable)                        |
+| **API Prefix**     | `/api/*` (locked)                    | `/api/v0/*` (unstable)                        |
 | **Config**         | `/public/wizard/config/wizard.json`     | `/dev/goblin/config/goblin.json` (gitignored) |
 | **Restart Policy** | Graceful degradation                    | Aggressive auto-restart watchdog              |
 

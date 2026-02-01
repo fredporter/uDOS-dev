@@ -74,13 +74,13 @@
 
 - **File:** `notification_history_routes.py` (360 lines)
 - **8 Endpoints:**
-  - `POST /api/v1/notification-history/save` - Save notification
-  - `POST /api/v1/notification-history/list` - Paginated list
-  - `POST /api/v1/notification-history/search` - Search with filters
-  - `DELETE /api/v1/notification-history/{id}` - Delete single
-  - `POST /api/v1/notification-history/clear` - Clear old (N days)
-  - `POST /api/v1/notification-history/export` - Export to format
-  - `GET /api/v1/notification-history/stats` - Get statistics
+  - `POST /api/notification-history/save` - Save notification
+  - `POST /api/notification-history/list` - Paginated list
+  - `POST /api/notification-history/search` - Search with filters
+  - `DELETE /api/notification-history/{id}` - Delete single
+  - `POST /api/notification-history/clear` - Clear old (N days)
+  - `POST /api/notification-history/export` - Export to format
+  - `GET /api/notification-history/stats` - Get statistics
 - All routes include curl examples in docstrings
 - Pydantic models for validation (SaveNotificationRequest, SearchRequest, ExportRequestModel, ClearRequest)
 

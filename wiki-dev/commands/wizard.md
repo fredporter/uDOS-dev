@@ -29,7 +29,7 @@ OK FIX [file]
 | `SVG` | Vector graphic | SVG file |
 | `ASCII` | Text art | ASCII |
 | `TELETEXT` | Retro 40-col | Teletext |
-| `WORKFLOW` | uPY workflow | .upy file |
+| `WORKFLOW` | TypeScript workflow | .md file |
 | `DOC` | Documentation | Markdown |
 | `TEST` | Test cases | Python |
 

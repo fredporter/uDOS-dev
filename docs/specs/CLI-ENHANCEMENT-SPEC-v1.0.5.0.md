@@ -86,7 +86,7 @@ class ServiceStatus:
 Services report status via API:
 
 ```python
-# GET /api/v1/health (Wizard)
+# GET /api/health (Wizard)
 {
     "status": "healthy",
     "timestamp": "2026-01-16T14:32:00Z",
@@ -214,7 +214,7 @@ wizard/services/
 
 **Integration:**
 
-1. Wizard Server health endpoint (`/api/v1/health`)
+1. Wizard Server health endpoint (`/api/health`)
 2. Goblin frontend subscribes to WebSocket updates
 3. CLI footer updates every 500ms via callback
 4. Themes loaded from config

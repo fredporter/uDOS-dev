@@ -75,7 +75,7 @@ Here's how to check system status:
 
 And here's how to run a script:
 
-[RUN|memory/ucode/test.upy]
+[RUN|memory/ucode/test-script.md]
 ```
 
 ### Teletext Mode

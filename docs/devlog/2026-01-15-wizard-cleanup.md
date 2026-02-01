@@ -164,7 +164,7 @@ README.md  QUICK-REFERENCE.md  config/  goblin_server.py  services/
 **Wizard is now:**
 
 - ✅ Production-only
-- ✅ Stable API (`/api/v1/*`)
+- ✅ Stable API (`/api/*`)
 - ✅ No experimental code
 - ✅ Clear scope and boundaries
 
