@@ -265,7 +265,7 @@ python wizard/launch_wizard_dev.py --no-tui
 **Test Local Route (Ollama):**
 
 ```bash
-curl -X POST http://localhost:8765/api/v1/ai/route \
+curl -X POST http://localhost:8765/api/ai/route \
   -H "Content-Type: application/json" \
   -d '{
     "prompt": "What is uDOS?",
@@ -277,7 +277,7 @@ curl -X POST http://localhost:8765/api/v1/ai/route \
 **Test Cloud Route (OpenRouter):**
 
 ```bash
-curl -X POST http://localhost:8765/api/v1/ai/route \
+curl -X POST http://localhost:8765/api/ai/route \
   -H "Content-Type: application/json" \
   -d '{
     "prompt": "Explain quantum computing",
@@ -664,12 +664,12 @@ bin/wizard-secrets add --key-id=openrouter-main --provider=openrouter
 python wizard/launch_wizard_dev.py --no-tui
 
 # Test cloud (with Wizard running)
-curl -X POST http://localhost:8765/api/v1/ai/route \
+curl -X POST http://localhost:8765/api/ai/route \
   -H "Content-Type: application/json" \
   -d '{"prompt": "Test", "tags": ["burst"]}'
 
 # Check status
-curl http://localhost:8765/api/v1/health
+curl http://localhost:8765/api/health
 ```
 
 ---

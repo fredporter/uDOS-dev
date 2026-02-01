@@ -79,12 +79,12 @@ FILE [subcommand] [path] [options]
 FILE LIST memory/
 FILE LIST memory/ucode/ --all
 FILE SHOW readme.md
-FILE EDIT script.upy
+FILE EDIT script-example.md
 FILE NEW notes.md
 FILE DELETE old.txt
 FILE COPY doc.md backup/doc.md
 FILE MOVE old.py new.py
-FILE FIND *.upy
+FILE FIND *-script.md
 ```
 
 ### Path Shortcuts
@@ -150,7 +150,7 @@ FIND <pattern> [path] [--content]
 ### Examples
 
 ```bash
-FIND *.upy            # Find by extension
+FIND *-script.md      # Find by naming pattern
 FIND test* memory/    # Find in specific path
 FIND "TODO" --content # Search file contents
 ```

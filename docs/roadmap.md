@@ -507,7 +507,7 @@ Updated all location IDs to match actual database entries:
 | ---------------- | ----------------------------------- | --------------------------- |
 | Port             | 8765                                | 8767                        |
 | Status           | Stable v1.1.0.0                     | Unstable v0.1.0.0           |
-| API Prefix       | `/api/v1/*`                         | `/api/v0/*`                 |
+| API Prefix       | `/api/*`                         | `/api/v0/*`                 |
 | Config           | `/public/wizard/config/wizard.json` | `/dev/goblin/config/*.json` |
 | Services         | Production-grade                    | Experimental stubs          |
 | Access           | Public (with auth)                  | Localhost only              |
@@ -812,7 +812,7 @@ Updated all location IDs to match actual database entries:
   - Real-time monitoring
 
 - ✅ **GitHub Actions Self-Healing Monitor** (328 lines)
-  - Webhook receiver (`/api/v1/github/webhook`)
+  - Webhook receiver (`/api/github/webhook`)
   - Failure pattern detection (test_failure, build_failure, timeout, network_error)
   - Auto-retry for transient failures
   - GitHub CLI integration
@@ -915,7 +915,7 @@ Updated all location IDs to match actual database entries:
 
 ### REST API Integration (`wizard/services/port_manager_service.py`)
 
-- ✅ 8 endpoints under `/api/v1/ports/`:
+- ✅ 8 endpoints under `/api/ports/`:
   - GET `/status` - Full dashboard
   - GET `/services` - List all services
   - GET `/services/{name}` - Check specific service
@@ -946,7 +946,7 @@ bin/port-manager kill :8767  # Kill process on port
 **REST API Access:**
 
 ```bash
-curl http://localhost:8765/api/v1/ports/status
+curl http://localhost:8765/api/ports/status
 ```
 
 **Documentation:**
@@ -1023,7 +1023,7 @@ curl http://localhost:8765/api/v1/ports/status
 | **Wizard interactive console**             | Wizard    | ✅     | Startup dashboard + command prompt (2026-01-16)        |
 | **GitHub Actions monitoring**              | Wizard    | ✅     | Self-healing CI/CD with webhooks (2026-01-16)          |
 | **GitHub CLI integration**                 | Wizard    | ✅     | Workflow status, auto-retry, pattern detection         |
-| **GitHub webhooks**                        | Wizard    | ✅     | /api/v1/github/webhook endpoint (2026-01-16)           |
+| **GitHub webhooks**                        | Wizard    | ✅     | /api/github/webhook endpoint (2026-01-16)           |
 | **Local-remote GitHub sync**               | Wizard    | ⏳     | Move from Goblin, production-ready repo management     |
 | **Mistral API + Vibe CLI**                 | Goblin    | ⏳     | Access to devlogs, roadmap, logs, copilot instructions |
 | **uDOS workflow/Notion-style todo system** | Goblin    | ⏳     | Alternative to external project management             |
@@ -1041,7 +1041,7 @@ curl http://localhost:8765/api/v1/ports/status
   - Commands: status, services, config, health, reload, github, workflows, help, exit
 
 - ✅ **GitHub Actions Self-Healing** (`wizard/services/github_monitor.py`)
-  - Webhook receiver: `/api/v1/github/webhook`
+  - Webhook receiver: `/api/github/webhook`
   - Failure pattern detection (test_failure, build_failure, timeout, network_error)
   - Auto-retry for transient failures (network, timeout)
   - Auto-retry for flaky tests (up to 2x)

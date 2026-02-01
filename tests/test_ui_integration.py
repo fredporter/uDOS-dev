@@ -315,7 +315,7 @@ class TestFileBrowser:
             assert len(found) > 0
     
     def test_file_browser_filtering(self, flask_api_server, api_client):
-        """File browser should filter by extension (.upy, .md, .json)."""
+        """File browser should filter by extension (.md, .json)."""
         result = api_client.list_files("scripts")
         
         if result.get('files'):
@@ -324,7 +324,7 @@ class TestFileBrowser:
             for file in files:
                 if file.get('type') == 'file':
                     name = file['name']
-                    assert name.endswith('.upy') or name.endswith('.md') or name.endswith('.json')
+                    assert name.endswith('.md') or name.endswith('.json')
     
     def test_file_browser_navigation(self, flask_api_server, api_client):
         """Should be able to navigate into subdirectories."""
@@ -443,7 +443,7 @@ class TestStateSynchronization:
             broadcast_called.append(message)
         
         manager.register_ws_callback(test_callback)
-        manager.update_interface_state(current_file="test.upy")
+        manager.update_interface_state(current_file="test-script.md")
         
         assert len(broadcast_called) > 0
         assert broadcast_called[0]['type'] == 'state_change'

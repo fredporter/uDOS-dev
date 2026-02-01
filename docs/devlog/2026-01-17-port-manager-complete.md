@@ -23,7 +23,7 @@ Complete server and port awareness and management utility integrated into Wizard
 
 3. **REST API** (`wizard/services/port_manager_service.py`)
 
-   - 8 endpoints under `/api/v1/ports/`
+   - 8 endpoints under `/api/ports/`
    - Integrated into Wizard Server
 
 4. **Launcher Updates**
@@ -59,7 +59,7 @@ bin/port-manager kill :8767
 bin/port-manager conflicts
 
 # API access
-curl http://localhost:8765/api/v1/ports/status
+curl http://localhost:8765/api/ports/status
 ```
 
 ## Files Modified/Created

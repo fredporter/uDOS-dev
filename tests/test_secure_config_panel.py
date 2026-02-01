@@ -263,7 +263,7 @@ def main():
         print("\n🎉 ALL TESTS PASSED!")
         print("\n📌 Next steps:")
         print("   1. Launch Wizard: python wizard/launch_wizard_dev.py --no-tui")
-        print("   2. Open panel: http://127.0.0.1:8765/api/v1/config/panel")
+        print("   2. Open panel: http://127.0.0.1:8765/api/config/panel")
         print("   3. Add your API keys")
         print("   4. Run: ./bin/setup-secrets.sh")
         return 0

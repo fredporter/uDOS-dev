@@ -79,14 +79,14 @@ All endpoints require the server to be running on port 8765.
 
 ### Send Message
 
-**POST** `/api/v1/slack/send`
+**POST** `/api/slack/send`
 
 Send a notification to a Slack channel.
 
 **Request:**
 
 ```bash
-curl -X POST http://localhost:8765/api/v1/slack/send \
+curl -X POST http://localhost:8765/api/slack/send \
   -H "Content-Type: application/json" \
   -d '{
     "text": "uDOS is ready to go!",
@@ -115,14 +115,14 @@ curl -X POST http://localhost:8765/api/v1/slack/send \
 
 ### List Channels
 
-**GET** `/api/v1/slack/channels`
+**GET** `/api/slack/channels`
 
 List all public and private channels the bot is member of.
 
 **Request:**
 
 ```bash
-curl http://localhost:8765/api/v1/slack/channels
+curl http://localhost:8765/api/slack/channels
 ```
 
 **Response:**
@@ -153,14 +153,14 @@ curl http://localhost:8765/api/v1/slack/channels
 
 ### Get Channel Info
 
-**GET** `/api/v1/slack/channels/{channel_id}`
+**GET** `/api/slack/channels/{channel_id}`
 
 Get detailed information about a specific channel.
 
 **Request:**
 
 ```bash
-curl http://localhost:8765/api/v1/slack/channels/C12345678
+curl http://localhost:8765/api/slack/channels/C12345678
 ```
 
 **Response:**
@@ -188,14 +188,14 @@ curl http://localhost:8765/api/v1/slack/channels/C12345678
 
 ### Reply in Thread
 
-**POST** `/api/v1/slack/thread`
+**POST** `/api/slack/thread`
 
 Reply to a message in a Slack thread.
 
 **Request:**
 
 ```bash
-curl -X POST http://localhost:8765/api/v1/slack/thread \
+curl -X POST http://localhost:8765/api/slack/thread \
   -H "Content-Type: application/json" \
   -d '{
     "thread_ts": "1234567890.123456",
@@ -224,14 +224,14 @@ curl -X POST http://localhost:8765/api/v1/slack/thread \
 
 ### Upload File
 
-**POST** `/api/v1/slack/upload`
+**POST** `/api/slack/upload`
 
 Upload a file to Slack.
 
 **Request:**
 
 ```bash
-curl -X POST http://localhost:8765/api/v1/slack/upload \
+curl -X POST http://localhost:8765/api/slack/upload \
   -F "file=@/path/to/file.txt" \
   -F "channel=C12345678" \
   -F "title=My File"
@@ -260,14 +260,14 @@ curl -X POST http://localhost:8765/api/v1/slack/upload \
 
 ### Get User Info
 
-**GET** `/api/v1/slack/user/{user_id}`
+**GET** `/api/slack/user/{user_id}`
 
 Get user profile information.
 
 **Request:**
 
 ```bash
-curl http://localhost:8765/api/v1/slack/user/U87654321
+curl http://localhost:8765/api/slack/user/U87654321
 ```
 
 **Response:**
@@ -303,14 +303,14 @@ curl http://localhost:8765/api/v1/slack/user/U87654321
 
 ### Check Health
 
-**GET** `/api/v1/slack/health`
+**GET** `/api/slack/health`
 
 Check Slack API connectivity and authentication.
 
 **Request:**
 
 ```bash
-curl http://localhost:8765/api/v1/slack/health
+curl http://localhost:8765/api/slack/health
 ```
 
 **Response (Healthy):**
@@ -340,14 +340,14 @@ curl http://localhost:8765/api/v1/slack/health
 
 ### Get Config Status
 
-**GET** `/api/v1/slack/config`
+**GET** `/api/slack/config`
 
 Get Slack configuration status (without exposing secrets).
 
 **Request:**
 
 ```bash
-curl http://localhost:8765/api/v1/slack/config
+curl http://localhost:8765/api/slack/config
 ```
 
 **Response:**
@@ -374,7 +374,7 @@ import { addToast } from "./stores/notifications";
 
 async function notifySlack(message: string) {
   try {
-    const response = await fetch("http://localhost:8765/api/v1/slack/send", {
+    const response = await fetch("http://localhost:8765/api/slack/send", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -444,7 +444,7 @@ export SLACK_BOT_TOKEN="xoxb-your-actual-token"
 
 **Fix:**
 
-1. List channels: `GET /api/v1/slack/channels`
+1. List channels: `GET /api/slack/channels`
 2. Copy the exact channel ID from response
 3. Use `#channel-name` or channel ID in requests
 4. Invite bot to channel: `/invite @uDOS`

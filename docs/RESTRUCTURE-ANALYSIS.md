@@ -164,7 +164,7 @@ grep -r "from.*wizard import\|from.*extensions import" --include="*.py" --includ
 
 | Line | Old                              | New                                            | Context                    |
 | ---- | -------------------------------- | ---------------------------------------------- | -------------------------- |
-| 146  | `/api/v1/plugins/*`              | `/api/v1/extensions/*`                         | Plugin repository endpoint |
+| 146  | `/api/plugins/*`              | `/api/extensions/*`                         | Plugin repository endpoint |
 | 160  | `/wizard/config/wizard.json`     | `/public/wizard/config/wizard.json`            | Wizard config path         |
 | 202  | `/dev/goblin/config/goblin.json` | ✅ Correct                                     | Goblin config path         |
 | 235  | `/wizard/extensions/`            | `/public/wizard/extensions/`                   | Wizard extensions location |

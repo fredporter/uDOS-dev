@@ -73,7 +73,7 @@ DEV VARS              # Show variables
 ### Notes
 
 - Dev Mode enables AI commands, web access, Gmail relay
-- Script debugging works with `.upy` files
+- Script debugging works with TypeScript in `.md` files
 - See [Wizard Server](../wizard/README.md) for Dev Mode details
 
 ---

@@ -133,7 +133,7 @@ Split experimental development features from production Wizard Server, creating 
 | Port             | 8765                | 8767                  |
 | Version          | v1.1.0.0            | v0.1.0.0              |
 | Stability        | Frozen              | Unstable              |
-| API Prefix       | `/api/v1/*`         | `/api/v0/*`           |
+| API Prefix       | `/api/*`         | `/api/v0/*`           |
 | Config Location  | `/wizard/config/`   | `/dev/goblin/config/` |
 | Config Versioned | ✅ Yes              | ❌ No (gitignored)    |
 | Breaking Changes | Never               | Expected              |
@@ -156,7 +156,7 @@ When Goblin feature stabilizes:
 
 1. **Tests** — Unit + integration coverage
 2. **Documentation** — User-facing + API reference
-3. **Version API** — Migrate `/api/v0/*` → `/api/v1/*`
+3. **Version API** — Migrate `/api/v0/*` → `/api/*`
 4. **Security Review** — Authentication, input validation
 5. **Performance** — Load testing, optimization
 6. **Configuration** — Production config schema

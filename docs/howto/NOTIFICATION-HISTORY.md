@@ -271,7 +271,7 @@ Permission denied
 ### Base URL
 
 ```
-http://localhost:8765/api/v1/notifications/
+http://localhost:8765/api/notifications/
 ```
 
 ### Endpoints
@@ -279,7 +279,7 @@ http://localhost:8765/api/v1/notifications/
 #### Save Notification
 
 ```bash
-POST /api/v1/notifications/save
+POST /api/notifications/save
 
 # Request Body
 {
@@ -298,7 +298,7 @@ POST /api/v1/notifications/save
 }
 
 # Example curl
-curl -X POST http://localhost:8765/api/v1/notifications/save \
+curl -X POST http://localhost:8765/api/notifications/save \
   -H "Content-Type: application/json" \
   -d '{
     "type": "success",
@@ -310,7 +310,7 @@ curl -X POST http://localhost:8765/api/v1/notifications/save \
 #### List Notifications
 
 ```bash
-GET /api/v1/notifications/list?skip=0&limit=20
+GET /api/notifications/list?skip=0&limit=20
 
 # Response (200 OK)
 {
@@ -332,13 +332,13 @@ GET /api/v1/notifications/list?skip=0&limit=20
 }
 
 # Example curl
-curl http://localhost:8765/api/v1/notifications/list?skip=0&limit=20
+curl http://localhost:8765/api/notifications/list?skip=0&limit=20
 ```
 
 #### Search Notifications
 
 ```bash
-POST /api/v1/notifications/search
+POST /api/notifications/search
 
 # Request Body
 {
@@ -356,7 +356,7 @@ POST /api/v1/notifications/search
 }
 
 # Example curl
-curl -X POST http://localhost:8765/api/v1/notifications/search \
+curl -X POST http://localhost:8765/api/notifications/search \
   -H "Content-Type: application/json" \
   -d '{
     "query": "saved",
@@ -367,7 +367,7 @@ curl -X POST http://localhost:8765/api/v1/notifications/search \
 #### Delete Notification
 
 ```bash
-DELETE /api/v1/notifications/{id}
+DELETE /api/notifications/{id}
 
 # Response (200 OK)
 {
@@ -376,13 +376,13 @@ DELETE /api/v1/notifications/{id}
 }
 
 # Example curl
-curl -X DELETE http://localhost:8765/api/v1/notifications/550e8400-e29b-41d4-a716-446655440000
+curl -X DELETE http://localhost:8765/api/notifications/550e8400-e29b-41d4-a716-446655440000
 ```
 
 #### Clear Old Notifications
 
 ```bash
-POST /api/v1/notifications/clear
+POST /api/notifications/clear
 
 # Request Body
 {
@@ -396,7 +396,7 @@ POST /api/v1/notifications/clear
 }
 
 # Example curl
-curl -X POST http://localhost:8765/api/v1/notifications/clear \
+curl -X POST http://localhost:8765/api/notifications/clear \
   -H "Content-Type: application/json" \
   -d '{"days": 30}'
 ```
@@ -404,7 +404,7 @@ curl -X POST http://localhost:8765/api/v1/notifications/clear \
 #### Export Notifications
 
 ```bash
-POST /api/v1/notifications/export
+POST /api/notifications/export
 
 # Request Body
 {
@@ -421,7 +421,7 @@ Content-Type: application/json
 Content-Disposition: attachment; filename="notifications-export-2026-01-17.json"
 
 # Example curl
-curl -X POST http://localhost:8765/api/v1/notifications/export \
+curl -X POST http://localhost:8765/api/notifications/export \
   -H "Content-Type: application/json" \
   -d '{
     "format": "json",
@@ -433,7 +433,7 @@ curl -X POST http://localhost:8765/api/v1/notifications/export \
 #### Get Statistics
 
 ```bash
-GET /api/v1/notifications/stats
+GET /api/notifications/stats
 
 # Response (200 OK)
 {
@@ -450,7 +450,7 @@ GET /api/v1/notifications/stats
 }
 
 # Example curl
-curl http://localhost:8765/api/v1/notifications/stats
+curl http://localhost:8765/api/notifications/stats
 ```
 
 ---
@@ -658,7 +658,7 @@ python wizard/launch_wizard_dev.py --no-tui
 **Solution:**
 
 1. Manual clear: Click "Clear Old" button in history modal
-2. API: `curl -X POST http://localhost:8765/api/v1/notifications/clear`
+2. API: `curl -X POST http://localhost:8765/api/notifications/clear`
 3. Schedule: Future release will add automatic daily cleanup
 
 ---

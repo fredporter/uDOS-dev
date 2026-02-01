@@ -32,12 +32,12 @@ try:
 
     # Check for specific endpoints
     important_routes = [
-        '/api/v1/config/framework/registry',
-        '/api/v1/config/framework/status',
-        '/api/v1/config/dashboard',
-        '/api/v1/config/editor/files',
-        '/api/v1/config/editor/read',
-        '/api/v1/config/editor/write',
+        '/api/config/framework/registry',
+        '/api/config/framework/status',
+        '/api/config/dashboard',
+        '/api/config/editor/files',
+        '/api/config/editor/read',
+        '/api/config/editor/write',
     ]
 
     print("\n📍 Important endpoints:")

@@ -113,7 +113,7 @@ Default location: `.backup/`
 .backup/
 ├── 2026-01-07T10-30-00/
 │   ├── config.json
-│   └── script.upy
+│   └── script-example.md
 └── 2026-01-06T15-45-00/
     └── ...
 ```

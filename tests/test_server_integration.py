@@ -27,7 +27,7 @@ try:
 
     # Test 4: Create a test app
     app = FastAPI()
-    app.include_router(router, prefix="/api/v1/config")
+    app.include_router(router, prefix="/api/config")
     print("✅ Router included in app")
 
     # Test 5: Check routes

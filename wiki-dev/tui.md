@@ -44,7 +44,7 @@ The uDOS TUI is a teletext-inspired terminal interface with a 40x25 character gr
 ./start_udos.sh
 
 # Run a script
-./start_udos.sh memory/ucode/scripts/example.upy
+./start_udos.sh memory/ucode/scripts/example-script.md
 
 # With specific command
 ./start_udos.sh -c "TILE 100"
@@ -125,7 +125,7 @@ The TUI supports syntax highlighting in code views:
 
 - **Python**: `.py` files
 - **Markdown**: `.md` files
-- **uPY Scripts**: `.upy` files
+- **TypeScript Scripts**: TypeScript embedded in `.md` files (e.g., `script-name.md`)
 - **JSON/YAML**: Config files
 
 ---
