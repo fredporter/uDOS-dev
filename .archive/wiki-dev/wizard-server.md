@@ -235,7 +235,7 @@ Configure in `wizard/config/ai_costs.json`:
 
 ## Related
 
-- [Transport Policy](../VISION.md#transport-policy)
+- [Transport Policy](VISION.md#transport-policy)
 - [OK Command](commands/wizard.md#ok)
 - [CAPTURE Command](commands/content.md#capture)
 - [Dev Mode](commands/system.md#dev)

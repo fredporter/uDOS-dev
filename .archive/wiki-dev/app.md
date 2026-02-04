@@ -329,7 +329,7 @@ npm run tauri:build
 ## Related
 
 - [TUI](tui/README.md) - Terminal interface
-- [uCODE](../VISION.md#ucode) - uCODE syntax
+- [uCODE](VISION.md#ucode) - uCODE syntax
 - [File Commands](commands/files.md) - File operations
 
 ---

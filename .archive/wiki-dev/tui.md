@@ -293,7 +293,7 @@ FILE LIST knowledge/ # Verify knowledge files
 ## Related
 
 - [Commands](commands/README.md) - Command reference
-- [uCODE](../VISION.md#ucode) - uCODE syntax
+- [uCODE](VISION.md#ucode) - uCODE syntax
 - [Dev Mode](wizard/README.md#dev-mode) - Wizard features
 
 ---

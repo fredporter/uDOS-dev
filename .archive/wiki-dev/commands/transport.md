@@ -215,7 +215,7 @@ SYNC NOW              # Force immediate sync
 
 ## Related
 
-- [Vision - Transport Policy](../VISION.md#transport-policy)
+- [Vision - Transport Policy](VISION.md#transport-policy)
 - [Groovebox](../groovebox/README.md) - Audio transport
 - [Alpine](../tinycore/README.md) - Network setup (updated)
 

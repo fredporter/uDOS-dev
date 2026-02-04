@@ -281,8 +281,8 @@ b a g f e d c r4
 
 ## Related
 
-- [Transport Policy](../VISION.md#transport-policy)
-- [Audio Transport](../VISION.md#private-transports)
+- [Transport Policy](VISION.md#transport-policy)
+- [Audio Transport](VISION.md#private-transports)
 - [MeshCore](transport.md) - Other transports
 
 ---
