@@ -8,6 +8,7 @@ Scope: Local development only (localhost)
 Purpose: Test experimental MODEs (Teletext, Terminal) before promoting to Core
 """
 
+import os
 import sys
 from pathlib import Path
 from typing import Dict, Any
@@ -41,16 +42,23 @@ async def lifespan(app: FastAPI):
     logger.info("[GOBLIN] MODEs: Teletext, Terminal")
     logger.info("[GOBLIN] Dashboard: http://localhost:5174")
 
-    # Start interactive console
-    try:
-        from services.goblin_console import create_goblin_console
+    # Start interactive console (optional)
+    console_flag = os.getenv("GOBLIN_CONSOLE", "0").lower()
+    if console_flag in {"1", "true", "yes", "on"}:
+        if sys.stdin and sys.stdin.isatty():
+            try:
+                from services.goblin_console import create_goblin_console
 
-        config = {"port": 8767, "host": "127.0.0.1"}
-        _console = create_goblin_console(config)
-        _console.start()
-        logger.info("[GOBLIN] ✅ Interactive console started")
-    except Exception as exc:
-        logger.warning(f"[GOBLIN] ⚠️ Console failed to start: {exc}")
+                config = {"port": 8767, "host": "127.0.0.1"}
+                _console = create_goblin_console(config)
+                _console.start()
+                logger.info("[GOBLIN] ✅ Interactive console started")
+            except Exception as exc:
+                logger.warning(f"[GOBLIN] ⚠️ Console failed to start: {exc}")
+        else:
+            logger.info("[GOBLIN] Console disabled (no TTY detected)")
+    else:
+        logger.info("[GOBLIN] Console disabled (set GOBLIN_CONSOLE=1 to enable)")
 
     yield
 
@@ -96,13 +104,42 @@ async def health():
     return {"status": "ok", "server": "goblin", "version": "0.2.0.0"}
 
 
-# Import routes
+# Import routes (add goblin to path for local imports)
 try:
+    sys.path.insert(0, str(Path(__file__).parent))
     from routes.mode_routes import router as mode_router
     app.include_router(mode_router, prefix="/api/v0/modes", tags=["modes"])
     logger.info("[GOBLIN] ✅ MODE routes loaded")
 except ImportError as e:
     logger.warning(f"[GOBLIN] ⚠️ MODE routes not found: {e}")
+
+# Dev workflow routes (Round 7 kickoff)
+try:
+    from routes.dev_routes import router as dev_router
+    app.include_router(dev_router, prefix="/api/dev", tags=["dev"])
+    logger.info("[GOBLIN] ✅ Dev routes loaded")
+except ImportError as e:
+    logger.warning(f"[GOBLIN] ⚠️ Dev routes not found: {e}")
+
+# Screwdriver routes migrated to Wizard (/api/sonic/screwdriver/*)
+
+# MeshCore device manager routes (Round 7 kickoff)
+try:
+    from routes.meshcore_routes import router as meshcore_router
+    app.include_router(
+        meshcore_router, prefix="/api/dev/meshcore", tags=["meshcore"]
+    )
+    logger.info("[GOBLIN] ✅ MeshCore routes loaded")
+except ImportError as e:
+    logger.warning(f"[GOBLIN] ⚠️ MeshCore routes not found: {e}")
+
+# Workflow routes (containers/vibe/logs/vault sync)
+try:
+    from routes.workflow_routes import router as workflow_router
+    app.include_router(workflow_router, prefix="/api/dev", tags=["workflow"])
+    logger.info("[GOBLIN] ✅ Workflow routes loaded")
+except ImportError as e:
+    logger.warning(f"[GOBLIN] ⚠️ Workflow routes not found: {e}")
 
 
 # Static files for built dashboard (production)

@@ -8,10 +8,10 @@
 ## Launch
 
 ```bash
-# Terminal 1: Start server
+# Terminal 1: Start server (console optional)
 cd /Users/fredbook/Code/uDOS/dev/goblin
 source ../../.venv/bin/activate
-python goblin_server.py
+GOBLIN_CONSOLE=1 python goblin_server.py
 
 # Terminal 2: Start dashboard
 cd /Users/fredbook/Code/uDOS/dev/goblin/dashboard
@@ -55,6 +55,78 @@ curl http://localhost:8767/api/v0/modes/terminal/test
 
 # Apply scheme
 curl "http://localhost:8767/api/v0/modes/terminal/scheme?text=hello&scheme=solarized"
+```
+
+---
+
+## Binder + Screwdriver Endpoints (Migrated)
+
+Binder and Screwdriver dev endpoints have moved to Wizard:
+
+- Binder API: `http://localhost:8765/api/binder/*`
+- Screwdriver API: `http://localhost:8765/api/sonic/screwdriver/*`
+
+See `docs/BINDER-SONIC-ENDPOINTS.md` for the updated examples.
+
+---
+
+## MeshCore Device Manager (Round 7)
+
+```bash
+# List devices
+curl http://localhost:8767/api/dev/meshcore/devices
+
+# Register a device
+curl -X POST http://localhost:8767/api/dev/meshcore/devices \
+  -H "Content-Type: application/json" \
+  -d '{"device_id":"D1","device_type":"node"}'
+
+# Create pairing
+curl -X POST http://localhost:8767/api/dev/meshcore/pairings \
+  -H "Content-Type: application/json" \
+  -d '{"source_id":"D1","target_id":"D2","method":"pin"}'
+
+# Confirm pairing
+curl -X POST http://localhost:8767/api/dev/meshcore/pairings/pair-XXXX/confirm
+```
+
+---
+
+## Dev Workflow Endpoints (Round 7)
+
+```bash
+# Container test
+curl -X POST http://localhost:8767/api/dev/containers/test/meshcore \
+  -H "Content-Type: application/json" \
+  -d '{"validate_only":true}'
+
+# Vibe chat (requires Ollama)
+curl -X POST http://localhost:8767/api/dev/vibe/chat \
+  -H "Content-Type: application/json" \
+  -d '{"prompt":"summarize recent changes","with_context":true}'
+
+# Tail logs
+curl http://localhost:8767/api/dev/logs/tail?lines=200
+
+# Vault sync (dry run)
+curl -X POST http://localhost:8767/api/dev/vault/sync \
+  -H "Content-Type: application/json" \
+  -d '{"source":"memory/bank","target":"vault/notes","dry_run":true}'
+```
+
+---
+
+## Container Testing Automation
+
+```bash
+# Run all container tests + write report to vault/07_LOGS/
+python dev/bin/test-containers.py
+
+# Test a single container and write a custom report path
+python dev/bin/test-containers.py --container meshcore --out /tmp/container_report.json
+
+# Fail the process if any container reports errors
+python dev/bin/test-containers.py --strict
 ```
 
 ---
@@ -122,4 +194,4 @@ When MODE is stable:
 
 ---
 
-_Last Updated: 2026-01-26_
+_Last Updated: 2026-02-04_

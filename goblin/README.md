@@ -53,18 +53,18 @@ When a MODE is stable and tested, it graduates to `/core/runtime/modes/`.
 
 ## Quick Start
 
-### Interactive Mode (Recommended)
+### Interactive Mode (Optional)
 
 ```bash
-# Launch server + TUI + auto-open dashboard
-./dev/bin/Launch-Goblin-Dev.command
+# Launch server + console + auto-open dashboard
+GOBLIN_CONSOLE=1 ./dev/bin/Launch-Goblin-Dev.command
 ```
 
 **What happens:**
 
 1. ✅ Server starts on port 8767 (background)
 2. ✅ Dashboard auto-opens at http://localhost:5174
-3. ✅ Interactive `goblin>` prompt for testing
+3. ✅ Interactive `goblin>` prompt for testing (when enabled)
 4. Type `help` for commands, `exit` to quit
 
 See [TUI-GUIDE.md](TUI-GUIDE.md) for full documentation.
@@ -79,7 +79,7 @@ npm install
 # Start server (in one terminal)
 cd /Users/fredbook/Code/uDOS/dev/goblin
 source ../../.venv/bin/activate
-python goblin_server.py
+GOBLIN_CONSOLE=1 python goblin_server.py
 
 # Start dashboard (in another terminal)
 cd /Users/fredbook/Code/uDOS/dev/goblin/dashboard

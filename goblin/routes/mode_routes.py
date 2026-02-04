@@ -4,7 +4,12 @@ MODE Routes - Experimental MODE API Endpoints
 All endpoints prefixed with /api/v0/modes/*
 """
 
+import sys
+from pathlib import Path
 from fastapi import APIRouter, Query
+
+# Add parent directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from modes.teletext_mode import TeletextRenderer
 from modes.terminal_mode import TerminalRenderer
