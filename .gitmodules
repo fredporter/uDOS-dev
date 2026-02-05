@@ -1,0 +1,3 @@
+[submodule "goblin"]
+	path = goblin
+	url = git@github.com:fredporter/uDOS-goblin.git
