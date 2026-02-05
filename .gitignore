@@ -118,8 +118,8 @@ debug/
 !docs/**
 
 # ---------- LOCAL DEVELOPMENT CONTENT (Private) ----------
-# Goblin (private MODE playground, not part of public scaffold)
-goblin/
+# Goblin is now a submodule tracked via uDOS-goblin repo
+# !goblin/ - this is now tracked as a git submodule
 
 # Internal development folders (not part of public scaffold)
 tests/
