@@ -108,12 +108,21 @@ debug/
 !README.md
 !wiki/
 !wiki/**
-!scripts/README.md
-!tools/README.md
-!examples/
-!examples/**
-!tests/README.md
-!build/README.md
+!tools/
+!tools/**
+!bin/
+!bin/**
+!build/
+!build/**
+!docs/
+!docs/**
 
+# ---------- LOCAL DEVELOPMENT CONTENT (Private) ----------
 # Goblin (private MODE playground, not part of public scaffold)
 goblin/
+
+# Internal development folders (not part of public scaffold)
+tests/
+scripts/
+examples/
+library/
