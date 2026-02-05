@@ -1,6 +1,6 @@
-# Why This Folder Is Empty
+# Why This Folder Is Mostly Empty
 
-**tl;dr:** `/dev/docs/` should not exist. All documentation lives in `/docs/` at the root level.
+**tl;dr:** `/dev/docs/` stays minimal. Canonical uDOS documentation lives in `/docs/` at the root level.
 
 ---
 
@@ -8,13 +8,13 @@
 
 The `/dev/` submodule is a **scaffold framework only** — it contains no documentation or project content.
 
-**All uDOS documentation lives in:**
+**All canonical uDOS documentation lives in:**
 
 ```
 /docs/                    (Root level, not in /dev/)
 ├── README.md            # Documentation index
 ├── ARCHITECTURE-v1.3.md # System architecture
-├── roadmaps/            # Project roadmaps (local-only, gitignored)
+├── roadmap-spec/        # Roadmap specs (local-only, gitignored)
 ├── specs/               # Technical specifications
 ├── howto/               # How-to guides
 ├── decisions/           # Architecture Decision Records (ADRs)
@@ -38,7 +38,8 @@ Instead, it provides:
 - ✅ Template scripts and tools
 - ✅ Example code patterns
 - ✅ Build configuration templates
-- ✅ Instructions (in `/dev/wiki/`)
+- ✅ Scaffold-only instructions (in `/dev/wiki/`)
+- ✅ Dev practices guide used by scaffold consumers
 
 ---
 
@@ -47,13 +48,21 @@ Instead, it provides:
 | What You Need | Where It Lives |
 |---------------|----------------|
 | **System docs** | `/docs/` (root level) |
-| **Roadmaps & planning** | `/docs/roadmaps/` (local-only) |
+| **Roadmap specs** | `/docs/roadmap-spec/` (local-only) |
 | **How-to guides** | `/docs/howto/` |
 | **Using this scaffold** | `/dev/wiki/` |
 | **API reference** | `/docs/specs/` |
 | **Architecture decisions** | `/docs/decisions/` |
 
 ---
+
+## Dev Practices (Exception)
+
+Scaffold users should read the **Dev Workspace Practices** guide:
+
+- `/dev/wiki/DEV-WORKSPACE-PRACTICES.md`
+
+This is the only dev-practice guide kept in the scaffold layer.
 
 ## Historical Note
 

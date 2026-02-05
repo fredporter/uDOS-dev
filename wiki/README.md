@@ -2,6 +2,8 @@
 
 **Welcome!** This wiki explains how to use the `/dev/` scaffold submodule to develop your own extensions, containers, and projects on top of uDOS.
 
+> **📖 Main Entry:** [**Home**](Home.md) | [View Wiki Online](https://github.com/fredporter/uDOS-dev/wiki)
+
 ---
 
 ## Quick Navigation
@@ -118,10 +120,17 @@ The `/dev/.gitignore` automatically excludes:
 
 ## Need Help?
 
+### Documentation
 1. **Check the guides** in this wiki
 2. **Review examples** in `/dev/examples/`
 3. **Read uDOS docs** in `/docs/` (root level)
-4. **Ask the community** (see `/docs/CONTRIBUTING.md`)
+
+### Community Support
+- [**Contributing Guide**](https://github.com/fredporter/uDOS/blob/main/CONTRIBUTORS.md) — How to contribute
+- [**Report Issues**](https://github.com/fredporter/uDOS/issues) — Main uDOS bugs/features
+- [**Scaffold Issues**](https://github.com/fredporter/uDOS-dev/issues) — Dev scaffold problems
+- [**Discussions**](https://github.com/fredporter/uDOS/discussions) — Ask questions
+- [**Code of Conduct**](https://github.com/fredporter/uDOS/blob/main/CODE_OF_CONDUCT.md) — Community guidelines
 
 ---
 
@@ -131,8 +140,10 @@ If you create useful templates, scripts, or examples:
 
 1. **Remove any private/project-specific code**
 2. **Make it generic** for others to adapt
-3. **Submit a PR** to the `uDOS-dev` repository
+3. **Submit a PR** to the [uDOS-dev repository](https://github.com/fredporter/uDOS-dev)
 4. **Keep it minimal** — framework only, no projects
+
+**For main uDOS contributions**, see the [uDOS Contributing Guide](https://github.com/fredporter/uDOS/blob/main/CONTRIBUTORS.md).
 
 ---
 
