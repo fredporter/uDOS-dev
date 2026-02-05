@@ -114,3 +114,6 @@ debug/
 !examples/**
 !tests/README.md
 !build/README.md
+
+# Goblin (private MODE playground, not part of public scaffold)
+goblin/
