@@ -1,0 +1,116 @@
+# /dev/ Scaffold .gitignore
+# This submodule is public (framework only) - your local projects stay private
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PURPOSE: /dev/ is an empty public scaffold for developers to clone and use
+# - The directory structure and templates are tracked (public)
+# - Your local projects and work are excluded (private)
+# ═══════════════════════════════════════════════════════════════════════════════
+
+# ---------- LOCAL PROJECTS (Never commit) ----------
+# Any subdirectories you create for your own development
+# (Keep these private - the scaffold framework itself remains public)
+
+# Common project patterns
+projects/
+my-*/
+custom-*/
+local-*/
+dev-*/
+
+# Your extension development
+extensions/*/
+!extensions/README.md
+!extensions/.gitkeep
+
+# Your container development
+containers/*/
+!containers/README.md
+!containers/.gitkeep
+
+# Your app development
+apps/*/
+!apps/README.md
+!apps/.gitkeep
+
+# Your plugin development
+plugins/*/
+!plugins/README.md
+!plugins/.gitkeep
+
+# ---------- LOCAL WORKSPACE DATA ----------
+# Session notes and temporary work
+.dev/
+**/.dev/
+.tmp/
+**/.tmp/
+.cache/
+**/.cache/
+
+# Historical backups
+.archive/
+**/.archive/
+
+# Build outputs
+.build/
+**/.build/
+dist/
+**/dist/
+build/output/
+**/build/output/
+
+# ---------- SECRETS & CREDENTIALS ----------
+.env
+.env.*
+**/.env
+**/.env.*
+*secret*
+*token*
+*key*.json
+!**/keys/README.md
+
+# ---------- DEPENDENCIES ----------
+# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+
+# Node.js
+node_modules/
+**/node_modules/
+package-lock.json
+yarn.lock
+.npm/
+
+# ---------- IDE & EDITOR ----------
+.vscode/settings.json
+.vscode/launch.json
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ---------- LOGS & DEBUG ----------
+*.log
+logs/
+**/logs/
+debug/
+**/debug/
+
+# ---------- Keep Framework Structure ----------
+# These are part of the public scaffold and should be tracked:
+!README.md
+!wiki/
+!wiki/**
+!scripts/README.md
+!tools/README.md
+!examples/
+!examples/**
+!tests/README.md
+!build/README.md
