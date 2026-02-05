@@ -1,136 +1,109 @@
-# Development Workshop (`/dev/`)
+# Development Scaffold (`/dev/`)
 
-**Version:** Alpha v1.0.2.0  
-**Purpose:** Engineering workshop for tools, scripts, and working concepts  
-**Last Updated:** 2026-01-13
+**Version:** v1.3.0  
+**Purpose:** Empty scaffold submodule for local development projects  
+**Last Updated:** 2026-02-05
 
 ---
 
 ## Overview
 
-`/dev/` is the **engineering workshop** — a space for development tools, scripts, and working concepts that support the build/test/release workflow.
+`/dev/` is a **public scaffold submodule** — an empty framework structure for developers to use when building their own extensions, containers, or custom projects on top of uDOS.
 
-**This folder is not the source of truth.** Canonical documentation and roadmap live in `/docs/`.
+**This folder contains no projects or future plans.** It's a template structure you clone and populate with your own work.
 
-### Key Difference: `/dev/` vs `/.dev/` vs `/docs/`
+**All uDOS documentation and roadmaps live in `/docs/` at the root level**, not in this submodule.
 
-| Directory | Purpose | Git Status | Contents |
-|-----------|---------|------------|----------|
-| `/docs/` | **Canonical truth** | **Tracked** | Roadmap, decisions, specs, devlogs |
-| `/dev/` | Engineering workshop | **Tracked** | Drafts, tools, experiments, research |
-| `/.dev/` (or `**/.dev/`) | Local dev notes | **Gitignored** | Session notes, WIP, debug |
-| `/.archive/` (or `**/.archive/`) | Version history | **Gitignored** | Backups, old versions |
+### Using This Submodule
 
----
+The `/dev/` submodule is meant to be cloned into your own workspace as a starting point for:
 
-## Promotion Pattern (Critical)
+- **Custom extensions** — Build your own uDOS extensions
+- **Container development** — Create new container definitions  
+- **Local tooling** — Scripts and utilities for your workflows
+- **Experimentation** — Test ideas without affecting the core system
 
-After **~2 weeks**, drafts in `/dev/` must be:
-
-**Promoted** to canonical locations:
-
-| Type | Destination |
-|------|-------------|
-| Current work | `docs/devlog/YYYY-MM.md` |
-| Architecture decision | `docs/decisions/ADR-####-*.md` |
-| Repeatable procedure | `docs/howto/*.md` |
-| Technical spec | `docs/specs/*.md` |
-| Long-term plan | `docs/roadmap.md` |
-
-**OR Archived** to cold storage:
-- Move to `**/.archive/YYYY-MM-DD/` (local-only, gitignored)
-
-**Do not** let drafts accumulate indefinitely.
+**See `/dev/wiki/` for detailed instructions on using this scaffold.**
 
 ---
 
-## Directory Structure
+## Key Differences: Directories
+
+| Directory | Purpose | Git Status | Public/Private |
+|-----------|---------|------------|----------------|
+| `/docs/` (root) | **uDOS documentation & roadmaps** | **Tracked** | Public |
+| `/dev/` (submodule) | **Empty scaffold for your projects** | **Tracked** | Public (framework only) |
+| `/.dev/` | Local dev notes | **Gitignored** | Private (local only) |
+| `/.archive/` | Version history | **Gitignored** | Private (local only) |
+
+**Important:** Your local projects in `/dev/` should be excluded via `/dev/.gitignore` so they stay private while the scaffold structure remains public.
+
+---
+
+## Scaffold Structure
 
 ```
 dev/
-├── README.md           # This file (governance)
-├── roadmap/            # ✅ Versioned concepts & planning (governance: roadmap/README.md)
-├── scripts/            # ✅ Development automation
-├── tools/              # ✅ Development utilities
-├── examples/           # ✅ Reference code & demos (linked from docs/howto/)
-├── tests/              # ✅ Dev-specific tests
-├── build/              # ✅ Build configuration
-├── architecture/       # Optional: Diagrams/sketches
-├── progress/           # ⚠️ Audit needed (promote or delete)
+├── README.md           # This file (scaffold guide)
+├── wiki/               # ✅ Instructions for using this scaffold
+├── scripts/            # ✅ Template scripts for development automation
+├── tools/              # ✅ Template utilities
+├── examples/           # ✅ Reference code & demos
+├── tests/              # ✅ Template test structure
+├── build/              # ✅ Build configuration templates
+├── .gitignore          # ✅ Excludes your local projects from git
 ├── .dev/               # ✅ Local experiments (gitignored)
 └── .archive/           # ✅ Cold storage (gitignored)
-    └── 2026-01-13/
-        └── docs/       ← Old /dev/docs/ archived here
 ```
 
----
-
-## Key Rule
-
-**`/dev` is for development workflow.**  
-**`/docs` is for project truth.**
-
-- If something **explains how the system works** → goes to `/docs`
-- If something **runs, tests, or builds** → goes to `/dev`
-- If something is a **finished concept** → gets promoted to `/docs` after 2 weeks
+**Your Projects Go Here:**
+- Clone extensions/containers into `/dev/` subdirectories
+- They'll be excluded by `.gitignore` from the public scaffold
+- The framework structure remains tracked for others to clone
 
 ---
 
-## Promotion Pattern
+## Quick Start
 
-After **~2 weeks**, content in `/dev/` must be either:
+1. **Clone the submodule** into your workspace (see `/dev/wiki/ADD-SUBMODULE.md`)
+2. **Create your project** in a new subfolder (e.g., `/dev/my-extension/`)
+3. **Work freely** — your project code is gitignored
+4. **Use the templates** in `/dev/scripts/`, `/dev/examples/`, etc.
 
-**Promoted** to `/docs`:
+---
 
-| Type | Destination |
-|------|-------------|
-| Working concepts | `docs/specs/` |
-| How-to guides | `docs/howto/` |
-| Architecture decisions | `docs/decisions/ADR-*.md` |
-| Progress/milestones | `docs/devlog/YYYY-MM.md` |
-| Long-term plan | `docs/roadmap.md` |
+## What This Is NOT
 
-**OR Archived** to cold storage:
-- Move to `dev/.archive/YYYY-MM-DD/` (gitignored)
+❌ **Not a project repository** — This is an empty scaffold  
+❌ **Not for uDOS documentation** — See `/docs/` at root level  
+❌ **Not for uDOS roadmaps** — See `/docs/roadmaps/`  
+❌ **Not for uDOS development** — This is for YOUR projects
 
-**Files:**
-- `ROADMAP.md` - Master roadmap document
-- Version planning docs
-- Architecture proposals
 ---
 
 ## Subdirectory Reference
 
-### `/dev/roadmap/` ✅ Active
-**Purpose:** Versioned working concepts  
-**Governance:** See `roadmap/README.md`  
-**Promotion:** Concepts → `/docs/specs/`, completed features → `/docs/devlog/`  
+### `/dev/wiki/` ✅ Instructions
+**Purpose:** How-to guides for using this scaffold  
+**Start here:** `wiki/ADD-SUBMODULE.md`, `wiki/DEVELOP-EXTENSION.md`
 
-### `/dev/scripts/` ✅ Active
-**Purpose:** Development automation scripts  
-**Examples:** Build, test, setup, deployment scripts
+### `/dev/scripts/` ✅ Template Scripts
+**Purpose:** Example automation scripts you can adapt  
+**Examples:** Build, test, setup, deployment templates
 
-### `/dev/tools/` ✅ Active
-**Purpose:** Development utilities  
-**Examples:** Code generators, analysis tools, build utilities
+### `/dev/tools/` ✅ Template Utilities
+**Purpose:** Example development utilities  
+**Examples:** Code generators, analysis tools, build utilities templates
 
-### `/dev/examples/` ✅ Active
-**Purpose:** Reference code and examples (linked from `/docs/howto/`)  
-**Usage:** Standalone reference implementations, not test fixtures
+### `/dev/examples/` ✅ Reference Code
+**Purpose:** Reference implementations and examples  
+**Usage:** Copy and adapt for your own projects
 
-### `/dev/tests/` ✅ Active
-**Purpose:** Development-specific tests (not in subsystem test suites)  
+### `/dev/tests/` ✅ Template Tests
+**Purpose:** Example test structure you can follow  
 
-### `/dev/build/` ✅ Active
-**Purpose:** Build configuration and packaging scripts  
-
-### `/dev/architecture/` ⚠️ Optional
-**Purpose:** Diagrams, sketches, visual architecture notes  
-**Note:** Link images from `/docs/specs/` if referencing them
-
-### `/dev/progress/` ⚠️ Audit Needed
-**Status:** Historical progress tracking  
-**Recommendation:** Consolidate into `docs/devlog/` or delete
+### `/dev/build/` ✅ Build Templates
+**Purpose:** Build configuration examples  
 
 ### `/dev/.dev/` ✅ Local Only
 **Status:** Gitignored, local-only experiments  
@@ -138,13 +111,14 @@ After **~2 weeks**, content in `/dev/` must be either:
 
 ### `/dev/.archive/` ✅ Cold Storage
 **Status:** Gitignored, historical  
-**Contains:** Old versions, deprecated code, historical docs
+**Contains:** Your old versions, deprecated code
 
 ---
 
-## Do NOT Create
+## Need More Info?
 
-❌ `/dev/docs/` — Documentation lives in `/docs/`, not `/dev/`  
-❌ `/dev/wiki/` — Wiki output, not source; use `/docs` instead  
-❌ Project roadmap in `/dev/` — Use `/docs/roadmap.md`  
-❌ Architecture specs in `/dev/` — Use `/docs/specs/`
+See `/dev/wiki/` for comprehensive guides on:
+- Adding this submodule to your workspace
+- Creating custom extensions
+- Building container definitions
+- Working with the uDOS API
