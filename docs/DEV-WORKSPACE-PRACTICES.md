@@ -7,7 +7,7 @@
 ## Principles (Non-Negotiable)
 
 1. **Destroy/Rebuild is normal.** If a workflow or environment degrades, reset and rebuild it instead of patching in place.
-2. **Vault is the asset.** Protect `vault/` integrity, exports, and deterministic outputs.
+2. **Vault is the asset.** Protect `memory/vault/` integrity, exports, and deterministic outputs.
 3. **No drift.** Keep docs, tasks, and configs aligned with the current workflow model.
 4. **Offline-first, openbox-first.** Never assume network availability; keep local fallbacks viable.
 5. **Versioned artifacts, not rounds.** Use version numbers and milestones in filenames and references.
