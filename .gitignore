@@ -1,0 +1,6 @@
+# Dev template ignores
+examples/
+goblin/
+library/
+scripts/
+tests/
