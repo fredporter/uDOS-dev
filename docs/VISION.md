@@ -129,7 +129,7 @@ wellbeing:
 
 ## 🚀 Getting Started
 
-1. **TUI Users**: Run `./start_udos.sh` and type `HELP`
+1. **TUI Users**: Run `./bin/Launch-uCODE.sh` and type `HELP`
 2. **Desktop Users**: Launch uCode Markdown App
 3. **Developers**: See [Contributing](./contributing/README.md)
 

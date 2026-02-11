@@ -116,7 +116,7 @@ logger = get_logger(__name__)
 def my_command(args, context):
     """
     My custom command implementation
-    
+
     Args:
         args: Command arguments
         context: Runtime context
@@ -221,11 +221,11 @@ import unittest
 from main import initialize, cleanup
 
 class TestMyExtension(unittest.TestCase):
-    
+
     def test_initialize(self):
         result = initialize()
         self.assertTrue(result)
-    
+
     def test_cleanup(self):
         result = cleanup()
         self.assertTrue(result)
@@ -252,7 +252,7 @@ python -m core.extensions.manager install dev/my-extension
 Test in uDOS:
 
 ```bash
-./start_udos.sh
+./bin/Launch-uCODE.sh
 > my-command
 # Your command should execute
 ```
@@ -276,7 +276,7 @@ class MyService:
         self.context = context
         self.running = False
         self.thread = None
-    
+
     def start(self):
         """Start the service"""
         self.running = True
@@ -284,14 +284,14 @@ class MyService:
         self.thread.daemon = True
         self.thread.start()
         logger.info("Service started")
-    
+
     def stop(self):
         """Stop the service"""
         self.running = False
         if self.thread:
             self.thread.join(timeout=5)
         logger.info("Service stopped")
-    
+
     def _run(self):
         """Service main loop"""
         while self.running:
@@ -335,7 +335,7 @@ def on_startup(context):
     # Read extension config
     config = context.config.get('extensions', {}).get('my-extension', {})
     api_key = config.get('api_key')
-    
+
     if not api_key:
         logger.warning("API key not configured")
 ```
@@ -389,25 +389,25 @@ tar -czf my-extension-1.0.0.tar.gz my-extension/
 
 ## Best Practices
 
-✅ **Use the logger** — Don't use `print()`, use `get_logger(__name__)`  
-✅ **Handle errors gracefully** — Catch exceptions, return error status  
-✅ **Test thoroughly** — Unit tests + integration tests  
-✅ **Document your API** — Clear README with usage examples  
-✅ **Version semantically** — Follow semver (major.minor.patch)  
-✅ **Respect privacy** — Don't access user data without permission  
-✅ **Be lightweight** — Minimize dependencies and resource usage  
+✅ **Use the logger** — Don't use `print()`, use `get_logger(__name__)`
+✅ **Handle errors gracefully** — Catch exceptions, return error status
+✅ **Test thoroughly** — Unit tests + integration tests
+✅ **Document your API** — Clear README with usage examples
+✅ **Version semantically** — Follow semver (major.minor.patch)
+✅ **Respect privacy** — Don't access user data without permission
+✅ **Be lightweight** — Minimize dependencies and resource usage
 
-❌ **Don't hardcode paths** — Use `context.data_path`  
-❌ **Don't block the main thread** — Use async or threading for long operations  
-❌ **Don't assume other extensions** — Check availability before using  
+❌ **Don't hardcode paths** — Use `context.data_path`
+❌ **Don't block the main thread** — Use async or threading for long operations
+❌ **Don't assume other extensions** — Check availability before using
 
 ---
 
 ## Next Steps
 
-✅ **Review examples:** `/dev/examples/extensions/`  
-✅ **Read API docs:** [API-REFERENCE.md](API-REFERENCE.md)  
-✅ **Build a container:** [DEVELOP-CONTAINER.md](DEVELOP-CONTAINER.md)  
+✅ **Review examples:** `/dev/examples/extensions/`
+✅ **Read API docs:** [API-REFERENCE.md](API-REFERENCE.md)
+✅ **Build a container:** [DEVELOP-CONTAINER.md](DEVELOP-CONTAINER.md)
 
 ---
 

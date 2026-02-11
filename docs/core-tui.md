@@ -41,13 +41,13 @@ The uDOS TUI is a teletext-inspired terminal interface with a 40x25 character gr
 
 ```bash
 # Interactive mode
-./start_udos.sh
+./bin/Launch-uCODE.sh
 
 # Run a script
-./start_udos.sh memory/ucode/scripts/example-script.md
+python uDOS.py --script memory/ucode/scripts/example-script.md
 
 # With specific command
-./start_udos.sh -c "TILE 100"
+./bin/Launch-uCODE.sh core -c "TILE 100"
 ```
 
 ### Startup Sequence
@@ -145,9 +145,9 @@ MODE DEFAULT          # Standard prompt
 
 ```
 Default:  > █
-Ghost:    _ 
-Tomb:     ⚰ 
-Crypt:    🔐 
+Ghost:    _
+Tomb:     ⚰
+Crypt:    🔐
 ```
 
 ---

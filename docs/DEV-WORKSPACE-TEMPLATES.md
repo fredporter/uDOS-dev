@@ -42,7 +42,7 @@ Path: `.vscode/tasks.json`
     {
       "label": "Start Core TUI",
       "type": "shell",
-      "command": "./bin/start_udos.sh",
+      "command": "./bin/Launch-uCODE.sh",
       "group": {
         "kind": "build",
         "isDefault": true
@@ -58,7 +58,7 @@ Path: `.vscode/tasks.json`
     {
       "label": "Run Shakedown",
       "type": "shell",
-      "command": "./bin/start_udos.sh",
+      "command": "./bin/Launch-uCODE.sh",
       "args": [
         "memory/tests/shakedown-script.md"
       ],
